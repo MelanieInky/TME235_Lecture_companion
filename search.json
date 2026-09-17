@@ -1,0 +1,93 @@
+[
+  {
+    "objectID": "lectures/04-elastic-constants.html",
+    "href": "lectures/04-elastic-constants.html",
+    "title": "Elastic Constants: E, ν, λ, μ",
+    "section": "",
+    "text": "Pull a bar and it usually gets thinner — that lateral response is set by \\(\\nu\\). Try the presets below: cork (\\(\\nu\\approx0\\)), typical metals (\\(\\nu\\approx0.3\\)), rubber (\\(\\nu\\approx0.499\\), nearly incompressible), and auxetic foam (\\(\\nu&lt;0\\), gets fatter when stretched)."
+  },
+  {
+    "objectID": "lectures/04-elastic-constants.html#poissons-ratio-what-does-it-mean",
+    "href": "lectures/04-elastic-constants.html#poissons-ratio-what-does-it-mean",
+    "title": "Elastic Constants: E, ν, λ, μ",
+    "section": "",
+    "text": "Pull a bar and it usually gets thinner — that lateral response is set by \\(\\nu\\). Try the presets below: cork (\\(\\nu\\approx0\\)), typical metals (\\(\\nu\\approx0.3\\)), rubber (\\(\\nu\\approx0.499\\), nearly incompressible), and auxetic foam (\\(\\nu&lt;0\\), gets fatter when stretched)."
+  },
+  {
+    "objectID": "lectures/04-elastic-constants.html#lamé-constants-e-ν",
+    "href": "lectures/04-elastic-constants.html#lamé-constants-e-ν",
+    "title": "Elastic Constants: E, ν, λ, μ",
+    "section": "Lamé constants ↔︎ (E, ν)",
+    "text": "Lamé constants ↔︎ (E, ν)\n\\[\n\\mu = \\frac{E}{2(1+\\nu)}, \\qquad \\lambda = \\frac{E\\nu}{(1+\\nu)(1-2\\nu)}, \\qquad K = \\frac{E}{3(1-2\\nu)}\n\\]"
+  },
+  {
+    "objectID": "lectures/04-elastic-constants.html#what-do-λ-and-μ-mean-physically",
+    "href": "lectures/04-elastic-constants.html#what-do-λ-and-μ-mean-physically",
+    "title": "Elastic Constants: E, ν, λ, μ",
+    "section": "What do λ and μ mean physically?",
+    "text": "What do λ and μ mean physically?\n\\(\\mu\\) resists pure shape change (shear). \\(\\lambda\\) is subtler — it’s the stress that appears sideways only when lateral strain is prevented (confined loading), not something you’d feel in a free pull test."
+  },
+  {
+    "objectID": "lectures/02-decomposition.html",
+    "href": "lectures/02-decomposition.html",
+    "title": "Deviatoric / Spherical Decomposition",
+    "section": "",
+    "text": "Any strain (or stress) tensor splits into a volumetric (spherical) part — pure isotropic scaling, no shape change — and a deviatoric part — pure shape change, no volume change:\n\\[\n\\boldsymbol{\\varepsilon} = \\underbrace{\\varepsilon_v\\mathbf{I}}_{\\text{spherical}} + \\underbrace{(\\boldsymbol{\\varepsilon}-\\varepsilon_v\\mathbf{I})}_{\\text{deviatoric}}, \\qquad \\varepsilon_v = \\frac{1}{3}\\text{tr}(\\boldsymbol{\\varepsilon})\n\\]\nDrag the sliders below to set \\(\\varepsilon_{11},\\varepsilon_{22},\\varepsilon_{12}\\) and watch the volumetric part stay square while the deviatoric part distorts at constant area."
+  },
+  {
+    "objectID": "lectures/02-decomposition.html#decomposing-strain",
+    "href": "lectures/02-decomposition.html#decomposing-strain",
+    "title": "Deviatoric / Spherical Decomposition",
+    "section": "",
+    "text": "Any strain (or stress) tensor splits into a volumetric (spherical) part — pure isotropic scaling, no shape change — and a deviatoric part — pure shape change, no volume change:\n\\[\n\\boldsymbol{\\varepsilon} = \\underbrace{\\varepsilon_v\\mathbf{I}}_{\\text{spherical}} + \\underbrace{(\\boldsymbol{\\varepsilon}-\\varepsilon_v\\mathbf{I})}_{\\text{deviatoric}}, \\qquad \\varepsilon_v = \\frac{1}{3}\\text{tr}(\\boldsymbol{\\varepsilon})\n\\]\nDrag the sliders below to set \\(\\varepsilon_{11},\\varepsilon_{22},\\varepsilon_{12}\\) and watch the volumetric part stay square while the deviatoric part distorts at constant area."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Continuum Mechanics — Companion Site",
+    "section": "",
+    "text": "Interactive companions to the lecture material, organized by topic. Each page has the relevant theory alongside a live, adjustable visualization — move the sliders, don’t just read the equations."
+  },
+  {
+    "objectID": "index.html#topics",
+    "href": "index.html#topics",
+    "title": "Continuum Mechanics — Companion Site",
+    "section": "Topics",
+    "text": "Topics\n\nStress & Strain — 1D stress-strain curve, yield point\nDeviatoric / Spherical Decomposition — geometric picture of \\(\\boldsymbol{\\varepsilon}=\\boldsymbol{\\varepsilon}_{sph}+\\boldsymbol{\\varepsilon}_{dev}\\)\nYield Criteria — Von Mises vs Tresca on the π-plane\nElastic Constants — Poisson’s ratio and Lamé parameters, with intuition"
+  },
+  {
+    "objectID": "lectures/01-stress-strain.html",
+    "href": "lectures/01-stress-strain.html",
+    "title": "Stress & Strain: The 1D Picture",
+    "section": "",
+    "text": "A typical uniaxial stress-strain response shows a linear elastic region up to a yield point, followed by strain hardening to the ultimate tensile strength (UTS), then softening (necking) to fracture.\n\nNote: this is a schematic, not-to-scale illustration — real elastic strains are far smaller relative to the plastic strain range than shown here."
+  },
+  {
+    "objectID": "lectures/01-stress-strain.html#the-stress-strain-curve",
+    "href": "lectures/01-stress-strain.html#the-stress-strain-curve",
+    "title": "Stress & Strain: The 1D Picture",
+    "section": "",
+    "text": "A typical uniaxial stress-strain response shows a linear elastic region up to a yield point, followed by strain hardening to the ultimate tensile strength (UTS), then softening (necking) to fracture.\n\nNote: this is a schematic, not-to-scale illustration — real elastic strains are far smaller relative to the plastic strain range than shown here."
+  },
+  {
+    "objectID": "lectures/01-stress-strain.html#key-relations",
+    "href": "lectures/01-stress-strain.html#key-relations",
+    "title": "Stress & Strain: The 1D Picture",
+    "section": "Key relations",
+    "text": "Key relations\n\\[\n\\sigma = E\\varepsilon \\qquad (\\varepsilon \\le \\varepsilon_y)\n\\]\n\\[\n\\sigma_y = E\\,\\varepsilon_y\n\\]"
+  },
+  {
+    "objectID": "lectures/03-yield-criteria.html",
+    "href": "lectures/03-yield-criteria.html",
+    "title": "Yield Criteria: Von Mises vs Tresca",
+    "section": "",
+    "text": "\\[\n\\sigma_{VM} = \\sqrt{\\tfrac{1}{2}\\left[(\\sigma_1-\\sigma_2)^2+(\\sigma_2-\\sigma_3)^2+(\\sigma_3-\\sigma_1)^2\\right]}\n\\]\n\\[\n\\sigma_{Tresca} = \\sigma_{max}-\\sigma_{min}\n\\]\nBoth are pressure-independent — motion purely along the hydrostatic axis (\\(\\sigma_1=\\sigma_2=\\sigma_3\\)) never triggers yield under either criterion. Projected onto the π-plane, Von Mises is a circle and Tresca is a hexagon inscribed inside it, touching exactly at the uniaxial-stress corners.\n\nThe two criteria always agree at the hexagon’s corners and diverge most at the edge midpoints (pure-shear states), where Tresca is more conservative by \\(2/\\sqrt{3}\\approx1.155\\)."
+  },
+  {
+    "objectID": "lectures/03-yield-criteria.html#equivalent-stress-measures",
+    "href": "lectures/03-yield-criteria.html#equivalent-stress-measures",
+    "title": "Yield Criteria: Von Mises vs Tresca",
+    "section": "",
+    "text": "\\[\n\\sigma_{VM} = \\sqrt{\\tfrac{1}{2}\\left[(\\sigma_1-\\sigma_2)^2+(\\sigma_2-\\sigma_3)^2+(\\sigma_3-\\sigma_1)^2\\right]}\n\\]\n\\[\n\\sigma_{Tresca} = \\sigma_{max}-\\sigma_{min}\n\\]\nBoth are pressure-independent — motion purely along the hydrostatic axis (\\(\\sigma_1=\\sigma_2=\\sigma_3\\)) never triggers yield under either criterion. Projected onto the π-plane, Von Mises is a circle and Tresca is a hexagon inscribed inside it, touching exactly at the uniaxial-stress corners.\n\nThe two criteria always agree at the hexagon’s corners and diverge most at the edge midpoints (pure-shear states), where Tresca is more conservative by \\(2/\\sqrt{3}\\approx1.155\\)."
+  }
+]
