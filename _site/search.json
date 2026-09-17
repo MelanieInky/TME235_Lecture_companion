@@ -1,19 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Continuum Mechanics — Companion Site",
-    "section": "",
-    "text": "Interactive companions to the lecture material, organized by topic. Each page has the relevant theory alongside a live, adjustable visualization — move the sliders, don’t just read the equations."
-  },
-  {
-    "objectID": "index.html#topics",
-    "href": "index.html#topics",
-    "title": "Continuum Mechanics — Companion Site",
-    "section": "Topics",
-    "text": "Topics\n\nStress & Strain — 1D stress-strain curve, yield point\nDeviatoric / Spherical Decomposition — geometric picture of \\(\\boldsymbol{\\varepsilon}=\\boldsymbol{\\varepsilon}_{sph}+\\boldsymbol{\\varepsilon}_{dev}\\)\nYield Criteria — Von Mises vs Tresca on the π-plane\nElastic Constants — Poisson’s ratio and Lamé parameters, with intuition"
-  },
-  {
     "objectID": "lectures/04-elastic-constants.html",
     "href": "lectures/04-elastic-constants.html",
     "title": "Elastic Constants: E, ν, λ, μ",
@@ -42,6 +28,34 @@
     "text": "What do λ and μ mean physically?\n\\(\\mu\\) resists pure shape change (shear). \\(\\lambda\\) is subtler — it’s the stress that appears sideways only when lateral strain is prevented (confined loading), not something you’d feel in a free pull test."
   },
   {
+    "objectID": "lectures/02-decomposition.html",
+    "href": "lectures/02-decomposition.html",
+    "title": "Deviatoric / Spherical Decomposition",
+    "section": "",
+    "text": "Any strain (or stress) tensor splits into a volumetric (spherical) part — pure isotropic scaling, no shape change — and a deviatoric part — pure shape change, no volume change:\n\\[\n\\boldsymbol{\\varepsilon} = \\underbrace{\\varepsilon_v\\mathbf{I}}_{\\text{spherical}} + \\underbrace{(\\boldsymbol{\\varepsilon}-\\varepsilon_v\\mathbf{I})}_{\\text{deviatoric}}, \\qquad \\varepsilon_v = \\frac{1}{3}\\text{tr}(\\boldsymbol{\\varepsilon})\n\\]\nDrag the sliders below to set \\(\\varepsilon_{11},\\varepsilon_{22},\\varepsilon_{12}\\) and watch the volumetric part stay square while the deviatoric part distorts at constant area."
+  },
+  {
+    "objectID": "lectures/02-decomposition.html#decomposing-strain",
+    "href": "lectures/02-decomposition.html#decomposing-strain",
+    "title": "Deviatoric / Spherical Decomposition",
+    "section": "",
+    "text": "Any strain (or stress) tensor splits into a volumetric (spherical) part — pure isotropic scaling, no shape change — and a deviatoric part — pure shape change, no volume change:\n\\[\n\\boldsymbol{\\varepsilon} = \\underbrace{\\varepsilon_v\\mathbf{I}}_{\\text{spherical}} + \\underbrace{(\\boldsymbol{\\varepsilon}-\\varepsilon_v\\mathbf{I})}_{\\text{deviatoric}}, \\qquad \\varepsilon_v = \\frac{1}{3}\\text{tr}(\\boldsymbol{\\varepsilon})\n\\]\nDrag the sliders below to set \\(\\varepsilon_{11},\\varepsilon_{22},\\varepsilon_{12}\\) and watch the volumetric part stay square while the deviatoric part distorts at constant area."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Continuum Mechanics — Companion Site",
+    "section": "",
+    "text": "Interactive companions to the lecture material, organized by topic. Each page has the relevant theory alongside a live, adjustable visualization — move the sliders, don’t just read the equations."
+  },
+  {
+    "objectID": "index.html#topics",
+    "href": "index.html#topics",
+    "title": "Continuum Mechanics — Companion Site",
+    "section": "Topics",
+    "text": "Topics\n\nStress & Strain — 1D stress-strain curve, yield point\nDeviatoric / Spherical Decomposition — geometric picture of \\(\\boldsymbol{\\varepsilon}=\\boldsymbol{\\varepsilon}_{sph}+\\boldsymbol{\\varepsilon}_{dev}\\)\nYield Criteria — Von Mises vs Tresca on the π-plane\nElastic Constants — Poisson’s ratio and Lamé parameters, with intuition"
+  },
+  {
     "objectID": "lectures/01-stress-strain.html",
     "href": "lectures/01-stress-strain.html",
     "title": "Stress & Strain: The 1D Picture",
@@ -61,20 +75,6 @@
     "title": "Stress & Strain: The 1D Picture",
     "section": "Key relations",
     "text": "Key relations\n\\[\n\\sigma = E\\varepsilon \\qquad (\\varepsilon \\le \\varepsilon_y)\n\\]\n\\[\n\\sigma_y = E\\,\\varepsilon_y\n\\]"
-  },
-  {
-    "objectID": "lectures/02-decomposition.html",
-    "href": "lectures/02-decomposition.html",
-    "title": "Deviatoric / Spherical Decomposition",
-    "section": "",
-    "text": "Any strain (or stress) tensor splits into a volumetric (spherical) part — pure isotropic scaling, no shape change — and a deviatoric part — pure shape change, no volume change:\n\\[\n\\boldsymbol{\\varepsilon} = \\underbrace{\\varepsilon_v\\mathbf{I}}_{\\text{spherical}} + \\underbrace{(\\boldsymbol{\\varepsilon}-\\varepsilon_v\\mathbf{I})}_{\\text{deviatoric}}, \\qquad \\varepsilon_v = \\frac{1}{3}\\text{tr}(\\boldsymbol{\\varepsilon})\n\\]\nDrag the sliders below to set \\(\\varepsilon_{11},\\varepsilon_{22},\\varepsilon_{12}\\) and watch the volumetric part stay square while the deviatoric part distorts at constant area."
-  },
-  {
-    "objectID": "lectures/02-decomposition.html#decomposing-strain",
-    "href": "lectures/02-decomposition.html#decomposing-strain",
-    "title": "Deviatoric / Spherical Decomposition",
-    "section": "",
-    "text": "Any strain (or stress) tensor splits into a volumetric (spherical) part — pure isotropic scaling, no shape change — and a deviatoric part — pure shape change, no volume change:\n\\[\n\\boldsymbol{\\varepsilon} = \\underbrace{\\varepsilon_v\\mathbf{I}}_{\\text{spherical}} + \\underbrace{(\\boldsymbol{\\varepsilon}-\\varepsilon_v\\mathbf{I})}_{\\text{deviatoric}}, \\qquad \\varepsilon_v = \\frac{1}{3}\\text{tr}(\\boldsymbol{\\varepsilon})\n\\]\nDrag the sliders below to set \\(\\varepsilon_{11},\\varepsilon_{22},\\varepsilon_{12}\\) and watch the volumetric part stay square while the deviatoric part distorts at constant area."
   },
   {
     "objectID": "lectures/03-yield-criteria.html",
