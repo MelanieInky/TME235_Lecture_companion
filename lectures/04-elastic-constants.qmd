@@ -1,0 +1,34 @@
+---
+title: "Elastic Constants: E, ν, λ, μ"
+---
+
+## Poisson's ratio — what does it mean?
+
+Pull a bar and it usually gets thinner — that lateral response is set by $\nu$. Try the
+presets below: cork ($\nu\approx0$), typical metals ($\nu\approx0.3$), rubber
+($\nu\approx0.499$, nearly incompressible), and auxetic foam ($\nu<0$, gets *fatter*
+when stretched).
+
+```{=html}
+<iframe class="interactive-frame" src="../interactives/poisson_intuition.html"></iframe>
+```
+
+## Lamé constants ↔ (E, ν)
+
+$$
+\mu = \frac{E}{2(1+\nu)}, \qquad \lambda = \frac{E\nu}{(1+\nu)(1-2\nu)}, \qquad K = \frac{E}{3(1-2\nu)}
+$$
+
+```{=html}
+<iframe class="interactive-frame" src="../interactives/lame_constants.html"></iframe>
+```
+
+## What do λ and μ mean physically?
+
+$\mu$ resists pure shape change (shear). $\lambda$ is subtler — it's the stress that
+appears sideways *only when lateral strain is prevented* (confined loading), not something
+you'd feel in a free pull test.
+
+```{=html}
+<iframe class="interactive-frame" src="../interactives/lame_intuition.html"></iframe>
+```

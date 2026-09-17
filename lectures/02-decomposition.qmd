@@ -1,0 +1,20 @@
+---
+title: "Deviatoric / Spherical Decomposition"
+---
+
+## Decomposing strain
+
+Any strain (or stress) tensor splits into a **volumetric (spherical)** part — pure
+isotropic scaling, no shape change — and a **deviatoric** part — pure shape change,
+no volume change:
+
+$$
+\boldsymbol{\varepsilon} = \underbrace{\varepsilon_v\mathbf{I}}_{\text{spherical}} + \underbrace{(\boldsymbol{\varepsilon}-\varepsilon_v\mathbf{I})}_{\text{deviatoric}}, \qquad \varepsilon_v = \frac{1}{3}\text{tr}(\boldsymbol{\varepsilon})
+$$
+
+Drag the sliders below to set $\varepsilon_{11},\varepsilon_{22},\varepsilon_{12}$ and watch
+the volumetric part stay square while the deviatoric part distorts at constant area.
+
+```{=html}
+<iframe class="interactive-frame" src="../interactives/strain_decomposition.html"></iframe>
+```

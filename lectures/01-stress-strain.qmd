@@ -1,0 +1,24 @@
+---
+title: "Stress & Strain: The 1D Picture"
+---
+
+## The stress-strain curve
+
+A typical uniaxial stress-strain response shows a linear elastic region up to a
+**yield point**, followed by strain hardening to the **ultimate tensile strength (UTS)**,
+then softening (necking) to **fracture**.
+
+![](stress_strain_curve.png){width=70%}
+
+Note: this is a schematic, not-to-scale illustration — real elastic strains are far
+smaller relative to the plastic strain range than shown here.
+
+## Key relations
+
+$$
+\sigma = E\varepsilon \qquad (\varepsilon \le \varepsilon_y)
+$$
+
+$$
+\sigma_y = E\,\varepsilon_y
+$$

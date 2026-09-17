@@ -1,0 +1,17 @@
+{
+  "index.qmd": {
+    "index.html": "995c01d7"
+  },
+  "lectures/02-decomposition.qmd": {
+    "02-decomposition.html": "e29688ae"
+  },
+  "lectures/01-stress-strain.qmd": {
+    "01-stress-strain.html": "9ed63324"
+  },
+  "lectures/03-yield-criteria.qmd": {
+    "03-yield-criteria.html": "6dc21a8e"
+  },
+  "lectures/04-elastic-constants.qmd": {
+    "04-elastic-constants.html": "96139cf7"
+  }
+}

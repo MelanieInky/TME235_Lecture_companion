@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Continuum Mechanics — Companion Site"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: lectures/01-stress-strain.qmd
+        text: Stress & Strain
+      - href: lectures/02-decomposition.qmd
+        text: Deviatoric/Spherical
+      - href: lectures/03-yield-criteria.qmd
+        text: Yield Criteria
+      - href: lectures/04-elastic-constants.qmd
+        text: Elastic Constants
+    right:
+      - icon: github
+        href: https://github.com/YOUR_USERNAME/YOUR_REPO
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    css: styles.css
+    code-fold: false
+    mainfont: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
+
+execute:
+  freeze: auto

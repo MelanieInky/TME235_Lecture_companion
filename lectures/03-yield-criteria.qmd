@@ -1,0 +1,25 @@
+---
+title: "Yield Criteria: Von Mises vs Tresca"
+---
+
+## Equivalent stress measures
+
+$$
+\sigma_{VM} = \sqrt{\tfrac{1}{2}\left[(\sigma_1-\sigma_2)^2+(\sigma_2-\sigma_3)^2+(\sigma_3-\sigma_1)^2\right]}
+$$
+
+$$
+\sigma_{Tresca} = \sigma_{max}-\sigma_{min}
+$$
+
+Both are pressure-independent — motion purely along the hydrostatic axis
+($\sigma_1=\sigma_2=\sigma_3$) never triggers yield under either criterion. Projected onto
+the π-plane, Von Mises is a circle and Tresca is a hexagon inscribed inside it, touching
+exactly at the uniaxial-stress corners.
+
+```{=html}
+<iframe class="interactive-frame" src="../interactives/pi_plane_yield.html"></iframe>
+```
+
+The two criteria always agree at the hexagon's corners and diverge most at the
+edge midpoints (pure-shear states), where Tresca is more conservative by $2/\sqrt{3}\approx1.155$.
