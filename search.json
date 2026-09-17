@@ -28,16 +28,30 @@
     "text": "Consider either the stress or the strain tensor. They can be decomposed into its spherical and volumetric part (Lecture notes 1.15 and 1.16).\n\\[\n\\sigma_{ij} = \\sigma_{ij}^{\\text{sph}} + \\sigma_{ij}^{\\text{dev}}\n\\]\nwhere \\(\\sigma_{ij}^{\\text{sph}} = \\frac{1}{3} \\sigma_{kk} \\delta_{ij}\\) is called the spherical part of the tensor. The deviatoric part is then given by\n\\[\n\\sigma_{ij}^{\\text{dev}} = \\sigma_{ij} - \\sigma_{ij}^{\\text{sph}} = \\sigma_{ij} - \\frac{1}{3} \\sigma_{kk} \\delta_{ij}\n\\]\nIn matrix notation:\n\\[\n\\boldsymbol{\\sigma} =\n\\begin{pmatrix}\n\\sigma_{11} & \\sigma_{12} & \\sigma_{13} \\\\\n\\sigma_{21} & \\sigma_{22} & \\sigma_{23} \\\\\n\\sigma_{31} & \\sigma_{32} & \\sigma_{33}\n\\end{pmatrix}\n\\]\n\\[\n\\sigma_m = \\frac{1}{3}\\,\\text{tr}(\\boldsymbol{\\sigma}) = \\frac{1}{3}\\left(\\sigma_{11}+\\sigma_{22}+\\sigma_{33}\\right)\n\\]\n\\[\n\\boldsymbol{\\sigma}_{sph} = \\sigma_m \\, \\mathbf{I} =\n\\begin{pmatrix}\n\\sigma_m & 0 & 0 \\\\\n0 & \\sigma_m & 0 \\\\\n0 & 0 & \\sigma_m\n\\end{pmatrix}\n\\]\n\\[\n\\boldsymbol{\\sigma}_{dev} = \\boldsymbol{\\sigma} - \\sigma_m \\, \\mathbf{I} =\n\\begin{pmatrix}\n\\sigma_{11}-\\sigma_m & \\sigma_{12} & \\sigma_{13} \\\\\n\\sigma_{21} & \\sigma_{22}-\\sigma_m & \\sigma_{23} \\\\\n\\sigma_{31} & \\sigma_{32} & \\sigma_{33}-\\sigma_m\n\\end{pmatrix}\n\\]\nRemark: What is the trace of a deviatoric tensor? Calculate it!\n\n\nThe following interactive illustration computes the deviatoric part and spherical part of the strain (in 2d). Starting from a square, the deformation due to the spherical and deviatoric part of the tensor are shown. Keep the values for \\(\\epsilon_{11}, \\epsilon_{12}\\), and \\(\\epsilon_{22}\\) relatively low. What happens to the shape and the deformed area under deviatoric and spherical strain? Push the values for the deformation higher, does it still hold?\n\nThe area change is due to the spherical part and the deviatoric part deforms the solid but keeps the area constant. But this only holds for infinitesimal deformation!"
   },
   {
+    "objectID": "problems/index.html",
+    "href": "problems/index.html",
+    "title": "Problems",
+    "section": "",
+    "text": "Problem sets accompanying the lectures. Each links through to the full set of problems.\n\n\n\n\n\n\n\n\n\n\nTitle\n\n\n\nDate\n\n\n\n\n\n\n\n\n \n\n\n \n\n\n\n\n\n\nProblems 1–7: Code and hint\n\n\nSep 17, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Continuum Mechanics — Companion Site",
+    "title": "Mechanics of Solids — Companion Site",
     "section": "",
-    "text": "Interactive companions to the lecture material, organized by topic. Each page has the relevant theory alongside a live, adjustable visualization."
+    "text": "Interactive companions to the lecture material, organized by topic. Each page has the relevant theory alongside live, adjustable visualization.\nIn addition, you will find the code shown during the problem tutorial."
+  },
+  {
+    "objectID": "index.html#problem-sets",
+    "href": "index.html#problem-sets",
+    "title": "Mechanics of Solids — Companion Site",
+    "section": "Problem sets",
+    "text": "Problem sets\n\nHelper function - Set of helper function (write them yourself)\nProblem 1 to 7 - Topic 1 to 4"
   },
   {
     "objectID": "index.html#topics",
     "href": "index.html#topics",
-    "title": "Continuum Mechanics — Companion Site",
+    "title": "Mechanics of Solids — Companion Site",
     "section": "Topics",
     "text": "Topics\n\nVoigt notation — Voigt notation\nDeviatoric / Spherical Decomposition — geometric picture of \\(\\boldsymbol{\\varepsilon}=\\boldsymbol{\\varepsilon}_{sph}+\\boldsymbol{\\varepsilon}_{dev}\\)\nYield Criteria — Von Mises vs Tresca on the π-plane\nElastic Constants — Poisson’s ratio and Lamé parameters, with intuition"
   },
