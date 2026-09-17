@@ -129,8 +129,8 @@ window.Quarto = {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../lectures/01-stress-strain.html"> 
-<span class="menu-text">Stress &amp; Strain</span></a>
+    <a class="nav-link" href="../lectures/01-voigt_notation.html"> 
+<span class="menu-text">Voigt notation</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../lectures/02-decomposition.html"> 
@@ -167,7 +167,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#poissons-ratio-what-does-it-mean" id="toc-poissons-ratio-what-does-it-mean" class="nav-link active" data-scroll-target="#poissons-ratio-what-does-it-mean">Poisson’s ratio — what does it mean?</a></li>
+  <li><a href="#conversion-table-for-isotropic-elastic-constants" id="toc-conversion-table-for-isotropic-elastic-constants" class="nav-link active" data-scroll-target="#conversion-table-for-isotropic-elastic-constants">Conversion table for isotropic elastic constants</a></li>
+  <li><a href="#poissons-ratio-what-does-it-mean" id="toc-poissons-ratio-what-does-it-mean" class="nav-link" data-scroll-target="#poissons-ratio-what-does-it-mean">Poisson’s ratio — what does it mean?</a></li>
   <li><a href="#lamé-constants-e-ν" id="toc-lamé-constants-e-ν" class="nav-link" data-scroll-target="#lamé-constants-e-ν">Lamé constants ↔︎ (E, ν)</a></li>
   <li><a href="#what-do-λ-and-μ-mean-physically" id="toc-what-do-λ-and-μ-mean-physically" class="nav-link" data-scroll-target="#what-do-λ-and-μ-mean-physically">What do λ and μ mean physically?</a></li>
   </ul>
@@ -195,6 +196,76 @@ window.Quarto = {
 </header>
 
 
+<section id="conversion-table-for-isotropic-elastic-constants" class="level2">
+<h2 class="anchored" data-anchor-id="conversion-table-for-isotropic-elastic-constants">Conversion table for isotropic elastic constants</h2>
+<p>In the lecture notes, (1.13) and (1.14) give the relationship between the pair <span class="math inline">\((E,\nu)\)</span> and <span class="math inline">\((\mu, \lambda)\)</span>. You can find a full relationship table between each parameters on Wikipedia.</p>
+<p>https://en.wikipedia.org/wiki/Template:Elastic_moduli</p>
+<p>We reproduce it with only <span class="math inline">\(E,\nu,\mu,\lambda\)</span> to make it more readable.</p>
+<table class="caption-top table">
+<caption><span class="math inline">\(R=\pm \sqrt{E^2+9\lambda^2+2E\lambda}\)</span>.</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Given</th>
+<th><span class="math inline">\(E\)</span></th>
+<th><span class="math inline">\(\nu\)</span></th>
+<th><span class="math inline">\(\lambda\)</span></th>
+<th><span class="math inline">\(\mu\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\((E,\nu)\)</span></td>
+<td>–</td>
+<td>–</td>
+<td><span class="math inline">\(\dfrac{E\nu}{(1+\nu)(1-2\nu)}\)</span></td>
+<td><span class="math inline">\(\dfrac{E}{2(1+\nu)}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((E,\lambda)\)</span></td>
+<td>–</td>
+<td><span class="math inline">\(\dfrac{2\lambda}{E+\lambda+R}\)</span></td>
+<td>–</td>
+<td><span class="math inline">\(\dfrac{E-3\lambda+R}{4}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\((E,\mu)\)</span></td>
+<td>–</td>
+<td><span class="math inline">\(\dfrac{E}{2\mu}-1\)</span></td>
+<td><span class="math inline">\(\dfrac{\mu(E-2\mu)}{3\mu-E}\)</span></td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((\nu,\lambda)\)</span></td>
+<td><span class="math inline">\(\dfrac{\lambda(1+\nu)(1-2\nu)}{\nu}\)</span></td>
+<td>–</td>
+<td>–</td>
+<td><span class="math inline">\(\dfrac{\lambda(1-2\nu)}{2\nu}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\((\nu,\mu)\)</span></td>
+<td><span class="math inline">\(2\mu(1+\nu)\)</span></td>
+<td>–</td>
+<td><span class="math inline">\(\dfrac{2\mu\nu}{1-2\nu}\)</span></td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((\lambda,\mu)\)</span></td>
+<td><span class="math inline">\(\dfrac{\mu(3\lambda+2\mu)}{\lambda+\mu}\)</span></td>
+<td><span class="math inline">\(\dfrac{\lambda}{2(\lambda+\mu)}\)</span></td>
+<td>–</td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
+<p>To give a more intuitive understanding of the parameters, you can use the interactive widgets below:</p>
+</section>
 <section id="poissons-ratio-what-does-it-mean" class="level2">
 <h2 class="anchored" data-anchor-id="poissons-ratio-what-does-it-mean">Poisson’s ratio — what does it mean?</h2>
 <p>Pull a bar and it usually gets thinner — that lateral response is set by <span class="math inline">\(\nu\)</span>. Try the presets below: cork (<span class="math inline">\(\nu\approx0\)</span>), typical metals (<span class="math inline">\(\nu\approx0.3\)</span>), rubber (<span class="math inline">\(\nu\approx0.499\)</span>, nearly incompressible), and auxetic foam (<span class="math inline">\(\nu&lt;0\)</span>, gets <em>fatter</em> when stretched).</p>
