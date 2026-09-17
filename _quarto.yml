@@ -16,6 +16,8 @@ website:
         text: Yield Criteria
       - href: lectures/04-elastic-constants.qmd
         text: Elastic Constants
+      - href: problems/index.qmd
+        text: Problems
     right:
       - icon: github
         href: https://github.com/MelanieInky/TME235_Lecture_companion

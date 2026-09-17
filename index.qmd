@@ -1,13 +1,19 @@
 ---
-title: "Continuum Mechanics — Companion Site"
+title: "Mechanics of Solids — Companion Site"
 ---
 
 Interactive companions to the lecture material, organized by topic. Each page has the
-relevant theory alongside a live, adjustable visualization.
+relevant theory alongside live, adjustable visualization.
+
+In addition, you will find the code shown during the problem tutorial.
+
+## Problem sets
+- [Helper function](problems/00-helper_functions.qmd) - Set of helper function (write them yourself)
+- [Problem 1 to 7](problems/01-problems1_to7.qmd) - Topic 1 to 4
 
 ## Topics
 
-- [Voigt notation](lectures/01-voigt_notation.qmd) — Voigt notation
-- [Deviatoric / Spherical Decomposition](lectures/02-decomposition.qmd) — geometric picture of $\boldsymbol{\varepsilon}=\boldsymbol{\varepsilon}_{sph}+\boldsymbol{\varepsilon}_{dev}$
-- [Yield Criteria](lectures/03-yield-criteria.qmd) — Von Mises vs Tresca on the π-plane
-- [Elastic Constants](lectures/04-elastic-constants.qmd) — Poisson's ratio and Lamé parameters, with intuition
+1. [Voigt notation](lectures/01-voigt_notation.qmd) — Voigt notation
+1. [Deviatoric / Spherical Decomposition](lectures/02-decomposition.qmd) — geometric picture of $\boldsymbol{\varepsilon}=\boldsymbol{\varepsilon}_{sph}+\boldsymbol{\varepsilon}_{dev}$
+1. [Yield Criteria](lectures/03-yield-criteria.qmd) — Von Mises vs Tresca on the π-plane
+1. [Elastic Constants](lectures/04-elastic-constants.qmd) — Poisson's ratio and Lamé parameters, with intuition

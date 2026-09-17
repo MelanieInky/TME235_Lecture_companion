@@ -1,0 +1,13 @@
+---
+title: "Problems"
+listing:
+  contents: .
+  type: table
+  fields: [title, date]
+  sort: "date desc"
+  sort-ui: false
+  filter-ui: false
+---
+
+Problem sets accompanying the lectures. Each links through to the full set of problems.
+

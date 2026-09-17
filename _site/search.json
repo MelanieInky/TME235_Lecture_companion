@@ -44,14 +44,14 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Continuum Mechanics — Companion Site",
+    "title": "Mechanics of Solids — Companion Site",
     "section": "",
-    "text": "Interactive companions to the lecture material, organized by topic. Each page has the relevant theory alongside a live, adjustable visualization."
+    "text": "Interactive companions to the lecture material, organized by topic. Each page has the relevant theory alongside live, adjustable visualization.\nIn addition, you will find the code shown during the problem tutorial."
   },
   {
     "objectID": "index.html#topics",
     "href": "index.html#topics",
-    "title": "Continuum Mechanics — Companion Site",
+    "title": "Mechanics of Solids — Companion Site",
     "section": "Topics",
     "text": "Topics\n\nVoigt notation — Voigt notation\nDeviatoric / Spherical Decomposition — geometric picture of \\(\\boldsymbol{\\varepsilon}=\\boldsymbol{\\varepsilon}_{sph}+\\boldsymbol{\\varepsilon}_{dev}\\)\nYield Criteria — Von Mises vs Tresca on the π-plane\nElastic Constants — Poisson’s ratio and Lamé parameters, with intuition"
   },
@@ -117,5 +117,19 @@
     "title": "Elastic Constants: E, ν, λ, μ",
     "section": "",
     "text": "In the lecture notes, (1.13) and (1.14) give the relationship between the pair \\((E,\\nu)\\) and \\((\\mu, \\lambda)\\). You can find a full relationship table between each parameters on Wikipedia.\nhttps://en.wikipedia.org/wiki/Template:Elastic_moduli\nWe reproduce it with only \\(E,\\nu,\\mu,\\lambda\\) to make it more readable.\n\n\\(R=\\pm \\sqrt{E^2+9\\lambda^2+2E\\lambda}\\).\n\n\n\n\n\n\n\n\n\nGiven\n\\(E\\)\n\\(\\nu\\)\n\\(\\lambda\\)\n\\(\\mu\\)\n\n\n\n\n\\((E,\\nu)\\)\n–\n–\n\\(\\dfrac{E\\nu}{(1+\\nu)(1-2\\nu)}\\)\n\\(\\dfrac{E}{2(1+\\nu)}\\)\n\n\n\\((E,\\lambda)\\)\n–\n\\(\\dfrac{2\\lambda}{E+\\lambda+R}\\)\n–\n\\(\\dfrac{E-3\\lambda+R}{4}\\)\n\n\n\\((E,\\mu)\\)\n–\n\\(\\dfrac{E}{2\\mu}-1\\)\n\\(\\dfrac{\\mu(E-2\\mu)}{3\\mu-E}\\)\n–\n\n\n\\((\\nu,\\lambda)\\)\n\\(\\dfrac{\\lambda(1+\\nu)(1-2\\nu)}{\\nu}\\)\n–\n–\n\\(\\dfrac{\\lambda(1-2\\nu)}{2\\nu}\\)\n\n\n\\((\\nu,\\mu)\\)\n\\(2\\mu(1+\\nu)\\)\n–\n\\(\\dfrac{2\\mu\\nu}{1-2\\nu}\\)\n–\n\n\n\\((\\lambda,\\mu)\\)\n\\(\\dfrac{\\mu(3\\lambda+2\\mu)}{\\lambda+\\mu}\\)\n\\(\\dfrac{\\lambda}{2(\\lambda+\\mu)}\\)\n–\n–\n\n\n\nTo give a more intuitive understanding of the parameters, you can use the interactive widgets below:"
+  },
+  {
+    "objectID": "problems/index.html",
+    "href": "problems/index.html",
+    "title": "Problems",
+    "section": "",
+    "text": "Problem sets accompanying the lectures. Each links through to the full set of problems.\n\n\n\n\n\n\n\n\n\n\nTitle\n\n\n\nDate\n\n\n\n\n\n\n\n\nProblems 1–7: Code and hint\n\n\nSep 17, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#problem-sets",
+    "href": "index.html#problem-sets",
+    "title": "Mechanics of Solids — Companion Site",
+    "section": "Problem sets",
+    "text": "Problem sets\n\nHelper function - Set of helper function (write them yourself)\nProblem 1 to 7 - Topic 1 to 4"
   }
 ]
