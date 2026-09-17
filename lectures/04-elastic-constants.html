@@ -273,19 +273,722 @@ window.Quarto = {
 <section id="poissons-ratio-what-does-it-mean" class="level2">
 <h2 class="anchored" data-anchor-id="poissons-ratio-what-does-it-mean">Poisson’s ratio — what does it mean?</h2>
 <p>Pull a bar and it usually gets thinner — that lateral response is set by <span class="math inline">\(\nu\)</span>. Try the presets below: cork (<span class="math inline">\(\nu\approx0\)</span>), typical metals (<span class="math inline">\(\nu\approx0.3\)</span>), rubber (<span class="math inline">\(\nu\approx0.499\)</span>, nearly incompressible), and auxetic foam (<span class="math inline">\(\nu&lt;0\)</span>, gets <em>fatter</em> when stretched).</p>
-<iframe class="interactive-frame" src="../interactives/poisson_intuition.html"></iframe>
+<style>
+.viz-poisson {
+  --bg: #ffffff; --fg: #1a1a1a; --fg-muted: #6b6b6b;
+    --panel-bg: #f7f7f8; --border: #e2e2e4; --grid: #dcdcde;
+    --mat: #2E86AB; --shrink: #C1440E; --grow: #3E8914;
+}
+@media (prefers-color-scheme: dark) {
+  .viz-poisson {
+    --bg: #1c1c1e; --fg: #f0f0f0; --fg-muted: #a0a0a3;
+      --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
+  }
+}
+.viz-poisson *, .viz-poisson *::before, .viz-poisson *::after {
+  box-sizing: border-box;
+}
+.viz-poisson {
+  background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; padding: 22px 16px 36px;
+}
+.viz-poisson .wrap {
+  max-width: 900px; margin: 0 auto;
+}
+.viz-poisson h1 {
+  font-size: 1.25rem; font-weight: 600; text-align: center; margin: 0 0 4px;
+}
+.viz-poisson .subtitle {
+  text-align: center; color: var(--fg-muted); font-size: 0.88rem; margin-bottom: 20px;
+}
+.viz-poisson .controls {
+  display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
+    background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 20px; margin-bottom: 14px;
+}
+.viz-poisson .slider-group {
+  min-width: 240px; flex: 1 1 240px; max-width: 340px;
+}
+.viz-poisson .slider-group label {
+  display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px;
+}
+.viz-poisson .slider-group label .val {
+  font-variant-numeric: tabular-nums; color: var(--fg-muted);
+}
+.viz-poisson input[type="range"] {
+  width: 100%; accent-color: #555;
+}
+.viz-poisson .presets {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px;
+}
+.viz-poisson .presets button {
+  font-size: 0.78rem; padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--panel-bg); color: var(--fg); cursor: pointer;
+}
+.viz-poisson .presets button:hover {
+  border-color: var(--fg-muted);
+}
+.viz-poisson .stage {
+  background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; text-align: center;
+}
+.viz-poisson svg {
+  display: block; margin: 0 auto; max-width: 100%; height: auto;
+}
+.viz-poisson .readouts {
+  display: flex; justify-content: center; gap: 26px; flex-wrap: wrap;
+    margin-top: 14px; font-size: 0.85rem;
+}
+.viz-poisson .readouts .item {
+  text-align: center;
+}
+.viz-poisson .readouts .item .label {
+  color: var(--fg-muted); font-size: 0.75rem;
+}
+.viz-poisson .readouts .item .value {
+  font-variant-numeric: tabular-nums; font-weight: 600; font-size: 1.0rem;
+}
+.viz-poisson .note {
+  max-width: 680px; margin: 20px auto 0; font-size: 0.8rem; color: var(--fg-muted);
+    line-height: 1.55; text-align: center;
+}
+.viz-poisson svg { width: 100%; height: auto; max-width: 460px; }
+.viz-poisson .legend span { white-space: nowrap; }
+.viz-poisson { margin: 0 0 1.5rem; padding: 0; font-family: inherit; }
+</style>
+
+<div class="viz-poisson">
+<div class="subtitle">Pull a bar along its length — ν sets how much it shrinks (or grows) sideways</div>
+
+  <div class="controls">
+    <div class="slider-group">
+      <label>Applied axial strain ε <span class="val" id="po-vEps">0.20</span></label>
+      <input type="range" id="po-eps" min="0" max="0.4" step="0.01" value="0.20">
+    </div>
+    <div class="slider-group">
+      <label>Poisson's ratio ν <span class="val" id="po-vNu">0.30</span></label>
+      <input type="range" id="po-nu" min="-0.9" max="0.5" step="0.01" value="0.30">
+    </div>
+  </div>
+
+  <div class="presets">
+    <button data-nu="0.30">Typical metal (ν≈0.30)</button>
+    <button data-nu="0.00">Cork (ν≈0.00)</button>
+    <button data-nu="0.499">Rubber (ν≈0.499)</button>
+    <button data-nu="0.50">Perfectly incompressible (ν=0.5)</button>
+    <button data-nu="-0.50">Auxetic foam (ν≈−0.5)</button>
+  </div>
+
+  <div class="stage">
+    <svg id="po-svg-bar" viewbox="0 0 480 260"></svg>
+    <div class="readouts">
+      <div class="item"><div class="label">Lateral strain ε_lat = −νε</div><div class="value" id="po-r-lat"></div></div>
+      <div class="item"><div class="label">Length change</div><div class="value" id="po-r-len"></div></div>
+      <div class="item"><div class="label">Width change</div><div class="value" id="po-r-wid"></div></div>
+      <div class="item"><div class="label">Volume change ΔV/V₀</div><div class="value" id="po-r-vol"></div></div>
+    </div>
+  </div>
+
+  <div class="note" id="po-explainer">
+    Pull most ordinary materials and they get thinner as they get longer — that's a <b>positive</b>
+    Poisson's ratio. ν=0 means no lateral response at all (like cork, which is why it's easy to push
+    into a bottle without swelling out the sides). ν=0.5 means the material can't change volume — it
+    must get thinner by exactly the amount needed to conserve volume (rubber, most fluids). Negative ν
+    ("auxetic") materials do the opposite of intuition: pull them and they get <i>fatter</i>, not thinner.
+  </div>
+
+
+<script>
+(function(){
+  const root = document.querySelector(".viz-poisson");
+  if (!root) return;
+  const __q = (id) => root.querySelector("#" + id);
+
+const epsEl = __q('po-eps');
+const nuEl = __q('po-nu');
+const vEps = __q('po-vEps');
+const vNu = __q('po-vNu');
+
+const L0 = 160, W0 = 70; // reference bar dimensions (svg units)
+const cx = 240, cy = 130;
+
+function update() {
+  const eps = parseFloat(epsEl.value);
+  const nu = parseFloat(nuEl.value);
+  vEps.textContent = eps.toFixed(2);
+  vNu.textContent = nu.toFixed(3);
+
+  const epsLat = -nu * eps;
+  const L = L0 * (1 + eps);
+  const W = W0 * (1 + epsLat);
+
+  const dV = (1 + eps) * (1 + epsLat) ** 2 - 1;
+
+  __q('po-r-lat').textContent = `${(epsLat*100).toFixed(1)}%`;
+  __q('po-r-len').textContent = `${(eps*100).toFixed(1)}%`;
+  __q('po-r-wid').textContent = `${(epsLat*100).toFixed(1)}%`;
+  const volEl = __q('po-r-vol');
+  volEl.textContent = `${(dV*100).toFixed(1)}%`;
+  volEl.style.color = Math.abs(dV) < 0.005 ? 'var(--fg)' : (dV > 0 ? 'var(--grow)' : 'var(--shrink)');
+
+  const svg = __q('po-svg-bar');
+  const origX = cx - L0/2, origY = cy - W0/2;
+  const defX = cx - L/2, defY = cy - W/2;
+
+  const widthColor = epsLat < -0.002 ? 'var(--shrink)' : (epsLat > 0.002 ? 'var(--grow)' : 'var(--fg-muted)');
+
+  svg.innerHTML = `
+    <rect x="${origX}" y="${origY}" width="${L0}" height="${W0}" fill="none" stroke="var(--fg-muted)" stroke-width="1.3" stroke-dasharray="5,4"/>
+    <rect x="${defX}" y="${defY}" width="${L}" height="${W}" fill="var(--mat)" fill-opacity="0.28" stroke="var(--mat)" stroke-width="2.4"/>
+
+    <line x1="${defX-22}" y1="${cy}" x2="${defX-6}" y2="${cy}" stroke="var(--fg)" stroke-width="1.6" marker-end="url(#po-arrow)"/>
+    <line x1="${defX+L+6}" y1="${cy}" x2="${defX+L+22}" y2="${cy}" stroke="var(--fg)" stroke-width="1.6" marker-end="url(#po-arrow)"/>
+
+    <line x1="${defX+L+34}" y1="${defY}" x2="${defX+L+34}" y2="${defY+W}" stroke="${widthColor}" stroke-width="1.3"/>
+    <line x1="${defX+L+30}" y1="${defY}" x2="${defX+L+38}" y2="${defY}" stroke="${widthColor}" stroke-width="1.3"/>
+    <line x1="${defX+L+30}" y1="${defY+W}" x2="${defX+L+38}" y2="${defY+W}" stroke="${widthColor}" stroke-width="1.3"/>
+    <text x="${defX+L+42}" y="${cy+3}" font-size="10" fill="${widthColor}">width</text>
+
+    <defs>
+      <marker id="po-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L6,3 L0,6 Z" fill="var(--fg)"/>
+      </marker>
+    </defs>
+  `;
+}
+
+epsEl.addEventListener('input', update);
+nuEl.addEventListener('input', update);
+root.querySelectorAll('.presets button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    nuEl.value = btn.dataset.nu;
+    update();
+  });
+});
+
+update();
+})();
+</script>
+</div>
 </section>
 <section id="lamé-constants-e-ν" class="level2">
 <h2 class="anchored" data-anchor-id="lamé-constants-e-ν">Lamé constants ↔︎ (E, ν)</h2>
 <p><span class="math display">\[
 \mu = \frac{E}{2(1+\nu)}, \qquad \lambda = \frac{E\nu}{(1+\nu)(1-2\nu)}, \qquad K = \frac{E}{3(1-2\nu)}
 \]</span></p>
-<iframe class="interactive-frame" src="../interactives/lame_constants.html"></iframe>
+<style>
+.viz-lame-c {
+  --bg: #ffffff; --fg: #1a1a1a; --fg-muted: #6b6b6b;
+    --panel-bg: #f7f7f8; --border: #e2e2e4; --grid: #dcdcde;
+    --pos: #2E86AB; --neg: #C1440E; --accent: #3E8914;
+}
+@media (prefers-color-scheme: dark) {
+  .viz-lame-c {
+    --bg: #1c1c1e; --fg: #f0f0f0; --fg-muted: #a0a0a3;
+      --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
+  }
+}
+.viz-lame-c *, .viz-lame-c *::before, .viz-lame-c *::after {
+  box-sizing: border-box;
+}
+.viz-lame-c {
+  background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; padding: 22px 16px 36px;
+}
+.viz-lame-c .wrap {
+  max-width: 1040px; margin: 0 auto;
+}
+.viz-lame-c h1 {
+  font-size: 1.25rem; font-weight: 600; text-align: center; margin: 0 0 4px;
+}
+.viz-lame-c .subtitle {
+  text-align: center; color: var(--fg-muted); font-size: 0.88rem; margin-bottom: 20px;
+}
+.viz-lame-c .controls {
+  display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
+    background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 20px; margin-bottom: 18px;
+}
+.viz-lame-c .slider-group {
+  min-width: 240px; flex: 1 1 240px; max-width: 360px;
+}
+.viz-lame-c .slider-group label {
+  display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px;
+}
+.viz-lame-c .slider-group label .val {
+  font-variant-numeric: tabular-nums; color: var(--fg-muted);
+}
+.viz-lame-c input[type="range"] {
+  width: 100%; accent-color: #555;
+}
+.viz-lame-c .warning {
+  text-align: center; font-size: 0.78rem; font-weight: 600; padding: 6px 10px;
+    border-radius: 8px; margin: 0 auto 18px; max-width: 520px; display: none;
+}
+.viz-lame-c .warning.show {
+  display: block; background: rgba(193,68,14,0.18); color: var(--neg);
+}
+.viz-lame-c .layout {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; align-items: start;
+}
+@media (max-width: 760px) {
+  .viz-lame-c .layout {
+    grid-template-columns: 1fr;
+  }
+}
+.viz-lame-c .panel {
+  background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px;
+}
+.viz-lame-c .panel h3 {
+  font-size: 0.85rem; margin: 0 0 10px; color: var(--fg-muted); font-weight: 600;
+}
+.viz-lame-c .readouts {
+  font-size: 0.86rem; line-height: 1.9;
+}
+.viz-lame-c .readouts .row {
+  display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding: 2px 0;
+}
+.viz-lame-c .readouts .row span:last-child {
+  font-variant-numeric: tabular-nums;
+}
+.viz-lame-c .formula {
+  font-size: 0.75rem; color: var(--fg-muted); margin-top: 10px; line-height: 1.6;
+}
+.viz-lame-c svg {
+  display: block; margin: 0 auto; max-width: 100%; height: auto;
+}
+.viz-lame-c .heat-label {
+  font-size: 9px; fill: var(--fg-muted);
+}
+.viz-lame-c .heat-val {
+  font-size: 9.5px; font-weight: 600;
+}
+.viz-lame-c .note {
+  max-width: 720px; margin: 20px auto 0; font-size: 0.78rem; color: var(--fg-muted);
+    line-height: 1.5; text-align: center;
+}
+.viz-lame-c svg { width: 100%; height: auto; max-width: 460px; }
+.viz-lame-c .legend span { white-space: nowrap; }
+.viz-lame-c { margin: 0 0 1.5rem; padding: 0; font-family: inherit; }
+</style>
+
+<div class="viz-lame-c">
+<div class="subtitle">Live isotropic elasticity conversion and 6×6 Voigt stiffness matrix (order 11,22,33,23,13,12)</div>
+
+  <div class="controls">
+    <div class="slider-group">
+      <label>E (Young's modulus) <span class="val" id="lc-vE">70 GPa</span></label>
+      <input type="range" id="lc-E" min="10" max="300" step="1" value="70">
+    </div>
+    <div class="slider-group">
+      <label>ν (Poisson's ratio) <span class="val" id="lc-vNu">0.33</span></label>
+      <input type="range" id="lc-nu" min="-0.90" max="0.49" step="0.005" value="0.33">
+    </div>
+  </div>
+
+  <div class="warning" id="lc-warn">Approaching the incompressible limit (ν → 0.5): λ and K diverge. Common for rubber-like materials; not physical for most metals/alloys.</div>
+
+  <div class="layout">
+    <div class="panel">
+      <h3 class="anchored">DERIVED CONSTANTS</h3>
+      <div class="readouts">
+        <div class="row"><span>λ (Lamé's first parameter)</span><span id="lc-r-lambda"></span></div>
+        <div class="row"><span>μ = G (shear modulus)</span><span id="lc-r-mu"></span></div>
+        <div class="row"><span>K (bulk modulus)</span><span id="lc-r-K"></span></div>
+      </div>
+      <div class="formula">
+        μ = E / [2(1+ν)] &nbsp;·&nbsp; λ = Eν / [(1+ν)(1−2ν)] &nbsp;·&nbsp; K = E / [3(1−2ν)] = λ + 2μ/3
+      </div>
+
+      <h3 style="margin-top:18px" class="anchored">λ(ν) AT FIXED E — SINGULARITY AT ν=0.5</h3>
+      <svg id="lc-svg-curve" viewbox="0 0 320 170"></svg>
+    </div>
+
+    <div class="panel">
+      <h3 class="anchored">ISOTROPIC STIFFNESS MATRIX C (VOIGT)</h3>
+      <svg id="lc-svg-heat" viewbox="0 0 300 300"></svg>
+    </div>
+  </div>
+
+  <div class="note">
+    C relates Voigt stress and (engineering-shear) strain vectors: σ_V = C·ε_V, with the diagonal shear
+    terms equal to μ (not 2μ) because γ_ij = 2ε_ij already carries the factor of two. Off-diagonal 4-5-6
+    blocks are zero for an isotropic material — normal and shear response never couple.
+  </div>
+
+
+<script>
+(function(){
+  const root = document.querySelector(".viz-lame-c");
+  if (!root) return;
+  const __q = (id) => root.querySelector("#" + id);
+
+const Eel = __q('lc-E');
+const nuEl = __q('lc-nu');
+const vE = __q('lc-vE');
+const vNu = __q('lc-vNu');
+
+function computeConstants(E, nu) {
+  const mu = E / (2 * (1 + nu));
+  const lambda = (E * nu) / ((1 + nu) * (1 - 2 * nu));
+  const K = E / (3 * (1 - 2 * nu));
+  return { mu, lambda, K };
+}
+
+function colorFor(val, maxAbs) {
+  if (val === 0) return 'transparent';
+  const t = Math.min(Math.abs(val) / maxAbs, 1);
+  const base = val > 0 ? [46, 134, 171] : [193, 68, 14]; // pos blue, neg red
+  const bg = [247, 247, 248];
+  const r = Math.round(bg[0] + (base[0]-bg[0])*t);
+  const g = Math.round(bg[1] + (base[1]-bg[1])*t);
+  const b = Math.round(bg[2] + (base[2]-bg[2])*t);
+  return `rgb(${r},${g},${b})`;
+}
+
+function drawHeatmap(lambda, mu) {
+  const M = [
+    [lambda+2*mu, lambda, lambda, 0,0,0],
+    [lambda, lambda+2*mu, lambda, 0,0,0],
+    [lambda, lambda, lambda+2*mu, 0,0,0],
+    [0,0,0, mu,0,0],
+    [0,0,0,0, mu,0],
+    [0,0,0,0,0, mu],
+  ];
+  const maxAbs = Math.max(Math.abs(lambda+2*mu), Math.abs(lambda), Math.abs(mu), 1e-6);
+  const cell = 44, pad = 30;
+  const svg = __q('lc-svg-heat');
+  let html = '';
+  const labels = ['11','22','33','23','13','12'];
+
+  for (let i = 0; i < 6; i++) {
+    html += `<text x="${pad - 6}" y="${pad + i*cell + cell/2 + 3}" text-anchor="end" class="heat-label">${labels[i]}</text>`;
+    html += `<text x="${pad + i*cell + cell/2}" y="${pad - 10}" text-anchor="middle" class="heat-label">${labels[i]}</text>`;
+  }
+
+  for (let i = 0; i < 6; i++) {
+    for (let j = 0; j < 6; j++) {
+      const val = M[i][j];
+      const x = pad + j*cell, y = pad + i*cell;
+      html += `<rect x="${x}" y="${y}" width="${cell-2}" height="${cell-2}" fill="${colorFor(val, maxAbs)}" stroke="var(--border)" stroke-width="0.5"/>`;
+      const textColor = Math.abs(val)/maxAbs > 0.55 ? '#fff' : 'var(--fg)';
+      const label = val === 0 ? '0' : (Math.abs(val) >= 100 ? val.toFixed(0) : val.toFixed(1));
+      html += `<text x="${x + (cell-2)/2}" y="${y + (cell-2)/2 + 3}" text-anchor="middle" class="heat-val" fill="${textColor}">${label}</text>`;
+    }
+  }
+  svg.innerHTML = html;
+}
+
+function drawCurve(E, nu) {
+  const svg = __q('lc-svg-curve');
+  const W = 320, H = 170, ml = 34, mr = 10, mt = 10, mb = 24;
+  const nuMin = -0.9, nuMax = 0.49;
+  const yCap = 4 * E; // clip for display so the asymptote is visible, not infinite
+
+  const pts = [];
+  const N = 140;
+  for (let k = 0; k <= N; k++) {
+    const nv = nuMin + (nuMax - nuMin) * k / N;
+    let lam = (E * nv) / ((1 + nv) * (1 - 2 * nv));
+    lam = Math.max(-yCap, Math.min(yCap, lam));
+    pts.push([nv, lam]);
+  }
+
+  const xScale = (v) => ml + (v - nuMin) / (nuMax - nuMin) * (W - ml - mr);
+  const yScale = (v) => H - mb - (v + yCap) / (2 * yCap) * (H - mt - mb);
+
+  const path = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${xScale(p[0]).toFixed(1)} ${yScale(p[1]).toFixed(1)}`).join(' ');
+
+  const curLambda = Math.max(-yCap, Math.min(yCap, (E * nu) / ((1 + nu) * (1 - 2 * nu))));
+  const cx = xScale(nu), cy = yScale(curLambda);
+  const zeroY = yScale(0);
+  const asymptoteX = xScale(0.5);
+
+  svg.innerHTML = `
+    <line x1="${ml}" y1="${zeroY}" x2="${W-mr}" y2="${zeroY}" stroke="var(--grid)" stroke-width="1"/>
+    <line x1="${asymptoteX}" y1="${mt}" x2="${asymptoteX}" y2="${H-mb}" stroke="var(--neg)" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="${asymptoteX}" y="${mt+8}" font-size="8.5" fill="var(--neg)" text-anchor="middle">ν=0.5</text>
+    <path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <circle cx="${cx}" cy="${cy}" r="4" fill="var(--accent)" stroke="var(--bg)" stroke-width="1.3"/>
+    <text x="${ml}" y="${H-6}" font-size="8.5" fill="var(--fg-muted)">ν=${nuMin}</text>
+    <text x="${W-mr}" y="${H-6}" font-size="8.5" fill="var(--fg-muted)" text-anchor="end">ν=0.49</text>
+    <text x="4" y="${mt+8}" font-size="8.5" fill="var(--fg-muted)">λ</text>
+  `;
+}
+
+function update() {
+  const E = parseFloat(Eel.value);
+  const nu = parseFloat(nuEl.value);
+  vE.textContent = `${E} GPa`;
+  vNu.textContent = nu.toFixed(3);
+
+  const { mu, lambda, K } = computeConstants(E, nu);
+
+  __q('lc-r-lambda').textContent = `${lambda.toFixed(1)} GPa`;
+  __q('lc-r-mu').textContent = `${mu.toFixed(1)} GPa`;
+  __q('lc-r-K').textContent = `${K.toFixed(1)} GPa`;
+
+  const warn = __q('lc-warn');
+  warn.classList.toggle('show', nu > 0.45);
+
+  drawHeatmap(lambda, mu);
+  drawCurve(E, nu);
+}
+
+Eel.addEventListener('input', update);
+nuEl.addEventListener('input', update);
+update();
+})();
+</script>
+</div>
 </section>
 <section id="what-do-λ-and-μ-mean-physically" class="level2">
 <h2 class="anchored" data-anchor-id="what-do-λ-and-μ-mean-physically">What do λ and μ mean physically?</h2>
 <p><span class="math inline">\(\mu\)</span> resists pure shape change (shear). <span class="math inline">\(\lambda\)</span> is subtler — it’s the stress that appears sideways <em>only when lateral strain is prevented</em> (confined loading), not something you’d feel in a free pull test.</p>
-<iframe class="interactive-frame" src="../interactives/lame_intuition.html"></iframe>
+<style>
+.viz-lame-i {
+  --bg: #ffffff; --fg: #1a1a1a; --fg-muted: #6b6b6b;
+    --panel-bg: #f7f7f8; --border: #e2e2e4; --grid: #dcdcde;
+    --mat: #2E86AB; --push: #C1440E; --pull: #3E8914; --wall: #6b6b6b;
+}
+@media (prefers-color-scheme: dark) {
+  .viz-lame-i {
+    --bg: #1c1c1e; --fg: #f0f0f0; --fg-muted: #a0a0a3;
+      --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
+  }
+}
+.viz-lame-i *, .viz-lame-i *::before, .viz-lame-i *::after {
+  box-sizing: border-box;
+}
+.viz-lame-i {
+  background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; padding: 22px 16px 36px;
+}
+.viz-lame-i .wrap {
+  max-width: 980px; margin: 0 auto;
+}
+.viz-lame-i h1 {
+  font-size: 1.25rem; font-weight: 600; text-align: center; margin: 0 0 4px;
+}
+.viz-lame-i .subtitle {
+  text-align: center; color: var(--fg-muted); font-size: 0.88rem; margin-bottom: 18px;
+}
+.viz-lame-i .controls {
+  display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
+    background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 20px; margin-bottom: 20px;
+}
+.viz-lame-i .slider-group {
+  min-width: 200px; flex: 1 1 200px; max-width: 260px;
+}
+.viz-lame-i .slider-group label {
+  display: flex; justify-content: space-between; font-size: 0.83rem; margin-bottom: 4px;
+}
+.viz-lame-i .slider-group label .val {
+  font-variant-numeric: tabular-nums; color: var(--fg-muted);
+}
+.viz-lame-i input[type="range"] {
+  width: 100%; accent-color: #555;
+}
+.viz-lame-i .panels {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+@media (max-width: 720px) {
+  .viz-lame-i .panels {
+    grid-template-columns: 1fr;
+  }
+}
+.viz-lame-i .panel {
+  background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center;
+}
+.viz-lame-i .panel h2 {
+  font-size: 0.95rem; margin: 2px 0 2px;
+}
+.viz-lame-i .panel .desc {
+  font-size: 0.78rem; color: var(--fg-muted); margin-bottom: 10px;
+}
+.viz-lame-i svg {
+  display: block; margin: 0 auto; max-width: 100%; height: auto;
+}
+.viz-lame-i .panel .readout {
+  margin-top: 10px; font-size: 0.85rem; font-variant-numeric: tabular-nums;
+}
+.viz-lame-i .panel .readout b {
+  font-weight: 700;
+}
+.viz-lame-i .note {
+  max-width: 760px; margin: 20px auto 0; font-size: 0.8rem; color: var(--fg-muted);
+    line-height: 1.55; text-align: center;
+}
+.viz-lame-i svg { width: 100%; height: auto; max-width: 460px; }
+.viz-lame-i .legend span { white-space: nowrap; }
+.viz-lame-i { margin: 0 0 1.5rem; padding: 0; font-family: inherit; }
+</style>
+
+<div class="viz-lame-i">
+<div class="subtitle">μ resists <i>shape</i> change; λ is the stress that shows up sideways when shape change is prevented</div>
+
+  <div class="controls">
+    <div class="slider-group">
+      <label>μ (shear modulus) <span class="val" id="li-vMu">40 GPa</span></label>
+      <input type="range" id="li-mu" min="5" max="100" step="1" value="40">
+    </div>
+    <div class="slider-group">
+      <label>λ (Lamé's 1st parameter) <span class="val" id="li-vLambda">60 GPa</span></label>
+      <input type="range" id="li-lambda" min="-20" max="150" step="1" value="60">
+    </div>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <h2 style="color:var(--mat)" class="anchored">μ — resistance to shape change</h2>
+      <div class="desc">Apply a shear strain γ; τ = μγ is the stress needed to hold it there</div>
+      <svg id="li-svg-shear" viewbox="0 0 260 220"></svg>
+      <div class="slider-group" style="margin:10px auto 0;">
+        <label>Shear strain γ <span class="val" id="li-vGamma">0.25</span></label>
+        <input type="range" id="li-gamma" min="0" max="0.5" step="0.01" value="0.25">
+      </div>
+      <div class="readout">τ = μγ = <b id="li-r-tau"></b></div>
+    </div>
+
+    <div class="panel">
+      <h2 style="color:var(--push)" class="anchored">λ — sideways stress when confined</h2>
+      <div class="desc">Squeeze/stretch a bar between rigid walls (ε_lateral locked at 0)</div>
+      <svg id="li-svg-confined" viewbox="0 0 260 220"></svg>
+      <div class="slider-group" style="margin:10px auto 0;">
+        <label>Axial strain ε <span class="val" id="li-vEpsA">0.15</span></label>
+        <input type="range" id="li-epsA" min="-0.3" max="0.3" step="0.01" value="0.15">
+      </div>
+      <div class="readout">σ_axial = (λ+2μ)ε = <b id="li-r-sigax"></b><br>σ_wall = λε = <b id="li-r-sigwall"></b></div>
+    </div>
+  </div>
+
+  <div class="note">
+    Left: shear an element with the walls free to move — no volume or lateral coupling involved, just μ
+    fighting the change of angle. Right: pull/push a bar but clamp its sides so it <b>can't</b> bulge or
+    neck sideways (ε_lateral = 0 by construction, not by Poisson relaxation) — the walls still feel a
+    push or pull, and that reaction is exactly λε. λ isn't a "stiffness" you can feel directly in an
+    unconstrained pull test (that's E); it only shows up once something stops the material from doing
+    what its Poisson's ratio would otherwise let it do. Note λ+2μ = M, the constrained (uniaxial-strain)
+    modulus — the same quantity that sets P-wave speed in geomechanics/seismology.
+  </div>
+
+
+<script>
+(function(){
+  const root = document.querySelector(".viz-lame-i");
+  if (!root) return;
+  const __q = (id) => root.querySelector("#" + id);
+
+const els = {
+  mu: __q('li-mu'),
+  lambda: __q('li-lambda'),
+  gamma: __q('li-gamma'),
+  epsA: __q('li-epsA'),
+};
+const vals = {
+  mu: __q('li-vMu'),
+  lambda: __q('li-vLambda'),
+  gamma: __q('li-vGamma'),
+  epsA: __q('li-vEpsA'),
+};
+
+function drawShear(gamma) {
+  const svg = __q('li-svg-shear');
+  const S = 100, x0 = 80, y0 = 60; // top-left of undeformed square, size S
+  // deformed: top edge shifts right by gamma*S, bottom fixed
+  const shift = gamma * S;
+  const pts = [
+    [x0, y0 + S],          // bottom-left
+    [x0 + S, y0 + S],      // bottom-right
+    [x0 + S + shift, y0],  // top-right
+    [x0 + shift, y0],      // top-left
+  ];
+  const defPath = pts.map(p => p.join(',')).join(' ');
+  const origPath = `${x0},${y0+S} ${x0+S},${y0+S} ${x0+S},${y0} ${x0},${y0}`;
+
+  svg.innerHTML = `
+    <polygon points="${origPath}" fill="none" stroke="var(--fg-muted)" stroke-width="1.2" stroke-dasharray="4,4"/>
+    <polygon points="${defPath}" fill="var(--mat)" fill-opacity="0.25" stroke="var(--mat)" stroke-width="2.2"/>
+    <line x1="${x0+shift}" y1="${y0-14}" x2="${x0+shift+40}" y2="${y0-14}" stroke="var(--fg)" stroke-width="1.6" marker-end="url(#li-arrH)"/>
+    <line x1="${x0}" y1="${y0+S+14}" x2="${x0-40}" y2="${y0+S+14}" stroke="var(--fg)" stroke-width="1.6" marker-end="url(#li-arrH)"/>
+    <text x="${x0+shift+20}" y="${y0-20}" font-size="9" fill="var(--fg)" text-anchor="middle">τ</text>
+    <text x="${x0-20}" y="${y0+S+28}" font-size="9" fill="var(--fg)" text-anchor="middle">τ</text>
+    <defs><marker id="li-arrH" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--fg)"/></marker></defs>
+  `;
+}
+
+function drawConfined(epsA, lambda) {
+  const svg = __q('li-svg-confined');
+  const W = 90, H0 = 100, x0 = 85, ycenter = 110;
+  const H = H0 * (1 + epsA);
+  const y0 = ycenter - H/2;
+  const y0orig = ycenter - H0/2;
+
+  const wallColor = 'var(--wall)';
+  const sigWall = lambda * epsA;
+  const tensile = sigWall > 0.5;   // wall pulls bar outward (bar "wants" to neck, wall resists)
+  const compressive = sigWall < -0.5; // wall pushes bar inward (bar "wants" to bulge, wall resists)
+  const wallArrowColor = tensile ? '#3E8914' : (compressive ? '#C1440E' : '#8a8a8a');
+  const axArrowColor = epsA > 0.002 ? '#3E8914' : (epsA < -0.002 ? '#C1440E' : '#8a8a8a');
+  const axDir = epsA >= 0 ? 1 : -1;
+  // dirSign=1 -> arrows point outward (tensile wall reaction), -1 -> inward (compressive)
+  const dirSign = tensile ? 1 : (compressive ? -1 : 0);
+
+  svg.innerHTML = `
+    <rect x="${x0}" y="${y0orig}" width="${W}" height="${H0}" fill="none" stroke="var(--fg-muted)" stroke-width="1.2" stroke-dasharray="4,4"/>
+    <rect x="${x0}" y="${y0}" width="${W}" height="${H}" fill="var(--mat)" fill-opacity="0.25" stroke="var(--mat)" stroke-width="2.2"/>
+
+    <!-- rigid walls (hatched) -->
+    <line x1="${x0-6}" y1="20" x2="${x0-6}" y2="200" stroke="${wallColor}" stroke-width="3"/>
+    <line x1="${x0+W+6}" y1="20" x2="${x0+W+6}" y2="200" stroke="${wallColor}" stroke-width="3"/>
+
+    <!-- wall reaction arrows -->
+    <line x1="${x0-10}" y1="${ycenter}" x2="${x0-10 - 16*dirSign}" y2="${ycenter}" stroke="${wallArrowColor}" stroke-width="1.8" marker-end="url(#li-arrWall)"/>
+    <line x1="${x0+W+10}" y1="${ycenter}" x2="${x0+W+10 + 16*dirSign}" y2="${ycenter}" stroke="${wallArrowColor}" stroke-width="1.8" marker-end="url(#li-arrWall)"/>
+
+    <!-- axial arrows -->
+    <line x1="${x0+W/2}" y1="${y0}" x2="${x0+W/2}" y2="${y0 - 20*axDir}" stroke="${axArrowColor}" stroke-width="1.8" marker-end="url(#li-arrAx)"/>
+    <line x1="${x0+W/2}" y1="${y0+H}" x2="${x0+W/2}" y2="${y0+H + 20*axDir}" stroke="${axArrowColor}" stroke-width="1.8" marker-end="url(#li-arrAx)"/>
+
+    <defs>
+      <marker id="li-arrWall" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="${wallArrowColor}"/></marker>
+      <marker id="li-arrAx" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="${axArrowColor}"/></marker>
+    </defs>
+  `;
+}
+
+function update() {
+  const mu = parseFloat(els.mu.value);
+  const lambda = parseFloat(els.lambda.value);
+  const gamma = parseFloat(els.gamma.value);
+  const epsA = parseFloat(els.epsA.value);
+
+  vals.mu.textContent = `${mu} GPa`;
+  vals.lambda.textContent = `${lambda} GPa`;
+  vals.gamma.textContent = gamma.toFixed(2);
+  vals.epsA.textContent = epsA.toFixed(2);
+
+  const tau = mu * gamma;
+  const sigAx = (lambda + 2*mu) * epsA;
+  const sigWall = lambda * epsA;
+
+  __q('li-r-tau').textContent = `${tau.toFixed(1)} GPa`;
+  __q('li-r-sigax').textContent = `${sigAx.toFixed(1)} GPa`;
+  __q('li-r-sigwall').textContent = `${sigWall.toFixed(1)} GPa`;
+
+  drawShear(gamma);
+  drawConfined(epsA, lambda);
+}
+
+Object.values(els).forEach(el => el.addEventListener('input', update));
+update();
+})();
+</script>
+</div>
 
 
 </section>
