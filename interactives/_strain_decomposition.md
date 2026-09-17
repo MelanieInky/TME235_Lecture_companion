@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Strain Decomposition — Interactive</title>
+```{=html}
 <style>
-  :root {
-    --bg: #ffffff;
+.viz-strain {
+  --bg: #ffffff;
     --fg: #1a1a1a;
     --fg-muted: #6b6b6b;
     --panel-bg: #f7f7f8;
@@ -14,50 +10,44 @@
     --accent-dev: #C1440E;
     --accent-tot: #3E8914;
     --grid: #e8e8ea;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #1c1c1e;
+}
+@media (prefers-color-scheme: dark) {
+  .viz-strain {
+    --bg: #1c1c1e;
       --fg: #f0f0f0;
       --fg-muted: #a0a0a3;
       --panel-bg: #262628;
       --border: #3a3a3c;
       --grid: #333335;
-    }
   }
-  :root[data-theme="dark"] {
-    --bg: #1c1c1e;
-    --fg: #f0f0f0;
-    --fg-muted: #a0a0a3;
-    --panel-bg: #262628;
-    --border: #3a3a3c;
-    --grid: #333335;
-  }
-
-  * { box-sizing: border-box; }
-  body {
-    background: var(--bg);
+}
+.viz-strain *, .viz-strain *::before, .viz-strain *::after {
+  box-sizing: border-box;
+}
+.viz-strain {
+  background: var(--bg);
     color: var(--fg);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 24px 16px 40px;
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; }
-  h1 {
-    font-size: 1.3rem;
+}
+.viz-strain .wrap {
+  max-width: 1080px; margin: 0 auto;
+}
+.viz-strain h1 {
+  font-size: 1.3rem;
     font-weight: 600;
     text-align: center;
     margin: 0 0 4px;
-  }
-  .subtitle {
-    text-align: center;
+}
+.viz-strain .subtitle {
+  text-align: center;
     color: var(--fg-muted);
     font-size: 0.9rem;
     margin-bottom: 24px;
-  }
-
-  .controls {
-    display: flex;
+}
+.viz-strain .controls {
+  display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
@@ -66,129 +56,141 @@
     border-radius: 12px;
     padding: 18px 20px;
     margin-bottom: 22px;
-  }
-  .slider-group {
-    display: flex;
+}
+.viz-strain .slider-group {
+  display: flex;
     flex-direction: column;
     min-width: 210px;
     flex: 1 1 210px;
     max-width: 300px;
-  }
-  .slider-group label {
-    display: flex;
+}
+.viz-strain .slider-group label {
+  display: flex;
     justify-content: space-between;
     font-size: 0.85rem;
     margin-bottom: 6px;
-  }
-  .slider-group label .val {
-    font-variant-numeric: tabular-nums;
+}
+.viz-strain .slider-group label .val {
+  font-variant-numeric: tabular-nums;
     color: var(--fg-muted);
-  }
-  input[type="range"] {
-    width: 100%;
+}
+.viz-strain input[type="range"] {
+  width: 100%;
     accent-color: #555;
-  }
-  .presets {
-    display: flex;
+}
+.viz-strain .presets {
+  display: flex;
     gap: 8px;
     justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 22px;
-  }
-  .presets button {
-    font-size: 0.8rem;
+}
+.viz-strain .presets button {
+  font-size: 0.8rem;
     padding: 6px 12px;
     border-radius: 999px;
     border: 1px solid var(--border);
     background: var(--panel-bg);
     color: var(--fg);
     cursor: pointer;
-  }
-  .presets button:hover { border-color: var(--fg-muted); }
-
-  .panels {
-    display: grid;
+}
+.viz-strain .presets button:hover {
+  border-color: var(--fg-muted);
+}
+.viz-strain .panels {
+  display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
+}
+@media (max-width: 720px) {
+  .viz-strain .panels {
+    grid-template-columns: 1fr;
   }
-  @media (max-width: 720px) {
-    .panels { grid-template-columns: 1fr; }
-  }
-  .panel {
-    background: var(--panel-bg);
+}
+.viz-strain .panel {
+  background: var(--panel-bg);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 12px 12px 16px;
     text-align: center;
     overflow-x: auto;
-  }
-  .panel h2 {
-    font-size: 0.92rem;
+}
+.viz-strain .panel h2 {
+  font-size: 0.92rem;
     font-weight: 600;
     margin: 4px 0 2px;
-  }
-  .panel .desc {
-    font-size: 0.78rem;
+}
+.viz-strain .panel .desc {
+  font-size: 0.78rem;
     color: var(--fg-muted);
     margin-bottom: 8px;
-  }
-  .panel .area {
-    font-size: 0.78rem;
+}
+.viz-strain .panel .area {
+  font-size: 0.78rem;
     color: var(--fg-muted);
     margin-top: 6px;
-  }
-  svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
-
-  .matrix-row {
-    display: flex;
+}
+.viz-strain svg {
+  display: block; margin: 0 auto; max-width: 100%; height: auto;
+}
+.viz-strain .matrix-row {
+  display: flex;
     justify-content: center;
     gap: 28px;
     flex-wrap: wrap;
     margin-top: 22px;
     font-size: 0.85rem;
-  }
-  .matrix-block { text-align: center; }
-  .matrix-block .label { color: var(--fg-muted); margin-bottom: 4px; font-size: 0.78rem; }
-  table.mat {
-    border-collapse: collapse;
+}
+.viz-strain .matrix-block {
+  text-align: center;
+}
+.viz-strain .matrix-block .label {
+  color: var(--fg-muted); margin-bottom: 4px; font-size: 0.78rem;
+}
+.viz-strain table.mat {
+  border-collapse: collapse;
     margin: 0 auto;
-  }
-  table.mat td {
-    padding: 2px 10px;
+}
+.viz-strain table.mat td {
+  padding: 2px 10px;
     font-variant-numeric: tabular-nums;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-  }
-  table.mat tr:first-child td { border-top: 1.5px solid var(--fg-muted); }
-  table.mat tr:last-child td { border-bottom: 1.5px solid var(--fg-muted); }
-
-  .note {
-    max-width: 640px;
+}
+.viz-strain table.mat tr:first-child td {
+  border-top: 1.5px solid var(--fg-muted);
+}
+.viz-strain table.mat tr:last-child td {
+  border-bottom: 1.5px solid var(--fg-muted);
+}
+.viz-strain .note {
+  max-width: 640px;
     margin: 26px auto 0;
     font-size: 0.8rem;
     color: var(--fg-muted);
     line-height: 1.5;
     text-align: center;
-  }
+}
+.viz-strain svg { width: 100%; height: auto; max-width: 460px; }
+.viz-strain .legend span { white-space: nowrap; }
+.viz-strain { margin: 0 0 1.5rem; padding: 0; font-family: inherit; }
 </style>
-</head>
-<body>
-<div class="wrap">
-  <h1>Geometric decomposition of strain</h1>
-  <div class="subtitle">ε = ε<sub>sph</sub> + ε<sub>dev</sub> — drag the sliders to set ε₁₁, ε₂₂, ε₁₂</div>
+
+<div class="viz-strain">
+<div class="subtitle">ε = ε<sub>sph</sub> + ε<sub>dev</sub> — drag the sliders to set ε₁₁, ε₂₂, ε₁₂</div>
 
   <div class="controls">
     <div class="slider-group">
-      <label>ε₁₁ <span class="val" id="v11">0.18</span></label>
-      <input type="range" id="e11" min="-0.4" max="0.4" step="0.01" value="0.18">
+      <label>ε₁₁ <span class="val" id="sd-v11">0.18</span></label>
+      <input type="range" id="sd-e11" min="-0.4" max="0.4" step="0.01" value="0.18">
     </div>
     <div class="slider-group">
-      <label>ε₂₂ <span class="val" id="v22">-0.06</span></label>
-      <input type="range" id="e22" min="-0.4" max="0.4" step="0.01" value="-0.06">
+      <label>ε₂₂ <span class="val" id="sd-v22">-0.06</span></label>
+      <input type="range" id="sd-e22" min="-0.4" max="0.4" step="0.01" value="-0.06">
     </div>
     <div class="slider-group">
-      <label>ε₁₂ = ε₂₁ <span class="val" id="v12">0.10</span></label>
-      <input type="range" id="e12" min="-0.4" max="0.4" step="0.01" value="0.10">
+      <label>ε₁₂ = ε₂₁ <span class="val" id="sd-v12">0.10</span></label>
+      <input type="range" id="sd-e12" min="-0.4" max="0.4" step="0.01" value="0.10">
     </div>
   </div>
 
@@ -204,35 +206,35 @@
     <div class="panel">
       <h2 style="color:var(--accent-sph)">Volumetric (spherical)</h2>
       <div class="desc">ε<sub>sph</sub> = ε<sub>v</sub> I — area change, no shape change</div>
-      <svg id="svg-sph" viewBox="-100 -100 200 200" width="260" height="260"></svg>
-      <div class="area" id="area-sph"></div>
+      <svg id="sd-svg-sph" viewBox="-100 -100 200 200"></svg>
+      <div class="area" id="sd-area-sph"></div>
     </div>
     <div class="panel">
       <h2 style="color:var(--accent-dev)">Deviatoric</h2>
       <div class="desc">ε<sub>dev</sub> = ε − ε<sub>v</sub> I — shape change, tr = 0</div>
-      <svg id="svg-dev" viewBox="-100 -100 200 200" width="260" height="260"></svg>
-      <div class="area" id="area-dev"></div>
+      <svg id="sd-svg-dev" viewBox="-100 -100 200 200"></svg>
+      <div class="area" id="sd-area-dev"></div>
     </div>
     <div class="panel">
       <h2 style="color:var(--accent-tot)">Total strain</h2>
       <div class="desc">ε = ε<sub>sph</sub> + ε<sub>dev</sub></div>
-      <svg id="svg-tot" viewBox="-100 -100 200 200" width="260" height="260"></svg>
-      <div class="area" id="area-tot"></div>
+      <svg id="sd-svg-tot" viewBox="-100 -100 200 200"></svg>
+      <div class="area" id="sd-area-tot"></div>
     </div>
   </div>
 
   <div class="matrix-row">
     <div class="matrix-block">
       <div class="label">ε</div>
-      <table class="mat" id="mat-full"></table>
+      <table class="mat" id="sd-mat-full"></table>
     </div>
     <div class="matrix-block">
       <div class="label">ε<sub>sph</sub> = ε<sub>v</sub>I, ε<sub>v</sub> = ½tr(ε)</div>
-      <table class="mat" id="mat-sph"></table>
+      <table class="mat" id="sd-mat-sph"></table>
     </div>
     <div class="matrix-block">
       <div class="label">ε<sub>dev</sub> (tr = 0)</div>
-      <table class="mat" id="mat-dev"></table>
+      <table class="mat" id="sd-mat-dev"></table>
     </div>
   </div>
 
@@ -241,18 +243,23 @@
     infinitesimal linearization — so at large strain the "area-preserving" property of the
     deviatoric part is only approximate (visible as small drift in the reported areas).
   </div>
-</div>
+
 
 <script>
+(function(){
+  const root = document.querySelector(".viz-strain");
+  if (!root) return;
+  const __q = (id) => root.querySelector("#" + id);
+
 const els = {
-  e11: document.getElementById('e11'),
-  e22: document.getElementById('e22'),
-  e12: document.getElementById('e12'),
+  e11: __q('sd-e11'),
+  e22: __q('sd-e22'),
+  e12: __q('sd-e12'),
 };
 const valEls = {
-  e11: document.getElementById('v11'),
-  e22: document.getElementById('v22'),
-  e12: document.getElementById('v12'),
+  e11: __q('sd-v11'),
+  e22: __q('sd-v22'),
+  e12: __q('sd-v12'),
 };
 
 const square = [[-50,-50],[50,-50],[50,50],[-50,50]];
@@ -272,7 +279,7 @@ function polygonArea(pts) {
 }
 
 function drawPanel(svgId, e, color) {
-  const svg = document.getElementById(svgId);
+  const svg = __q('sd-' + svgId);
   const F = [[1+e[0][0], e[0][1]], [e[1][0], 1+e[1][1]]];
   const defPts = square.map(p => matVec(F, p));
   const origPath = square.map(p => p.join(',')).join(' ');
@@ -292,7 +299,7 @@ function fmt(x) {
 }
 
 function matTable(id, m) {
-  document.getElementById(id).innerHTML = `
+  __q('sd-' + id).innerHTML = `
     <tr><td>${fmt(m[0][0])}</td><td>${fmt(m[0][1])}</td></tr>
     <tr><td>${fmt(m[1][0])}</td><td>${fmt(m[1][1])}</td></tr>
   `;
@@ -312,13 +319,13 @@ function update() {
   const sph = [[ev, 0], [0, ev]];
   const dev = [[e11 - ev, e12], [e12, e22 - ev]];
 
-  const aSph = drawPanel('svg-sph', sph, getComputedStyle(document.documentElement).getPropertyValue('--accent-sph').trim());
-  const aDev = drawPanel('svg-dev', dev, getComputedStyle(document.documentElement).getPropertyValue('--accent-dev').trim());
-  const aTot = drawPanel('svg-tot', eps, getComputedStyle(document.documentElement).getPropertyValue('--accent-tot').trim());
+  const aSph = drawPanel('svg-sph', sph, getComputedStyle(root).getPropertyValue('--accent-sph').trim());
+  const aDev = drawPanel('svg-dev', dev, getComputedStyle(root).getPropertyValue('--accent-dev').trim());
+  const aTot = drawPanel('svg-tot', eps, getComputedStyle(root).getPropertyValue('--accent-tot').trim());
 
-  document.getElementById('area-sph').textContent = `area = ${aSph.toFixed(3)} (orig. 1.000)`;
-  document.getElementById('area-dev').textContent = `area = ${aDev.toFixed(3)} (orig. 1.000)`;
-  document.getElementById('area-tot').textContent = `area = ${aTot.toFixed(3)} (orig. 1.000)`;
+  __q('sd-area-sph').textContent = `area = ${aSph.toFixed(3)} (orig. 1.000)`;
+  __q('sd-area-dev').textContent = `area = ${aDev.toFixed(3)} (orig. 1.000)`;
+  __q('sd-area-tot').textContent = `area = ${aTot.toFixed(3)} (orig. 1.000)`;
 
   matTable('mat-full', eps);
   matTable('mat-sph', sph);
@@ -327,7 +334,7 @@ function update() {
 
 Object.values(els).forEach(el => el.addEventListener('input', update));
 
-document.querySelectorAll('.presets button').forEach(btn => {
+root.querySelectorAll('.presets button').forEach(btn => {
   btn.addEventListener('click', () => {
     const [a,b,c] = btn.dataset.e.split(',').map(Number);
     els.e11.value = a; els.e22.value = b; els.e12.value = c;
@@ -336,6 +343,7 @@ document.querySelectorAll('.presets button').forEach(btn => {
 });
 
 update();
+})();
 </script>
-</body>
-</html>
+</div>
+```

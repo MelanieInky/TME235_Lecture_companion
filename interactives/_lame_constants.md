@@ -1,108 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Lamé constants ↔ E, ν</title>
+```{=html}
 <style>
-  :root {
-    --bg: #ffffff; --fg: #1a1a1a; --fg-muted: #6b6b6b;
+.viz-lame-c {
+  --bg: #ffffff; --fg: #1a1a1a; --fg-muted: #6b6b6b;
     --panel-bg: #f7f7f8; --border: #e2e2e4; --grid: #dcdcde;
     --pos: #2E86AB; --neg: #C1440E; --accent: #3E8914;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #1c1c1e; --fg: #f0f0f0; --fg-muted: #a0a0a3;
-      --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
-    }
-  }
-  :root[data-theme="dark"] {
+}
+@media (prefers-color-scheme: dark) {
+  .viz-lame-c {
     --bg: #1c1c1e; --fg: #f0f0f0; --fg-muted: #a0a0a3;
-    --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
+      --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
   }
-  * { box-sizing: border-box; }
-  body {
-    background: var(--bg); color: var(--fg);
+}
+.viz-lame-c *, .viz-lame-c *::before, .viz-lame-c *::after {
+  box-sizing: border-box;
+}
+.viz-lame-c {
+  background: var(--bg); color: var(--fg);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0; padding: 22px 16px 36px;
-  }
-  .wrap { max-width: 1040px; margin: 0 auto; }
-  h1 { font-size: 1.25rem; font-weight: 600; text-align: center; margin: 0 0 4px; }
-  .subtitle { text-align: center; color: var(--fg-muted); font-size: 0.88rem; margin-bottom: 20px; }
-
-  .controls {
-    display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
+}
+.viz-lame-c .wrap {
+  max-width: 1040px; margin: 0 auto;
+}
+.viz-lame-c h1 {
+  font-size: 1.25rem; font-weight: 600; text-align: center; margin: 0 0 4px;
+}
+.viz-lame-c .subtitle {
+  text-align: center; color: var(--fg-muted); font-size: 0.88rem; margin-bottom: 20px;
+}
+.viz-lame-c .controls {
+  display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
     background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
     padding: 16px 20px; margin-bottom: 18px;
-  }
-  .slider-group { min-width: 240px; flex: 1 1 240px; max-width: 360px; }
-  .slider-group label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; }
-  .slider-group label .val { font-variant-numeric: tabular-nums; color: var(--fg-muted); }
-  input[type="range"] { width: 100%; accent-color: #555; }
-
-  .warning {
-    text-align: center; font-size: 0.78rem; font-weight: 600; padding: 6px 10px;
+}
+.viz-lame-c .slider-group {
+  min-width: 240px; flex: 1 1 240px; max-width: 360px;
+}
+.viz-lame-c .slider-group label {
+  display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px;
+}
+.viz-lame-c .slider-group label .val {
+  font-variant-numeric: tabular-nums; color: var(--fg-muted);
+}
+.viz-lame-c input[type="range"] {
+  width: 100%; accent-color: #555;
+}
+.viz-lame-c .warning {
+  text-align: center; font-size: 0.78rem; font-weight: 600; padding: 6px 10px;
     border-radius: 8px; margin: 0 auto 18px; max-width: 520px; display: none;
+}
+.viz-lame-c .warning.show {
+  display: block; background: rgba(193,68,14,0.18); color: var(--neg);
+}
+.viz-lame-c .layout {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; align-items: start;
+}
+@media (max-width: 760px) {
+  .viz-lame-c .layout {
+    grid-template-columns: 1fr;
   }
-  .warning.show { display: block; background: color-mix(in srgb, var(--neg) 18%, transparent); color: var(--neg); }
-
-  .layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; align-items: start; }
-  @media (max-width: 760px) { .layout { grid-template-columns: 1fr; } }
-
-  .panel { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
-  .panel h3 { font-size: 0.85rem; margin: 0 0 10px; color: var(--fg-muted); font-weight: 600; }
-
-  .readouts { font-size: 0.86rem; line-height: 1.9; }
-  .readouts .row { display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding: 2px 0; }
-  .readouts .row span:last-child { font-variant-numeric: tabular-nums; }
-  .formula { font-size: 0.75rem; color: var(--fg-muted); margin-top: 10px; line-height: 1.6; }
-
-  svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
-  .heat-label { font-size: 9px; fill: var(--fg-muted); }
-  .heat-val { font-size: 9.5px; font-weight: 600; }
-
-  .note {
-    max-width: 720px; margin: 20px auto 0; font-size: 0.78rem; color: var(--fg-muted);
+}
+.viz-lame-c .panel {
+  background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px;
+}
+.viz-lame-c .panel h3 {
+  font-size: 0.85rem; margin: 0 0 10px; color: var(--fg-muted); font-weight: 600;
+}
+.viz-lame-c .readouts {
+  font-size: 0.86rem; line-height: 1.9;
+}
+.viz-lame-c .readouts .row {
+  display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding: 2px 0;
+}
+.viz-lame-c .readouts .row span:last-child {
+  font-variant-numeric: tabular-nums;
+}
+.viz-lame-c .formula {
+  font-size: 0.75rem; color: var(--fg-muted); margin-top: 10px; line-height: 1.6;
+}
+.viz-lame-c svg {
+  display: block; margin: 0 auto; max-width: 100%; height: auto;
+}
+.viz-lame-c .heat-label {
+  font-size: 9px; fill: var(--fg-muted);
+}
+.viz-lame-c .heat-val {
+  font-size: 9.5px; font-weight: 600;
+}
+.viz-lame-c .note {
+  max-width: 720px; margin: 20px auto 0; font-size: 0.78rem; color: var(--fg-muted);
     line-height: 1.5; text-align: center;
-  }
+}
+.viz-lame-c svg { width: 100%; height: auto; max-width: 460px; }
+.viz-lame-c .legend span { white-space: nowrap; }
+.viz-lame-c { margin: 0 0 1.5rem; padding: 0; font-family: inherit; }
 </style>
-</head>
-<body>
-<div class="wrap">
-  <h1>Lamé constants ↔ (E, ν)</h1>
-  <div class="subtitle">Live isotropic elasticity conversion and 6×6 Voigt stiffness matrix (order 11,22,33,23,13,12)</div>
+
+<div class="viz-lame-c">
+<div class="subtitle">Live isotropic elasticity conversion and 6×6 Voigt stiffness matrix (order 11,22,33,23,13,12)</div>
 
   <div class="controls">
     <div class="slider-group">
-      <label>E (Young's modulus) <span class="val" id="vE">70 GPa</span></label>
-      <input type="range" id="E" min="10" max="300" step="1" value="70">
+      <label>E (Young's modulus) <span class="val" id="lc-vE">70 GPa</span></label>
+      <input type="range" id="lc-E" min="10" max="300" step="1" value="70">
     </div>
     <div class="slider-group">
-      <label>ν (Poisson's ratio) <span class="val" id="vNu">0.33</span></label>
-      <input type="range" id="nu" min="-0.90" max="0.49" step="0.005" value="0.33">
+      <label>ν (Poisson's ratio) <span class="val" id="lc-vNu">0.33</span></label>
+      <input type="range" id="lc-nu" min="-0.90" max="0.49" step="0.005" value="0.33">
     </div>
   </div>
 
-  <div class="warning" id="warn">Approaching the incompressible limit (ν → 0.5): λ and K diverge. Common for rubber-like materials; not physical for most metals/alloys.</div>
+  <div class="warning" id="lc-warn">Approaching the incompressible limit (ν → 0.5): λ and K diverge. Common for rubber-like materials; not physical for most metals/alloys.</div>
 
   <div class="layout">
     <div class="panel">
       <h3>DERIVED CONSTANTS</h3>
       <div class="readouts">
-        <div class="row"><span>λ (Lamé's first parameter)</span><span id="r-lambda"></span></div>
-        <div class="row"><span>μ = G (shear modulus)</span><span id="r-mu"></span></div>
-        <div class="row"><span>K (bulk modulus)</span><span id="r-K"></span></div>
+        <div class="row"><span>λ (Lamé's first parameter)</span><span id="lc-r-lambda"></span></div>
+        <div class="row"><span>μ = G (shear modulus)</span><span id="lc-r-mu"></span></div>
+        <div class="row"><span>K (bulk modulus)</span><span id="lc-r-K"></span></div>
       </div>
       <div class="formula">
         μ = E / [2(1+ν)] &nbsp;·&nbsp; λ = Eν / [(1+ν)(1−2ν)] &nbsp;·&nbsp; K = E / [3(1−2ν)] = λ + 2μ/3
       </div>
 
       <h3 style="margin-top:18px">λ(ν) AT FIXED E — SINGULARITY AT ν=0.5</h3>
-      <svg id="svg-curve" viewBox="0 0 320 170" width="320" height="170"></svg>
+      <svg id="lc-svg-curve" viewBox="0 0 320 170"></svg>
     </div>
 
     <div class="panel">
       <h3>ISOTROPIC STIFFNESS MATRIX C (VOIGT)</h3>
-      <svg id="svg-heat" viewBox="0 0 300 300" width="300" height="300"></svg>
+      <svg id="lc-svg-heat" viewBox="0 0 300 300"></svg>
     </div>
   </div>
 
@@ -111,13 +139,18 @@
     terms equal to μ (not 2μ) because γ_ij = 2ε_ij already carries the factor of two. Off-diagonal 4-5-6
     blocks are zero for an isotropic material — normal and shear response never couple.
   </div>
-</div>
+
 
 <script>
-const Eel = document.getElementById('E');
-const nuEl = document.getElementById('nu');
-const vE = document.getElementById('vE');
-const vNu = document.getElementById('vNu');
+(function(){
+  const root = document.querySelector(".viz-lame-c");
+  if (!root) return;
+  const __q = (id) => root.querySelector("#" + id);
+
+const Eel = __q('lc-E');
+const nuEl = __q('lc-nu');
+const vE = __q('lc-vE');
+const vNu = __q('lc-vNu');
 
 function computeConstants(E, nu) {
   const mu = E / (2 * (1 + nu));
@@ -148,7 +181,7 @@ function drawHeatmap(lambda, mu) {
   ];
   const maxAbs = Math.max(Math.abs(lambda+2*mu), Math.abs(lambda), Math.abs(mu), 1e-6);
   const cell = 44, pad = 30;
-  const svg = document.getElementById('svg-heat');
+  const svg = __q('lc-svg-heat');
   let html = '';
   const labels = ['11','22','33','23','13','12'];
 
@@ -171,7 +204,7 @@ function drawHeatmap(lambda, mu) {
 }
 
 function drawCurve(E, nu) {
-  const svg = document.getElementById('svg-curve');
+  const svg = __q('lc-svg-curve');
   const W = 320, H = 170, ml = 34, mr = 10, mt = 10, mb = 24;
   const nuMin = -0.9, nuMax = 0.49;
   const yCap = 4 * E; // clip for display so the asymptote is visible, not infinite
@@ -215,11 +248,11 @@ function update() {
 
   const { mu, lambda, K } = computeConstants(E, nu);
 
-  document.getElementById('r-lambda').textContent = `${lambda.toFixed(1)} GPa`;
-  document.getElementById('r-mu').textContent = `${mu.toFixed(1)} GPa`;
-  document.getElementById('r-K').textContent = `${K.toFixed(1)} GPa`;
+  __q('lc-r-lambda').textContent = `${lambda.toFixed(1)} GPa`;
+  __q('lc-r-mu').textContent = `${mu.toFixed(1)} GPa`;
+  __q('lc-r-K').textContent = `${K.toFixed(1)} GPa`;
 
-  const warn = document.getElementById('warn');
+  const warn = __q('lc-warn');
   warn.classList.toggle('show', nu > 0.45);
 
   drawHeatmap(lambda, mu);
@@ -229,6 +262,7 @@ function update() {
 Eel.addEventListener('input', update);
 nuEl.addEventListener('input', update);
 update();
+})();
 </script>
-</body>
-</html>
+</div>
+```

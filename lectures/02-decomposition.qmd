@@ -62,6 +62,4 @@ The following interactive illustration computes the deviatoric part and spherica
 > The area change is due to the spherical part and the deviatoric part deforms the solid but keeps the area constant. But this only holds for infinitesimal deformation!
 
 
-```{=html}
-<iframe class="interactive-frame" src="../interactives/strain_decomposition.html"></iframe>
-```
+{{< include ../interactives/_strain_decomposition.md >}}

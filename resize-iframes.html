@@ -1,0 +1,48 @@
+<script>
+(function () {
+  function attach(iframe) {
+    function measure() {
+      try {
+        var doc = iframe.contentDocument;
+        if (!doc || !doc.body) return;
+        var h = Math.max(
+          doc.documentElement.scrollHeight,
+          doc.documentElement.offsetHeight,
+          doc.body.scrollHeight,
+          doc.body.offsetHeight
+        );
+        if (h > 0) iframe.style.height = (h + 16) + 'px';
+      } catch (e) { /* not ready yet */ }
+    }
+
+    function hook() {
+      measure();
+      try {
+        var doc = iframe.contentDocument;
+        if (!doc || !doc.body) return;
+        if (window.ResizeObserver) {
+          new ResizeObserver(measure).observe(doc.body);
+        }
+        if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(measure);
+        [50, 200, 600, 1200].forEach(function (t) { setTimeout(measure, t); });
+      } catch (e) {}
+    }
+
+    iframe.addEventListener('load', hook);
+    window.addEventListener('resize', measure);
+    try {
+      if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') hook();
+    } catch (e) {}
+  }
+
+  function init() {
+    document.querySelectorAll('iframe.interactive-frame').forEach(attach);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

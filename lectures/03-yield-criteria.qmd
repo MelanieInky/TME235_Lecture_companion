@@ -31,9 +31,8 @@ $$
 
 In the following cell, you can play around the two criterion and see when they differ.
 
-```{=html}
-<iframe class="interactive-frame" src="../interactives/pi_plane_yield.html"></iframe>
-```
+{{< include ../interactives/_pi_plane_yield.md >}}
+
 
 The two criteria always agree at the hexagon's corners and diverge most at the
 edge midpoints (pure-shear states), where Tresca is more conservative by $2/\sqrt{3}\approx1.155$.

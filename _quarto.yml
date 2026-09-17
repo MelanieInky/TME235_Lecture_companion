@@ -27,6 +27,7 @@ format:
     theme: cosmo
     toc: true
     css: styles.css
+    include-after-body: resize_iframes.html
     code-fold: false
     mainfont: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
 

@@ -22,5 +22,8 @@
   },
   "problems/index.qmd": {
     "index.html": "00280054"
+  },
+  "problems/00-helper_functions.qmd": {
+    "00-helper_functions.html": "4bdb99de"
   }
 }
