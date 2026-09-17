@@ -2,6 +2,29 @@
 title: "Elastic Constants: E, ν, λ, μ"
 ---
 
+
+
+## Conversion table for isotropic elastic constants
+
+In the lecture notes, (1.13) and (1.14) give the relationship between the pair $(E,\nu)$ and $(\mu, \lambda)$. You can find a full relationship table between each parameters on Wikipedia.
+
+https://en.wikipedia.org/wiki/Template:Elastic_moduli
+
+We reproduce it with only $E,\nu,\mu,\lambda$ to make it more readable.
+
+| Given | $E$ | $\nu$ | $\lambda$ | $\mu$ |
+|---|---|---|---|---|
+| $(E,\nu)$ | – | – | $\dfrac{E\nu}{(1+\nu)(1-2\nu)}$ | $\dfrac{E}{2(1+\nu)}$ |
+| $(E,\lambda)$ | – | $\dfrac{2\lambda}{E+\lambda+R}$| – | $\dfrac{E-3\lambda+R}{4}$ |
+| $(E,\mu)$ | – | $\dfrac{E}{2\mu}-1$ | $\dfrac{\mu(E-2\mu)}{3\mu-E}$ | – |
+| $(\nu,\lambda)$ | $\dfrac{\lambda(1+\nu)(1-2\nu)}{\nu}$ | – | – | $\dfrac{\lambda(1-2\nu)}{2\nu}$ |
+| $(\nu,\mu)$ | $2\mu(1+\nu)$ | – | $\dfrac{2\mu\nu}{1-2\nu}$ | – |
+| $(\lambda,\mu)$ | $\dfrac{\mu(3\lambda+2\mu)}{\lambda+\mu}$ | $\dfrac{\lambda}{2(\lambda+\mu)}$ | – | – |
+
+: $R=\pm \sqrt{E^2+9\lambda^2+2E\lambda}$.
+
+To give a more intuitive understanding of the parameters, you can use the interactive widgets below:
+
 ## Poisson's ratio — what does it mean?
 
 Pull a bar and it usually gets thinner — that lateral response is set by $\nu$. Try the

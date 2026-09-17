@@ -8,8 +8,8 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: lectures/01-stress-strain.qmd
-        text: Stress & Strain
+      - href: lectures/01-voigt_notation.qmd
+        text: Voigt notation
       - href: lectures/02-decomposition.qmd
         text: Deviatoric/Spherical
       - href: lectures/03-yield-criteria.qmd

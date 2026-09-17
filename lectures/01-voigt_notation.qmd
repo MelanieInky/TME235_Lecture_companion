@@ -1,0 +1,52 @@
+---
+title: "Voigt notation"
+---
+
+
+The Voigt notation is a convenient way to write the generalized Hooke law, by writing the component of the strain and stress tensor as vectors.
+
+### Stress tensor → Voigt vector
+
+$$
+\boldsymbol{\sigma} =
+\begin{pmatrix}
+\sigma_{11} & \sigma_{12} & \sigma_{13} \\
+\sigma_{21} & \sigma_{22} & \sigma_{23} \\
+\sigma_{31} & \sigma_{32} & \sigma_{33}
+\end{pmatrix}
+\quad\longrightarrow\quad
+\boldsymbol{\sigma}_V =
+\begin{pmatrix}
+\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\sigma_1 \\ \sigma_2 \\ \sigma_3 \\ \sigma_4 \\ \sigma_5 \\ \sigma_6
+\end{pmatrix}
+$$
+
+### Strain tensor → Voigt vector
+
+With ($\gamma_{ij} = 2\varepsilon_{ij}$, $i\neq j$):
+
+$$
+\boldsymbol{\varepsilon} =
+\begin{pmatrix}
+\varepsilon_{11} & \varepsilon_{12} & \varepsilon_{13} \\
+\varepsilon_{21} & \varepsilon_{22} & \varepsilon_{23} \\
+\varepsilon_{31} & \varepsilon_{32} & \varepsilon_{33}
+\end{pmatrix}
+\quad\longrightarrow\quad
+\boldsymbol{\varepsilon}_V =
+\begin{pmatrix}
+\varepsilon_{11} \\ \varepsilon_{22} \\ \varepsilon_{33} \\ 2\varepsilon_{23} \\ 2\varepsilon_{13} \\ 2\varepsilon_{12}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\varepsilon_{11} \\ \varepsilon_{22} \\ \varepsilon_{33} \\ \gamma_{23} \\ \gamma_{13} \\ \gamma_{12}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\varepsilon_1 \\ \varepsilon_2 \\ \varepsilon_3 \\ \varepsilon_4 \\ \varepsilon_5 \\ \varepsilon_6
+\end{pmatrix}
+$$

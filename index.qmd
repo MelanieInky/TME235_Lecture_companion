@@ -3,12 +3,11 @@ title: "Continuum Mechanics — Companion Site"
 ---
 
 Interactive companions to the lecture material, organized by topic. Each page has the
-relevant theory alongside a live, adjustable visualization — move the sliders, don't
-just read the equations.
+relevant theory alongside a live, adjustable visualization.
 
 ## Topics
 
-- [Stress & Strain](lectures/01-stress-strain.qmd) — 1D stress-strain curve, yield point
+- [Voigt notation](lectures/01-voigt_notation.qmd) — Voigt notation
 - [Deviatoric / Spherical Decomposition](lectures/02-decomposition.qmd) — geometric picture of $\boldsymbol{\varepsilon}=\boldsymbol{\varepsilon}_{sph}+\boldsymbol{\varepsilon}_{dev}$
 - [Yield Criteria](lectures/03-yield-criteria.qmd) — Von Mises vs Tresca on the π-plane
 - [Elastic Constants](lectures/04-elastic-constants.qmd) — Poisson's ratio and Lamé parameters, with intuition

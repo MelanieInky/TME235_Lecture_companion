@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Continuum Mechanics — Companion Site</title>
+<title>Voigt notation – Continuum Mechanics — Companion Site</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7c7549660d146c3922870cf5f4870b25.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7c7549660d146c3922870cf5f4870b25.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -99,7 +99,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -109,7 +109,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Continuum Mechanics — Companion Site</span>
     </a>
   </div>
@@ -120,23 +120,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./lectures/01-voigt_notation.html"> 
+    <a class="nav-link active" href="../lectures/01-voigt_notation.html" aria-current="page"> 
 <span class="menu-text">Voigt notation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./lectures/02-decomposition.html"> 
+    <a class="nav-link" href="../lectures/02-decomposition.html"> 
 <span class="menu-text">Deviatoric/Spherical</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./lectures/03-yield-criteria.html"> 
+    <a class="nav-link" href="../lectures/03-yield-criteria.html"> 
 <span class="menu-text">Yield Criteria</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./lectures/04-elastic-constants.html"> 
+    <a class="nav-link" href="../lectures/04-elastic-constants.html"> 
 <span class="menu-text">Elastic Constants</span></a>
   </li>  
 </ul>
@@ -162,7 +162,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#topics" id="toc-topics" class="nav-link active" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#stress-tensor-voigt-vector" id="toc-stress-tensor-voigt-vector" class="nav-link active" data-scroll-target="#stress-tensor-voigt-vector">Stress tensor → Voigt vector</a></li>
+  <li><a href="#strain-tensor-voigt-vector" id="toc-strain-tensor-voigt-vector" class="nav-link" data-scroll-target="#strain-tensor-voigt-vector">Strain tensor → Voigt vector</a></li>
   </ul>
 </nav>
     </div>
@@ -171,7 +172,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Continuum Mechanics — Companion Site</h1>
+<h1 class="title">Voigt notation</h1>
 </div>
 
 
@@ -188,15 +189,51 @@ window.Quarto = {
 </header>
 
 
-<p>Interactive companions to the lecture material, organized by topic. Each page has the relevant theory alongside a live, adjustable visualization.</p>
-<section id="topics" class="level2">
-<h2 class="anchored" data-anchor-id="topics">Topics</h2>
-<ul>
-<li><a href="./lectures/01-voigt_notation.html">Voigt notation</a> — Voigt notation</li>
-<li><a href="./lectures/02-decomposition.html">Deviatoric / Spherical Decomposition</a> — geometric picture of <span class="math inline">\(\boldsymbol{\varepsilon}=\boldsymbol{\varepsilon}_{sph}+\boldsymbol{\varepsilon}_{dev}\)</span></li>
-<li><a href="./lectures/03-yield-criteria.html">Yield Criteria</a> — Von Mises vs Tresca on the π-plane</li>
-<li><a href="./lectures/04-elastic-constants.html">Elastic Constants</a> — Poisson’s ratio and Lamé parameters, with intuition</li>
-</ul>
+<p>The Voigt notation is a convenient way to write the generalized Hooke law, by writing the component of the strain and stress tensor as vectors.</p>
+<section id="stress-tensor-voigt-vector" class="level3">
+<h3 class="anchored" data-anchor-id="stress-tensor-voigt-vector">Stress tensor → Voigt vector</h3>
+<p><span class="math display">\[
+\boldsymbol{\sigma} =
+\begin{pmatrix}
+\sigma_{11} &amp; \sigma_{12} &amp; \sigma_{13} \\
+\sigma_{21} &amp; \sigma_{22} &amp; \sigma_{23} \\
+\sigma_{31} &amp; \sigma_{32} &amp; \sigma_{33}
+\end{pmatrix}
+\quad\longrightarrow\quad
+\boldsymbol{\sigma}_V =
+\begin{pmatrix}
+\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\sigma_1 \\ \sigma_2 \\ \sigma_3 \\ \sigma_4 \\ \sigma_5 \\ \sigma_6
+\end{pmatrix}
+\]</span></p>
+</section>
+<section id="strain-tensor-voigt-vector" class="level3">
+<h3 class="anchored" data-anchor-id="strain-tensor-voigt-vector">Strain tensor → Voigt vector</h3>
+<p>With (<span class="math inline">\(\gamma_{ij} = 2\varepsilon_{ij}\)</span>, <span class="math inline">\(i\neq j\)</span>):</p>
+<p><span class="math display">\[
+\boldsymbol{\varepsilon} =
+\begin{pmatrix}
+\varepsilon_{11} &amp; \varepsilon_{12} &amp; \varepsilon_{13} \\
+\varepsilon_{21} &amp; \varepsilon_{22} &amp; \varepsilon_{23} \\
+\varepsilon_{31} &amp; \varepsilon_{32} &amp; \varepsilon_{33}
+\end{pmatrix}
+\quad\longrightarrow\quad
+\boldsymbol{\varepsilon}_V =
+\begin{pmatrix}
+\varepsilon_{11} \\ \varepsilon_{22} \\ \varepsilon_{33} \\ 2\varepsilon_{23} \\ 2\varepsilon_{13} \\ 2\varepsilon_{12}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\varepsilon_{11} \\ \varepsilon_{22} \\ \varepsilon_{33} \\ \gamma_{23} \\ \gamma_{13} \\ \gamma_{12}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\varepsilon_1 \\ \varepsilon_2 \\ \varepsilon_3 \\ \varepsilon_4 \\ \varepsilon_5 \\ \varepsilon_6
+\end{pmatrix}
+\]</span></p>
 
 
 </section>

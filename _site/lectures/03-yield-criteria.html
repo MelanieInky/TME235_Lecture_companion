@@ -124,8 +124,8 @@ window.Quarto = {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../lectures/01-stress-strain.html"> 
-<span class="menu-text">Stress &amp; Strain</span></a>
+    <a class="nav-link" href="../lectures/01-voigt_notation.html"> 
+<span class="menu-text">Voigt notation</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../lectures/02-decomposition.html"> 
@@ -162,7 +162,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#equivalent-stress-measures" id="toc-equivalent-stress-measures" class="nav-link active" data-scroll-target="#equivalent-stress-measures">Equivalent stress measures</a></li>
+  <li><a href="#equivalent-stress-measures." id="toc-equivalent-stress-measures." class="nav-link active" data-scroll-target="#equivalent-stress-measures.">Equivalent stress measures.</a></li>
   </ul>
 </nav>
     </div>
@@ -188,15 +188,23 @@ window.Quarto = {
 </header>
 
 
-<section id="equivalent-stress-measures" class="level2">
-<h2 class="anchored" data-anchor-id="equivalent-stress-measures">Equivalent stress measures</h2>
+<section id="equivalent-stress-measures." class="level2">
+<h2 class="anchored" data-anchor-id="equivalent-stress-measures.">Equivalent stress measures.</h2>
+<p>In 1d a typical stress-strain figure looks like the following:</p>
+<p><img src="stress_strain_curve.png" class="img-fluid" style="width:70.0%"></p>
+<p>This is what experimentalists get when doing a tensile test. After a certain stress <span class="math inline">\(\sigma_Y\)</span>, the behavior of the material is no longer purely elastic and the stress is no longer linearly dependent on the strain. The issue is that in a real material, we do not have uniaxial displacements and stresses, so the stress is a <span class="math inline">\(3 \times 3\)</span> tensor, but at which stress does it yield? This is where equivalent stress come into play, we use a scalar <span class="math inline">\(\sigma_{eq} = f(\boldsymbol{\sigma})\)</span> and compare it to the yield stress <span class="math inline">\(\sigma_Y\)</span> to determine if plastic deformation happen. There are a variety of equivalent stress measures that we can choose, but in this course we consider the Von-Mises and Tresca equivalent stress.</p>
+<p>The Von-Mises equivalent stress measures (1.35 in the lecture notes):</p>
 <p><span class="math display">\[
-\sigma_{VM} = \sqrt{\tfrac{1}{2}\left[(\sigma_1-\sigma_2)^2+(\sigma_2-\sigma_3)^2+(\sigma_3-\sigma_1)^2\right]}
+\sigma_{eM}(\sigma_{ij}) = \sqrt{\frac{3}{2}\sigma_{ij}^\text{dev}\sigma_{ij}^\text{dev}}
 \]</span></p>
+<p>One thing that should be noted is that this is a scalar value, and it is an invariant of the stress tensor, meaning that the Von-Mises stress is independent on the basis in which we express the components of the stress tensors. We will see in exercise 5 that the Von-Mises stress can be written in term of principal stress:</p>
 <p><span class="math display">\[
-\sigma_{Tresca} = \sigma_{max}-\sigma_{min}
+\sigma_{vM} = \sqrt{\frac{1}{2}\left[(\sigma_1-\sigma_2)^2 + (\sigma_2-\sigma_3)^2 + (\sigma_3-\sigma_1)^2\right]}
 \]</span></p>
-<p>Both are pressure-independent — motion purely along the hydrostatic axis (<span class="math inline">\(\sigma_1=\sigma_2=\sigma_3\)</span>) never triggers yield under either criterion. Projected onto the π-plane, Von Mises is a circle and Tresca is a hexagon inscribed inside it, touching exactly at the uniaxial-stress corners.</p>
+<p>We also defined the Tresca criterion. <span class="math display">\[
+\sigma_{\text{Tresca}} = \max\big(|\sigma_1-\sigma_2|,\ |\sigma_2-\sigma_3|,\ |\sigma_3-\sigma_1|\big) = \sigma_{max} - \sigma_{min}
+\]</span></p>
+<p>In the following cell, you can play around the two criterion and see when they differ.</p>
 <iframe class="interactive-frame" src="../interactives/pi_plane_yield.html"></iframe>
 <p>The two criteria always agree at the hexagon’s corners and diverge most at the edge midpoints (pure-shear states), where Tresca is more conservative by <span class="math inline">\(2/\sqrt{3}\approx1.155\)</span>.</p>
 
