@@ -27,6 +27,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -75,6 +110,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -138,8 +202,22 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#problem-1" id="toc-problem-1" class="nav-link active" data-scroll-target="#problem-1">Problem 1</a></li>
+  <li><a href="#problem-2" id="toc-problem-2" class="nav-link" data-scroll-target="#problem-2">Problem 2</a></li>
+  <li><a href="#problem-3" id="toc-problem-3" class="nav-link" data-scroll-target="#problem-3">Problem 3</a>
+  <ul class="collapse">
+  <li><a href="#problem-4" id="toc-problem-4" class="nav-link" data-scroll-target="#problem-4">Problem 4</a></li>
+  <li><a href="#problem-5" id="toc-problem-5" class="nav-link" data-scroll-target="#problem-5">Problem 5</a></li>
+  <li><a href="#problem-6" id="toc-problem-6" class="nav-link" data-scroll-target="#problem-6">Problem 6</a></li>
+  <li><a href="#problem-7" id="toc-problem-7" class="nav-link" data-scroll-target="#problem-7">Problem 7</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -169,8 +247,384 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div id="a0c7f05b" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="problem-1" class="level1">
+<h1>Problem 1</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Problem 1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Problem 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Show that if we divide the stress and strain in their deviatoric and volumetric components, then we can express (for the case of linear elasticity) the strain energy density as: <span class="math display">\[
+U_0 = \frac{\sigma_{ii}\epsilon_{jj}}{6} + \frac{\sigma_{ij}^{\text{dev}}\epsilon_{ij}^{\text{dev}}}{2}.
+\]</span></p>
+</div>
+</div>
+<p>Solution steps: The strain energy density for a linear elastic material is given by</p>
+<p><span class="math display">\[
+U_0 = \frac{1}{2}\sigma_{ij}\epsilon_{ij}
+\]</span></p>
+<p>Then, write the decomposition for the strain and stress (here given for the stress tensor):</p>
+<p><span class="math display">\[
+\sigma_{ij}  = \sigma_{ij}^{\text{dev}} + \sigma_{ij}^{\text{sph}} = \sigma_{ij}^\text{dev} + \frac{1}{3} \sigma_{kk} \delta_{ij}
+\]</span></p>
+<p>Then, some tensor algebra should get you to the wanted result!</p>
+</section>
+<section id="problem-2" class="level1">
+<h1>Problem 2</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Problem 2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Problem 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Based on (1.11) and (1.12), derive the relations between the elastic constants in (1.13) and (1.14)</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Lecture note exerpt">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Lecture note exerpt
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In Voigt notation the relations in (1.9) and (1.10) can be written as <span class="math inline">\(\underline{\sigma} = \underline{C}_{\text{iso}}\,\underline{\epsilon}\)</span> and <span class="math inline">\(\underline{\epsilon} = \underline{S}_{\text{iso}}\,\underline{\sigma}\)</span>. More explicitly, these relations become:</p>
+<p><span id="eq-voigt-stiffness"><span class="math display">\[
+\begin{bmatrix}
+\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}
+\end{bmatrix}
+=
+\begin{bmatrix}
+2\mu+\lambda &amp; \lambda &amp; \lambda &amp; 0 &amp; 0 &amp; 0 \\
+\lambda &amp; 2\mu+\lambda &amp; \lambda &amp; 0 &amp; 0 &amp; 0 \\
+\lambda &amp; \lambda &amp; 2\mu+\lambda &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; \mu &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; \mu &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \mu
+\end{bmatrix}
+\begin{bmatrix}
+\epsilon_{11} \\ \epsilon_{22} \\ \epsilon_{33} \\ 2\epsilon_{23} \\ 2\epsilon_{13} \\ 2\epsilon_{12}
+\end{bmatrix}
+\tag{1}\]</span></span></p>
+<p><span id="eq-voigt-compliance"><span class="math display">\[
+\begin{bmatrix}
+\epsilon_{11} \\ \epsilon_{22} \\ \epsilon_{33} \\ 2\epsilon_{23} \\ 2\epsilon_{13} \\ 2\epsilon_{12}
+\end{bmatrix}
+=
+\frac{1}{E}
+\begin{bmatrix}
+1 &amp; -\nu &amp; -\nu &amp; 0 &amp; 0 &amp; 0 \\
+-\nu &amp; 1 &amp; -\nu &amp; 0 &amp; 0 &amp; 0 \\
+-\nu &amp; -\nu &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 2(1+\nu) &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 2(1+\nu) &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 2(1+\nu)
+\end{bmatrix}
+\begin{bmatrix}
+\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}
+\end{bmatrix}.
+\tag{2}\]</span></span></p>
+<p>By inverting the matrix <span class="math inline">\(\underline{C}_{\text{iso}}\)</span> we can identify the following relations between the elastic constants:</p>
+<p><span id="eq-elastic-constants-1"><span class="math display">\[
+E = \frac{\mu(3\lambda + 2\mu)}{\lambda + \mu}, \qquad \nu = \frac{\lambda}{2(\lambda+\mu)}
+\tag{3}\]</span></span></p>
+<p>or</p>
+<p><span id="eq-elastic-constants-2"><span class="math display">\[
+\mu = G = \frac{E}{2(1+\nu)} \qquad \lambda = \frac{\nu E}{(1+\nu)(1-2\nu)} = \frac{2\nu\mu}{(1-2\nu)}
+\tag{4}\]</span></span></p>
+</div>
+</div>
+<p>Clearly from the relation above we have that <span class="math inline">\(C_iso^{-1} = S_{iso}\)</span>. To find the relationship between each parameters we can invert the matrix.</p>
+<div id="64fe60c1" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First, define two sympy "symbols"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mu, lam <span class="op">=</span> sp.symbols(<span class="st">"mu,lambda"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Write the helper function first!</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> stiffness_matrix_voigt(lam,mu)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> C.inv() <span class="co">#Compliance matrix</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="165">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}\frac{\lambda + \mu}{3 \lambda \mu + 2 \mu^{2}} &amp; - \frac{\lambda}{6 \lambda \mu + 4 \mu^{2}} &amp; - \frac{\lambda}{6 \lambda \mu + 4 \mu^{2}} &amp; 0 &amp; 0 &amp; 0\\- \frac{\lambda}{6 \lambda \mu + 4 \mu^{2}} &amp; \frac{\lambda + \mu}{3 \lambda \mu + 2 \mu^{2}} &amp; - \frac{\lambda}{6 \lambda \mu + 4 \mu^{2}} &amp; 0 &amp; 0 &amp; 0\\- \frac{\lambda}{6 \lambda \mu + 4 \mu^{2}} &amp; - \frac{\lambda}{6 \lambda \mu + 4 \mu^{2}} &amp; \frac{\lambda + \mu}{3 \lambda \mu + 2 \mu^{2}} &amp; 0 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0 &amp; \frac{1}{\mu} &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{\mu} &amp; 0\\0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{\mu}\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>Then we can identify the values for <span class="math inline">\(E\)</span> and <span class="math inline">\(\nu\)</span> from the diagonal elements (1.13 in lecture notes):</p>
+<p><span class="math display">\[
+E = \frac{\mu (3\lambda + 2\mu)}{\lambda + \mu}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\nu = \frac{\lambda}{2 (\lambda + \mu)}
+\]</span></p>
+<p>Alternatively, we can write <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mu\)</span> as a function of <span class="math inline">\(E\)</span> and <span class="math inline">\(\nu\)</span>. You can do it by hand or use like in the code below:</p>
+<div id="799c71bb" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lam_sol, mu_sol <span class="op">=</span> sp.symbols(<span class="st">'lam mu'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>E, nu <span class="op">=</span> sp.symbols(<span class="st">'E nu'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>E_expr <span class="op">=</span> mu<span class="op">*</span>(<span class="dv">3</span><span class="op">*</span>lam<span class="op">+</span><span class="dv">2</span><span class="op">*</span>mu)<span class="op">/</span>(lam<span class="op">+</span>mu)   <span class="co"># fixed formula</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>nu_expr <span class="op">=</span> lam <span class="op">/</span> (<span class="dv">2</span><span class="op">*</span>(lam<span class="op">+</span>mu))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> sp.solve([sp.Eq(E, E_expr), sp.Eq(nu, nu_expr)], [lam, mu], <span class="bu">dict</span><span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>sol</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="166">
+<pre><code>{lambda: -E*nu/((nu + 1)*(2*nu - 1)), mu: E/(2*(nu + 1))}</code></pre>
+</div>
+</div>
+<p>And it becomes possible to write <span class="math inline">\(C_{iso}\)</span> with <span class="math inline">\(E\)</span> and <span class="math inline">\(\nu\)</span> if we want.</p>
+<div id="7a807f00" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>C_E_nu <span class="op">=</span> sp.simplify(C.subs(sol))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>C_E_nu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="167">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}\frac{E \left(\nu - 1\right)}{\left(\nu + 1\right) \left(2 \nu - 1\right)} &amp; - \frac{E \nu}{\left(\nu + 1\right) \left(2 \nu - 1\right)} &amp; - \frac{E \nu}{\left(\nu + 1\right) \left(2 \nu - 1\right)} &amp; 0 &amp; 0 &amp; 0\\- \frac{E \nu}{\left(\nu + 1\right) \left(2 \nu - 1\right)} &amp; \frac{E \left(\nu - 1\right)}{\left(\nu + 1\right) \left(2 \nu - 1\right)} &amp; - \frac{E \nu}{\left(\nu + 1\right) \left(2 \nu - 1\right)} &amp; 0 &amp; 0 &amp; 0\\- \frac{E \nu}{\left(\nu + 1\right) \left(2 \nu - 1\right)} &amp; - \frac{E \nu}{\left(\nu + 1\right) \left(2 \nu - 1\right)} &amp; \frac{E \left(\nu - 1\right)}{\left(\nu + 1\right) \left(2 \nu - 1\right)} &amp; 0 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0 &amp; \frac{E}{2 \left(\nu + 1\right)} &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{E}{2 \left(\nu + 1\right)} &amp; 0\\0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{E}{2 \left(\nu + 1\right)}\end{matrix}\right]\)</span></p>
+</div>
+</div>
+</section>
+<section id="problem-3" class="level1">
+<h1>Problem 3</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Problem 3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Problem 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Determine the stress components at a point of a linear isotropic elastic material (steel) with <span class="math inline">\(E = 200 \cdot 10^3\)</span> MPa and <span class="math inline">\(\nu = 0.3\)</span> if the strain components (in the same coordinate system) are</p>
+<p><span class="math display">\[
+[\epsilon_{ij}] =
+\begin{bmatrix}
+2 &amp; 0.5 &amp; 0 \\
+0.5 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1.5
+\end{bmatrix}
+\cdot 10^{-3}
+\]</span></p>
+</div>
+</div>
+<p>This be done numerically. The steps are:</p>
+<ol type="1">
+<li>Express the strain in the Voigt format.</li>
+<li>Calculate the stress in Voigt format.</li>
+<li>Express the stress in matrix format again.</li>
+</ol>
+<div id="7d0826de" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>eps <span class="op">=</span> np.array([[<span class="dv">2</span>,<span class="fl">0.5</span>,<span class="fl">0.</span>],[<span class="fl">0.5</span>,<span class="fl">1.</span>,<span class="fl">0.</span>],[<span class="fl">0.</span>,<span class="fl">0.</span>,<span class="fl">1.5</span>]])<span class="op">*</span><span class="fl">1e-3</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>eps_voigt <span class="op">=</span> to_voigt(eps)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Emod <span class="op">=</span> <span class="fl">200e3</span><span class="op">;</span> nu <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>lam,mu <span class="op">=</span> lambda_mu(Emod,nu)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> stiffness_matrix_voigt(lam,mu)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>sigma_voigt <span class="op">=</span> C<span class="op">@</span>eps_voigt</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> from_voigt(sigma_voigt,mode<span class="op">=</span><span class="st">"stress"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>sp.Matrix(np.<span class="bu">round</span>(sigma, <span class="dv">1</span>)) <span class="co">#For pretty printing of output</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="168">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}826.9 &amp; 76.9 &amp; 0.0\\76.9 &amp; 673.1 &amp; 0.0\\0.0 &amp; 0.0 &amp; 750.0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<section id="problem-4" class="level2">
+<h2 class="anchored" data-anchor-id="problem-4">Problem 4</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Problem 4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Problem 4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Determine the principal stresses at a point of a linear isotropic elastic material (aluminum) with <span class="math inline">\(E = 75 \cdot 10^3\)</span> MPa and <span class="math inline">\(\nu = 0.3\)</span> if the strain components (in a coordinate system) are</p>
+<p><span class="math display">\[
+[\epsilon_{ij}] =
+\begin{bmatrix}
+2 &amp; 0 &amp; 0.5 \\
+0 &amp; 1 &amp; 0 \\
+0.5 &amp; 0 &amp; 1.5
+\end{bmatrix}
+\cdot 10^{-3}
+\]</span></p>
+</div>
+</div>
+<p>There are two ways to do it, numerically and by hand. First compute the stress like in the previous problem. First, we will compute the stress like in the last problem</p>
+<div id="a42bcd90" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>eps <span class="op">=</span> np.array([[<span class="dv">2</span>,<span class="dv">0</span>,<span class="fl">0.5</span>],[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>],[<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>]])<span class="op">*</span><span class="fl">1e-3</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> <span class="fl">75e3</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>lam,mu <span class="op">=</span> lambda_mu(E,nu)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> stiffness_matrix_voigt(lam,mu)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>stress_voigt <span class="op">=</span> C<span class="op">@</span>to_voigt(eps,<span class="st">"strain"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>stress <span class="op">=</span> from_voigt(stress_voigt,<span class="st">"stress"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>sp.Matrix(np.<span class="bu">round</span>(stress, <span class="dv">1</span>)) <span class="co">#For pretty printing of output</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="169">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}310.1 &amp; 0.0 &amp; 28.8\\0.0 &amp; 252.4 &amp; 0.0\\28.8 &amp; 0.0 &amp; 281.2\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>Then, the principal stresses are the eigenvalues of the stress tensors. The principal stresses are ordered, with <span class="math inline">\(\sigma_1\)</span> being the largest.</p>
+<div id="404620cb" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>principal_stresses <span class="op">=</span> np.linalg.eigvals(stress)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sp.Matrix(np.sort(principal_stresses)[::<span class="op">-</span><span class="dv">1</span>].<span class="bu">round</span>(<span class="dv">1</span>)) <span class="co">#[::-1] reverses the array so the first one is the largest</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="170">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}327.9\\263.4\\252.4\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>Doing it by hand, we need to find the eigenvalues by finding the root of the characteristic polynomial:</p>
+<p><span class="math display">\[
+\det(\boldsymbol{\sigma} - \lambda \boldsymbol{I}) = \lambda^3 - I_1\lambda^2 + I_2\lambda - I_3 = 0
+\]</span></p>
+<p><span class="math display">\[
+I_1 = \text{tr}(\boldsymbol{\sigma}) = \sigma_{11}+\sigma_{22}+\sigma_{33}
+\]</span></p>
+<p><span class="math display">\[
+I_2 = \frac{1}{2}\left[(\text{tr}\,\boldsymbol{\sigma})^2 - \text{tr}(\boldsymbol{\sigma}^2)\right] = \sigma_{11}\sigma_{22}+\sigma_{22}\sigma_{33}+\sigma_{33}\sigma_{11} - \sigma_{12}^2-\sigma_{23}^2-\sigma_{13}^2
+\]</span></p>
+<p><span class="math display">\[
+I_3 = \det(\boldsymbol{\sigma})
+\]</span></p>
+<p>Small trick: For a isotropic, linear elastic constitutive law the principal directions vector are co-axials. This means that if we express the strain tensor in the principal direction basis, that is</p>
+<p><span class="math display">\[
+\boldsymbol{\epsilon} = \begin{pmatrix}
+\epsilon_1 &amp; 0 &amp; 0 \\
+0 &amp; \epsilon_2 &amp; 0 \\
+0 &amp; 0 &amp; \epsilon_3
+\end{pmatrix}
+\]</span></p>
+<p>Then the resulting stress we get is also expressed in terms of principal stresses:</p>
+<p><span class="math display">\[
+\boldsymbol{\sigma} = \begin{pmatrix}
+\sigma_1 &amp; 0 &amp; 0 \\
+0 &amp; \sigma_2 &amp; 0 \\
+0 &amp; 0 &amp; \sigma_3
+\end{pmatrix}
+\]</span></p>
+<p>Given the expressions that we are given for the strain tensor and the stress tensor that we calculated above, which characteristic polynomial do you feel will be easiest to solve by hand? How do you use it to your advantage?</p>
+</section>
+<section id="problem-5" class="level2">
+<h2 class="anchored" data-anchor-id="problem-5">Problem 5</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Problem 5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Problem 5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Derive the explicit expression for the Mises equivalent stress in terms of the principal stresses <span class="math inline">\(\sigma_1\)</span>, <span class="math inline">\(\sigma_2\)</span> and <span class="math inline">\(\sigma_3\)</span>:</p>
+<p><span class="math display">\[
+\sigma_{\text{eM}}(\sigma_{ij}) = \frac{1}{\sqrt{2}}\left[(\sigma_1 - \sigma_2)^2 + (\sigma_2 - \sigma_3)^2 + (\sigma_3 - \sigma_1)^2\right]^{1/2}
+\]</span></p>
+</div>
+</div>
+<p>We first verify that the Von-Mises stress is invariant under a change of basis (You can also take it as granted).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Optional: VM stress is an invariant">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Optional: VM stress is an invariant
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To do so, we prove that the double contraction is invariant under a change of basis. Let <span class="math inline">\(T\)</span> be a second order tensor and <span class="math inline">\(T'\)</span> the same tensor expressed in a different orthonormal basis. Then, the component of <span class="math inline">\(T'\)</span> can be written as</p>
+<p><span class="math display">\[
+T'_{ij} = L_{ik} T_{kl} L_{lj}^T
+\]</span></p>
+<p>where <span class="math inline">\(L\)</span> is an orthogonal tensor so that <span class="math inline">\(L_{ik}L_{kj}^T = \delta_{ij} = L_{ik}^T L_{kj}\)</span>. Then</p>
+<p><span class="math display">\[
+T'_{ij} T'_{ij} = L_{ik} T_{kl} L_{lj}^T L_{im} T_{mn} L_{mj}^T = T_{kl} T_{mn}  L_{ki}^T L_{im} L_{lj}^T L_{jm}
+\]</span></p>
+<p>This gives</p>
+<p><span class="math display">\[
+T'_{ij} T'_{ij} =  T_{kl} T_{mn} \delta_{km} \delta_{lm} =  T_{mn} T_{mn}
+\]</span></p>
+<p>Then, because the trace operator is invariant under a change of basis, it follows that <span class="math inline">\(T'^{\text{dev}} = T^\text{dev}\)</span>.</p>
+</div>
+</div>
+</div>
+<p>Then, we write the stress tensor in the principal eigenvector basis so that</p>
+<p><span class="math display">\[
+\sigma  = \begin{pmatrix}
+\sigma_1 &amp; 0 &amp; 0\\
+0 &amp; \sigma2 &amp; 0 \\
+0 &amp; 0 &amp; \sigma_3
+\end{pmatrix}
+\]</span></p>
+<p>so that <span class="math inline">\(\sigma^{dev} : \sigma^{dev} = (\sigma_i - 1/3 \sigma_{mm}) (\sigma_i -1/3 \sigma_{nn}) = \sigma_i \sigma_i -1/9(\sigma_{mm}\sigma_{nn})\)</span>.</p>
+<p>You can solve everything by hand, but a simple verification is to write both formula and check that they are equal using sympy. To get rid of the square root we consider the formulas for <span class="math inline">\(\sigma_{vM}^2\)</span> instead.</p>
+<div id="59f17fb5" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>s1 , s2 , s3 <span class="op">=</span> sp.symbols(<span class="st">"s1,s2,s3"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>vM_sq1 <span class="op">=</span> <span class="dv">3</span><span class="op">/</span><span class="dv">2</span><span class="op">*</span>(s1<span class="op">**</span><span class="dv">2</span><span class="op">+</span>s2<span class="op">**</span><span class="dv">2</span><span class="op">+</span>s3<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span><span class="op">*</span>(s1<span class="op">+</span>s2<span class="op">+</span>s3)<span class="op">**</span><span class="dv">2</span>) <span class="co">#First formula</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>vM_sq2  <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span><span class="op">*</span>((s1<span class="op">-</span>s2)<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(s2<span class="op">-</span>s3)<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(s1<span class="op">-</span>s3)<span class="op">**</span><span class="dv">2</span>) <span class="co">#Second formula</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> vM_sq1<span class="op">-</span>vM_sq2</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>sp.simplify(diff)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="171">
+<p><span class="math inline">\(\displaystyle 0\)</span></p>
+</div>
+</div>
+</section>
+<section id="problem-6" class="level2">
+<h2 class="anchored" data-anchor-id="problem-6">Problem 6</h2>
+<p>WIP</p>
+</section>
+<section id="problem-7" class="level2">
+<h2 class="anchored" data-anchor-id="problem-7">Problem 7</h2>
+<p>WIP</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-09-16">
 
-<title>helper_functions – Continuum Mechanics — Companion Site</title>
+<title>Helper functions – Continuum Mechanics — Companion Site</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -74,6 +110,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -137,17 +202,287 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#elastic-constants-function" id="toc-elastic-constants-function" class="nav-link active" data-scroll-target="#elastic-constants-function">Elastic constants function</a></li>
+  <li><a href="#deviatoric-and-volumetric-part-helpers" id="toc-deviatoric-and-volumetric-part-helpers" class="nav-link" data-scroll-target="#deviatoric-and-volumetric-part-helpers">Deviatoric and Volumetric part helpers</a></li>
+  <li><a href="#voigt-formulation-and-elasticity-matrix" id="toc-voigt-formulation-and-elasticity-matrix" class="nav-link" data-scroll-target="#voigt-formulation-and-elasticity-matrix">Voigt formulation and elasticity matrix</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Helper functions</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 16, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
+</header>
 
+
+<p>Below are a set of helper functions that are used in the problem sets. They are not written completely, you have to complete them yourselves to run code that depends on them.</p>
+<div id="378a50cd" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="elastic-constants-function" class="level2">
+<h2 class="anchored" data-anchor-id="elastic-constants-function">Elastic constants function</h2>
+<div id="2397ba4b" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lambda_mu(E,nu):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Convert linear elastic constant parameters from E,nu to lambda, mu</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">        E : Young's modulus</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">        nu : Poisson ratio</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">        (lambda,mu): The Lamé constants parameters.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span>    </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    lam <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write them yourself</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lam,mu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="6595974b" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> E_nu(lam, mu):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Convert linear elastic constant parameters from lambda, mu to E, nu</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">        lam : First Lamé parameter</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">        mu : Second Lamé parameter (shear modulus)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">        (E, nu): Young's modulus and Poisson ratio.</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    E <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    nu <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> E, nu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="deviatoric-and-volumetric-part-helpers" class="level2">
+<h2 class="anchored" data-anchor-id="deviatoric-and-volumetric-part-helpers">Deviatoric and Volumetric part helpers</h2>
+<p>For convenience, we will write the function in such a way that they can be used for both numpy and sympy computation. To do so, a small trick we use is the following function:</p>
+<div id="8c25de5a" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_sympy_array(S):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Check whether S is a sympy matrix/array rather than a numpy array.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Useful when you want one function to work generically with either</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">    numeric (numpy) or symbolic (sympy) tensors.</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">isinstance</span>(S, sp.MatrixBase)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We use this function in the way below:</p>
+<div id="ac033c15" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vol(S):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Volumetric (spherical) part of a second order tensor.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">    vol(S) = tr(S)/3 * I.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> S.shape[<span class="dv">0</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_sympy_array(S):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        trace <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        I <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        trace <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        I <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> trace <span class="op">*</span> I</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dev(S):</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">    Deviatoric part of a second order tensor (additive decomposition).</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">    dev(S) = S - vol(S).</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="voigt-formulation-and-elasticity-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="voigt-formulation-and-elasticity-matrix">Voigt formulation and elasticity matrix</h2>
+<p>A very regular thing we do is switching back and forth between the Voigt and Tensor notation for both the stress and the strain. The following helpers function do that. Beforehand, reminder that the Cauchy stress tensor <span class="math inline">\(\boldsymbol{\sigma}\)</span> and small strain tensor <span class="math inline">\(\boldsymbol{\epsilon}\)</span> are symmetric. The following function will be used to check that to prevent input errors.</p>
+<div id="05b84517" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_symmetry(A, tol<span class="op">=</span><span class="fl">1e-10</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Raise an error if matrix A is not symmetric.</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">    A : array-like or sympy Matrix, shape (n,n)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">    tol : float</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">        Tolerance for numeric comparisons (ignored for symbolic input,</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">        where equality must hold exactly after simplification).</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    symbolic <span class="op">=</span> is_sympy_array(A)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> symbolic:</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        diff <span class="op">=</span> sp.simplify(A <span class="op">-</span> A.T)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> diff.is_zero_matrix:</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Matrix is not symmetric"</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        A <span class="op">=</span> np.asarray(A)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> A.shape[<span class="dv">0</span>] <span class="op">!=</span> A.shape[<span class="dv">1</span>]:</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Matrix is not square"</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> np.allclose(A, A.T, atol<span class="op">=</span>tol):</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Matrix is not symmetric"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be mindful of convention when switching back and forth between Voigt and Tensor notation, the shear component have a factor of 2 in the case of strain, but not for the stress!</p>
+</div>
+</div>
+<div id="7e6f2c71" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stiffness_matrix_voigt(lam, mu) <span class="op">-&gt;</span> np.ndarray:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Isotropic stiffness matrix C_iso in Voigt notation (6x6), engineering shear strain convention.</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">    sigma = C_iso @ [e11, e22, e33, 2e23, 2e13, 2e12]</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Automatically uses sympy if lam or mu is a sympy expression, else numpy.</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    symbolic <span class="op">=</span> <span class="bu">isinstance</span>(lam, sp.Basic) <span class="kw">or</span> <span class="bu">isinstance</span>(mu, sp.Basic)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    C <span class="op">=</span> sp.zeros(<span class="dv">6</span>, <span class="dv">6</span>) <span class="cf">if</span> symbolic <span class="cf">else</span> np.zeros((<span class="dv">6</span>, <span class="dv">6</span>))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    C[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> C[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">=</span> C[<span class="dv">2</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    C[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">=</span> C[<span class="dv">0</span>, <span class="dv">2</span>] <span class="op">=</span> C[<span class="dv">1</span>, <span class="dv">0</span>] <span class="op">=</span> C[<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">=</span> C[<span class="dv">2</span>, <span class="dv">0</span>] <span class="op">=</span> C[<span class="dv">2</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    C[<span class="dv">3</span>, <span class="dv">3</span>] <span class="op">=</span> C[<span class="dv">4</span>, <span class="dv">4</span>] <span class="op">=</span> C[<span class="dv">5</span>, <span class="dv">5</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> C</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compliance_matrix_voigt(E, nu) <span class="op">-&gt;</span> np.ndarray:</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">    Isotropic compliance matrix S_iso in Voigt notation (6x6), engineering shear strain convention.</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">    [e11, e22, e33, 2e23, 2e13, 2e12] = S_iso @ sigma</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">    Automatically uses sympy if E or nu is a sympy expression, else numpy.</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    symbolic <span class="op">=</span> <span class="bu">isinstance</span>(E, sp.Basic) <span class="kw">or</span> <span class="bu">isinstance</span>(nu, sp.Basic)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> sp.zeros(<span class="dv">6</span>, <span class="dv">6</span>) <span class="cf">if</span> symbolic <span class="cf">else</span> np.zeros((<span class="dv">6</span>, <span class="dv">6</span>))</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    S[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> S[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">=</span> S[<span class="dv">2</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    S[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">=</span> S[<span class="dv">0</span>, <span class="dv">2</span>] <span class="op">=</span> S[<span class="dv">1</span>, <span class="dv">0</span>] <span class="op">=</span> S[<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">=</span> S[<span class="dv">2</span>, <span class="dv">0</span>] <span class="op">=</span> S[<span class="dv">2</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    S[<span class="dv">3</span>, <span class="dv">3</span>] <span class="op">=</span> S[<span class="dv">4</span>, <span class="dv">4</span>] <span class="op">=</span> S[<span class="dv">5</span>, <span class="dv">5</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> S</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_voigt(eps_or_sigma, mode<span class="op">=</span><span class="st">"strain"</span>):</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">    Convert a symmetric second-order tensor (2x2 or 3x3) to Voigt notation.</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">    eps_or_sigma : array-like or sympy Matrix, shape (2,2) or (3,3)</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">        Strain or stress tensor.</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">    mode : str</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">        "strain" -&gt; off-diagonal terms multiplied by 2 (engineering shear strain)</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">        "stress" -&gt; off-diagonal terms unchanged</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co">    Voigt vector:</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="co">        3x3 input -&gt; shape (6,): [11, 22, 33, 23, 13, 12]</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="co">        2x2 input -&gt; shape (3,): [11, 22, 12]</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    check_symmetry(eps_or_sigma)</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    symbolic <span class="op">=</span> <span class="bu">isinstance</span>(eps_or_sigma[<span class="dv">0</span>, <span class="dv">0</span>], sp.Basic)</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>    dim <span class="op">=</span> eps_or_sigma.shape[<span class="dv">0</span>]</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mode <span class="op">==</span> <span class="st">"strain"</span>:</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> mode <span class="op">==</span> <span class="st">"stress"</span>:</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">'Unknown mode. Allowed modes are "stress" and "strain"'</span>)</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dim <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>        voigt <span class="op">=</span> sp.zeros(<span class="dv">6</span>, <span class="dv">1</span>) <span class="cf">if</span> symbolic <span class="cf">else</span> np.zeros(<span class="dv">6</span>)</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>        voigt[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>        voigt[<span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>        voigt[<span class="dv">2</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>        voigt[<span class="dv">3</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>        voigt[<span class="dv">4</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>        voigt[<span class="dv">5</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> dim <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>        voigt <span class="op">=</span> sp.zeros(<span class="dv">3</span>, <span class="dv">1</span>) <span class="cf">if</span> symbolic <span class="cf">else</span> np.zeros(<span class="dv">3</span>)</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>        voigt[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>        voigt[<span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>        voigt[<span class="dv">2</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Input must be a 2x2 or 3x3 tensor"</span>)</span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> voigt</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> from_voigt(voigt, mode<span class="op">=</span><span class="st">"strain"</span>):</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="co">    Convert a Voigt-notation vector back to a symmetric second-order tensor.</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="co">    voigt : array-like or sympy Matrix, length 3 or 6</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="co">        length 6 -&gt; [11, 22, 33, 23, 13, 12] -&gt; returns 3x3 tensor</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="co">        length 3 -&gt; [11, 22, 12]             -&gt; returns 2x2 tensor</span></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="co">    mode : str</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="co">        "strain" -&gt; off-diagonal voigt terms divided by 2 (undo engineering shear strain)</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="co">        "stress" -&gt; off-diagonal voigt terms unchanged</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="co">    Symmetric tensor, shape (2,2) or (3,3)</span></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>    symbolic <span class="op">=</span> <span class="bu">isinstance</span>(voigt[<span class="dv">0</span>], sp.Basic)</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>    n_entries <span class="op">=</span> voigt.shape[<span class="dv">0</span>] <span class="cf">if</span> <span class="bu">hasattr</span>(voigt, <span class="st">"shape"</span>) <span class="cf">else</span> <span class="bu">len</span>(voigt)</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mode <span class="op">==</span> <span class="st">"strain"</span>:</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> mode <span class="op">==</span> <span class="st">"stress"</span>:</span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">'Unknown mode. Allowed modes are "stress" and "strain"'</span>)</span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n_entries <span class="op">==</span> <span class="dv">6</span>:</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>        T <span class="op">=</span> sp.zeros(<span class="dv">3</span>, <span class="dv">3</span>) <span class="cf">if</span> symbolic <span class="cf">else</span> np.zeros((<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>        T[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>        T[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>        T[<span class="dv">2</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>        T[<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">=</span> T[<span class="dv">2</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>        T[<span class="dv">0</span>, <span class="dv">2</span>] <span class="op">=</span> T[<span class="dv">2</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>        T[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">=</span> T[<span class="dv">1</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> n_entries <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>        T <span class="op">=</span> sp.zeros(<span class="dv">2</span>, <span class="dv">2</span>) <span class="cf">if</span> symbolic <span class="cf">else</span> np.zeros((<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>        T[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>        T[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>        T[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">=</span> T[<span class="dv">1</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="fl">0.</span> <span class="co">#Write it yourself</span></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Input must have length 3 or 6"</span>)</span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> T</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
