@@ -3,7 +3,11 @@ title: "Mechanics of Solids — Companion Site"
 ---
 
 Interactive companions to the lecture material, organized by topic. Each page has the
-relevant theory alongside live, adjustable visualization. 
+relevant theory alongside live, adjustable visualization. This is not a replacement for the lecture notes, but rather a complement to be used interactively to build physical intuition.
+
+:::{.callout-note}
+The website and its content are brand new for this year so there may still be issues with it. I am also open to feedback.
+:::
 
 :::{.callout-caution}
 Some of the live visualizations have had some of the formula modified for visual clarity. Use them for developing intuition, not verifications.  
@@ -21,3 +25,4 @@ In addition, you will find the code shown during the problem tutorial.
 1. [Deviatoric / Spherical Decomposition](lectures/02-decomposition.qmd) — geometric picture of $\boldsymbol{\varepsilon}=\boldsymbol{\varepsilon}_{sph}+\boldsymbol{\varepsilon}_{dev}$
 1. [Yield Criteria](lectures/03-yield-criteria.qmd) — Von Mises vs Tresca on the π-plane
 1. [Elastic Constants](lectures/04-elastic-constants.qmd) — Poisson's ratio and Lamé parameters, with intuition
+1. [Plane stress/strain](lectures/05-plane-stress-strain.qmd) - Plane stress and plane strain in the Voigt notation

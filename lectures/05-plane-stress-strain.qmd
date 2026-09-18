@@ -1,0 +1,18 @@
+---
+title: Plane stress and plane strain
+---
+
+- Plane stress: No out-of-plane stress
+- Plane strain: No out-of-plane strain
+
+:::{.callout-important}
+In plane strain, there is in general a non-zero out-of-plane stress component. The same applies for plane stress, there is in general a non-zero strain component.
+:::
+fd
+
+::: {.callout-tip collapse="false"}
+Try a few sets of parameters and see how they compare to the formulas in the lecture notes. Can you make out-of-plane terms disapear?
+:::
+
+
+{{< include ../interactives/_plane_stress_strain.md >}}

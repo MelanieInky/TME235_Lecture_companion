@@ -5,7 +5,7 @@ project:
 jupyter: python3
 
 website:
-  title: "Continuum Mechanics — Companion Site"
+  title: "TME235 Mechanics of Solids — Companion Site"
   navbar:
     left:
       - href: index.qmd
