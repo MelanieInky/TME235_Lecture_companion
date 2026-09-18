@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Yield Criteria: Von Mises vs Tresca – TME235 Mechanics of Solids — Companion Site</title>
+<title>Plane stress and plane strain – TME235 Mechanics of Solids — Companion Site</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -74,35 +74,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -137,7 +108,7 @@ window.Quarto = {
 <span class="menu-text">Deviatoric/Spherical</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../lectures/03-yield-criteria.html" aria-current="page"> 
+    <a class="nav-link" href="../lectures/03-yield-criteria.html"> 
 <span class="menu-text">Yield Criteria</span></a>
   </li>  
   <li class="nav-item">
@@ -166,21 +137,15 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#equivalent-stress-measures." id="toc-equivalent-stress-measures." class="nav-link active" data-scroll-target="#equivalent-stress-measures.">Equivalent stress measures.</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Yield Criteria: Von Mises vs Tresca</h1>
+<h1 class="title">Plane stress and plane strain</h1>
 </div>
 
 
@@ -197,355 +162,481 @@ window.Quarto = {
 </header>
 
 
-<section id="equivalent-stress-measures." class="level2">
-<h2 class="anchored" data-anchor-id="equivalent-stress-measures.">Equivalent stress measures.</h2>
-<p>In 1d a typical stress-strain figure looks like the following:</p>
-<p><img src="stress_strain_curve.png" class="img-fluid" style="width:70.0%"></p>
-<p>This is what experimentalists get when doing a tensile test. After a certain stress <span class="math inline">\(\sigma_Y\)</span>, the behavior of the material is no longer purely elastic and the stress is no longer linearly dependent on the strain. The issue is that in a real material, we do not have uniaxial displacements and stresses, so the stress is a <span class="math inline">\(3 \times 3\)</span> tensor, but at which stress does it yield? This is where equivalent stress come into play, we use a scalar <span class="math inline">\(\sigma_{eq} = f(\boldsymbol{\sigma})\)</span> and compare it to the yield stress <span class="math inline">\(\sigma_Y\)</span> to determine if plastic deformation happen. There are a variety of equivalent stress measures that we can choose, but in this course we consider the Von-Mises and Tresca equivalent stress.</p>
-<p>The Von-Mises equivalent stress measures (1.35 in the lecture notes):</p>
-<p><span class="math display">\[
-\sigma_{eM}(\sigma_{ij}) = \sqrt{\frac{3}{2}\sigma_{ij}^\text{dev}\sigma_{ij}^\text{dev}}
-\]</span></p>
-<p>One thing that should be noted is that this is a scalar value, and it is an invariant of the stress tensor, meaning that the Von-Mises stress is independent on the basis in which we express the components of the stress tensors. We will see in exercise 5 that the Von-Mises stress can be written in term of principal stress:</p>
-<p><span class="math display">\[
-\sigma_{vM} = \sqrt{\frac{1}{2}\left[(\sigma_1-\sigma_2)^2 + (\sigma_2-\sigma_3)^2 + (\sigma_3-\sigma_1)^2\right]}
-\]</span></p>
-<p>We also defined the Tresca criterion. <span class="math display">\[
-\sigma_{\text{Tresca}} = \max\big(|\sigma_1-\sigma_2|,\ |\sigma_2-\sigma_3|,\ |\sigma_3-\sigma_1|\big) = \sigma_{max} - \sigma_{min}
-\]</span></p>
-<div class="callout callout-style-default callout-note callout-titled" title="$\sigma_{vM} \leq \sigma_\text{tresca}$">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<ul>
+<li>Plane stress: No out-of-plane stress</li>
+<li>Plane strain: No out-of-plane strain</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span><span class="math inline">\(\sigma_{vM} \leq \sigma_\text{tresca}\)</span>
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In plane strain, there is in general a non-zero out-of-plane stress component. The same applies for plane stress, there is in general a non-zero strain component.</p>
+</div>
+</div>
+<p>fd</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p><strong>Setup.</strong> Order the principal stresses <span class="math inline">\(\sigma_1 \ge \sigma_2 \ge \sigma_3\)</span>. Define</p>
-<p><span class="math display">\[
-\sigma_T = \sigma_1 - \sigma_3 \qquad \text{(Tresca equivalent stress)}
-\]</span></p>
-<p><strong>Claim.</strong> <span class="math inline">\(\sigma_{vM} \le \sigma_T\)</span>, with equality if and only if <span class="math inline">\(\sigma_2 = \sigma_1\)</span> or <span class="math inline">\(\sigma_2 = \sigma_3\)</span>.</p>
-<p><strong>Proof.</strong> Let <span class="math inline">\(a = \sigma_1 - \sigma_2 \ge 0\)</span> and <span class="math inline">\(b = \sigma_2 - \sigma_3 \ge 0\)</span> (both non-negative by the ordering). Then</p>
-<p><span class="math display">\[
-\sigma_1 - \sigma_3 = a + b, \qquad \sigma_T = a+b.
-\]</span></p>
-<p>Substituting into the von Mises expression:</p>
-<p><span class="math display">\[
-\sigma_{vM}^2 = \tfrac{1}{2}\left[a^2 + b^2 + (a+b)^2\right] = \tfrac{1}{2}\left[2a^2+2b^2+2ab\right] = a^2+ab+b^2.
-\]</span></p>
-<p>Meanwhile</p>
-<p><span class="math display">\[
-\sigma_T^2 = (a+b)^2 = a^2+2ab+b^2.
-\]</span></p>
-<p>Subtracting,</p>
-<p><span class="math display">\[
-\sigma_T^2 - \sigma_{vM}^2 = ab \ge 0,
-\]</span></p>
-<p>since <span class="math inline">\(a,b \ge 0\)</span>. Because both <span class="math inline">\(\sigma_T\)</span> and <span class="math inline">\(\sigma_{vM}\)</span> are non-negative, this gives</p>
-<p><span class="math display">\[
-\sigma_{vM} \le \sigma_T.
-\]</span></p>
-<p>Equality holds iff <span class="math inline">\(ab = 0\)</span>, i.e.&nbsp;iff <span class="math inline">\(a=0\)</span> (<span class="math inline">\(\sigma_1=\sigma_2\)</span>) or <span class="math inline">\(b=0\)</span> (<span class="math inline">\(\sigma_2=\sigma_3\)</span>). <span class="math inline">\(\blacksquare\)</span></p>
+<p>Try a few sets of parameters and see how they compare to the formulas in the lecture notes. Can you make out-of-plane terms disapear?</p>
 </div>
 </div>
 </div>
-<p>In the following cell, you can play around the two criterion and see when they differ.</p>
 <style>
-/* Light tokens. The [data-bs-theme]/body.quarto-* selectors are ANCESTOR-scoped,
-   so they only bite when Quarto's own theme toggle is present — they never apply
-   unconditionally the way a bare [data-theme="dark"] rule would. */
-.viz-pi,
-[data-bs-theme="light"] .viz-pi,
-body.quarto-light .viz-pi {
-  --fg: #1a1a1a; --fg-muted: #6b6b6b;
-  --panel-bg: #f7f7f8; --border: #e2e2e4; --grid: #dcdcde;
-  --slider: #555;
-  --vm: #2E86AB; --tresca: #C1440E; --point: #3E8914;
-}
-@media (prefers-color-scheme: dark) {
-  .viz-pi {
-    --fg: #f0f0f0; --fg-muted: #a0a0a3;
-    --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
-    --slider: #9a9a9d;
-  }
-}
-[data-bs-theme="dark"] .viz-pi,
-body.quarto-dark .viz-pi {
-  --fg: #f0f0f0; --fg-muted: #a0a0a3;
-  --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
-  --slider: #9a9a9d;
+/* ---- tokens: light, media-dark, attribute-dark (GUIDELINES §2 order) ---- */
+.viz-planestress,
+[data-bs-theme="light"] .viz-planestress,
+body.quarto-light .viz-planestress {
+  --ps-fg: #1a1a1a;
+  --ps-fg-muted: #6b6b6b;
+  --ps-panel-bg: #f4f4f6;
+  --ps-border: #d8d8d8;
+  --ps-slider: #6b3fa0;
+  --ps-block-fill: rgba(90, 130, 200, 0.14);
+  --ps-block-stroke: #3a3a3a;
+  --ps-wall: #8a8a8a;
+  --ps-tension: #c0392b;
+  --ps-compression: #2166ac;
+  --ps-accent: #6b3fa0;
 }
 
-.viz-pi *, .viz-pi *::before, .viz-pi *::after {
-  box-sizing: border-box;
-}
-.viz-pi {
-  color: var(--fg);
-  font-family: inherit;
-  margin: 0 0 1.5rem;
-  padding: 0;
-}
-.viz-pi .subtitle {
-  text-align: center; color: var(--fg-muted); font-size: 0.9rem; margin-bottom: 22px;
-}
-.viz-pi .layout {
-  display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: start;
-}
-@media (max-width: 760px) {
-  .viz-pi .layout {
-    grid-template-columns: 1fr;
+@media (prefers-color-scheme: dark) {
+  .viz-planestress {
+    --ps-fg: #e8e8e8;
+    --ps-fg-muted: #a0a0a0;
+    --ps-panel-bg: #26272b;
+    --ps-border: #3a3b3e;
+    --ps-slider: #b18fd6;
+    --ps-block-fill: rgba(120, 160, 230, 0.18);
+    --ps-block-stroke: #cfcfcf;
+    --ps-wall: #9a9a9a;
+    --ps-tension: #e07a6e;
+    --ps-compression: #6fa8dc;
+    --ps-accent: #b18fd6;
   }
 }
-.viz-pi .controls {
-  background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
-  padding: 16px 18px;
+
+[data-bs-theme="dark"] .viz-planestress,
+body.quarto-dark .viz-planestress {
+  --ps-fg: #e8e8e8;
+  --ps-fg-muted: #a0a0a0;
+  --ps-panel-bg: #26272b;
+  --ps-border: #3a3b3e;
+  --ps-slider: #b18fd6;
+  --ps-block-fill: rgba(120, 160, 230, 0.18);
+  --ps-block-stroke: #cfcfcf;
+  --ps-wall: #9a9a9a;
+  --ps-tension: #e07a6e;
+  --ps-compression: #6fa8dc;
+  --ps-accent: #b18fd6;
 }
-.viz-pi .controls h3 {
-  font-size: 0.85rem; margin: 0 0 10px; color: var(--fg-muted); font-weight: 600;
-}
-.viz-pi .slider-group {
-  margin-bottom: 14px;
-}
-.viz-pi .slider-group label {
-  display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px;
-}
-.viz-pi .slider-group label .val {
-  font-variant-numeric: tabular-nums; color: var(--fg-muted);
-}
-.viz-pi input[type="range"] {
-  width: 100%; accent-color: var(--slider);
-}
-.viz-pi .presets {
-  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
-}
-.viz-pi .presets button {
-  font-size: 0.75rem; padding: 5px 10px; border-radius: 999px;
-  border: 1px solid var(--border); background: var(--panel-bg); color: var(--fg); cursor: pointer;
-}
-.viz-pi .presets button:hover {
-  border-color: var(--fg-muted);
-}
-.viz-pi .readouts {
-  margin-top: 14px; font-size: 0.8rem; line-height: 1.7;
-}
-.viz-pi .readouts .row {
-  display: flex; justify-content: space-between;
-}
-.viz-pi .readouts .row span:last-child {
+
+/* ---- layout ---- */
+.viz-planestress {
+  font-family: inherit;
+  color: var(--ps-fg);
   font-variant-numeric: tabular-nums;
 }
-.viz-pi .status {
-  margin-top: 10px; padding: 8px 10px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; text-align: center;
+.viz-planestress *,
+.viz-planestress *::before,
+.viz-planestress *::after { box-sizing: border-box; }
+
+.viz-planestress .ps-subtitle {
+  font-size: 0.85rem;
+  color: var(--ps-fg-muted);
+  margin: 0 0 0.9rem;
 }
-.viz-pi .plot-panel {
-  background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
-  padding: 14px; text-align: center;
+
+.viz-planestress .ps-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.9rem 1.4rem;
+  padding: 0.9rem 1rem;
+  background: var(--ps-panel-bg);
+  border: 1px solid var(--ps-border);
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
 }
-.viz-pi svg {
-  display: block; margin: 0 auto; width: 100%; height: auto; max-width: 460px;
+.viz-planestress .ps-control label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
 }
-.viz-pi .legend {
-  display: flex; justify-content: center; gap: 18px; margin-top: 10px; font-size: 0.78rem; color: var(--fg-muted);
+.viz-planestress .ps-control label .ps-val {
+  color: var(--ps-accent);
+  font-weight: 600;
 }
-.viz-pi .legend span { white-space: nowrap; }
-.viz-pi .legend .swatch {
-  display: inline-block; width: 14px; height: 3px; margin-right: 5px; vertical-align: middle;
+.viz-planestress .ps-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--ps-slider);
 }
-.viz-pi .note {
-  max-width: 720px; margin: 22px auto 0; font-size: 0.8rem; color: var(--fg-muted);
-  line-height: 1.5; text-align: center;
+
+.viz-planestress .ps-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+.viz-planestress .ps-presets button {
+  font: inherit;
+  font-size: 0.78rem;
+  color: var(--ps-fg);
+  background: var(--ps-panel-bg);
+  border: 1px solid var(--ps-border);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  cursor: pointer;
+}
+.viz-planestress .ps-presets button:hover {
+  border-color: var(--ps-accent);
+  color: var(--ps-accent);
+}
+
+.viz-planestress .ps-panels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+}
+.viz-planestress .ps-panel {
+  flex: 1 1 300px;
+  max-width: 400px;
+  border: 1px solid var(--ps-border);
+  border-radius: 10px;
+  padding: 0.8rem 0.9rem 0.9rem;
+}
+.viz-planestress .ps-panel h4 {
+  margin: 0 0 0.15rem;
+  font-size: 0.95rem;
+}
+.viz-planestress .ps-panel .ps-sub {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  color: var(--ps-fg-muted);
+}
+.viz-planestress svg {
+  width: 100%;
+  height: auto;
+  max-width: 460px;
+  display: block;
+  margin: 0 auto;
+}
+.viz-planestress .ps-block {
+  fill: var(--ps-block-fill);
+  stroke: var(--ps-block-stroke);
+  stroke-width: 2;
+}
+.viz-planestress .ps-wallhatch {
+  stroke: var(--ps-wall);
+  stroke-width: 2;
+}
+.viz-planestress .ps-thickbar {
+  fill: var(--ps-block-fill);
+  stroke: var(--ps-block-stroke);
+  stroke-width: 1.5;
+}
+.viz-planestress .ps-readout {
+  margin-top: 0.4rem;
+  font-size: 0.86rem;
+  text-align: center;
+}
+.viz-planestress .ps-readout .ps-eqline {
+  font-weight: 600;
+  color: var(--ps-accent);
+}
+.viz-planestress .ps-note {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: var(--ps-fg-muted);
+  line-height: 1.55;
 }
 </style>
 
-<div class="viz-pi">
-<div class="subtitle">Deviatoric plane σ₁+σ₂+σ₃ = const, projected orthogonal to the hydrostatic axis (1,1,1)</div>
+<div class="viz-planestress">
 
-  <div class="layout">
-    <div class="controls">
-      <h3 class="anchored">PRINCIPAL STRESSES</h3>
-      <div class="slider-group">
-        <label for="pi-s1">σ₁ <span class="val" id="pi-v1">200</span></label>
-        <input type="range" id="pi-s1" min="-300" max="300" step="1" value="200">
-      </div>
-      <div class="slider-group">
-        <label for="pi-s2">σ₂ <span class="val" id="pi-v2">0</span></label>
-        <input type="range" id="pi-s2" min="-300" max="300" step="1" value="0">
-      </div>
-      <div class="slider-group">
-        <label for="pi-s3">σ₃ <span class="val" id="pi-v3">0</span></label>
-        <input type="range" id="pi-s3" min="-300" max="300" step="1" value="0">
-      </div>
-      <h3 style="margin-top:16px" class="anchored">YIELD STRESS</h3>
-      <div class="slider-group">
-        <label for="pi-sy">σ_y <span class="val" id="pi-vy">200</span></label>
-        <input type="range" id="pi-sy" min="50" max="300" step="1" value="200">
-      </div>
+  <p class="ps-subtitle">
+    The same in-plane stress state, under two different assumptions about the third
+    direction. Plane stress lets the out-of-plane direction move freely; plane strain
+    holds it fixed. Drag the sliders and watch what each one gives up.
+  </p>
 
-      <div class="presets">
-        <button data-s="200,0,0">Uniaxial tension</button>
-        <button data-s="-200,0,0">Uniaxial compression</button>
-        <button data-s="115,-115,0">Pure shear</button>
-        <button data-s="200,200,0">Equibiaxial</button>
-        <button data-s="100,50,-50">Mixed</button>
-      </div>
-
-      <div class="readouts">
-        <div class="row"><span>σ_m (hydrostatic)</span><span id="pi-r-sm"></span></div>
-        <div class="row"><span>σ_vm (Von Mises)</span><span id="pi-r-vm"></span></div>
-        <div class="row"><span>σ_tresca (σ_max−σ_min)</span><span id="pi-r-tr"></span></div>
-      </div>
-      <div class="status" id="pi-status"></div>
+  <div class="ps-controls">
+    <div class="ps-control">
+      <label for="ps-s11"><span>σ<sub>11</sub></span> <span class="ps-val"><span id="ps-s11-val">100</span> MPa</span></label>
+      <input type="range" id="ps-s11" min="-100" max="100" step="5" value="100">
     </div>
-
-    <div class="plot-panel">
-      <svg id="pi-svg-pi" viewbox="-245 -245 490 490"></svg>
-      <div class="legend">
-        <span><span class="swatch" style="background:var(--vm)"></span>Von Mises</span>
-        <span><span class="swatch" style="background:var(--tresca)"></span>Tresca</span>
-        <span><span class="swatch" style="background:var(--point)"></span>stress state</span>
-      </div>
+    <div class="ps-control">
+      <label for="ps-s22"><span>σ<sub>22</sub></span> <span class="ps-val"><span id="ps-s22-val">0</span> MPa</span></label>
+      <input type="range" id="ps-s22" min="-100" max="100" step="5" value="0">
+    </div>
+    <div class="ps-control">
+      <label for="ps-nu"><span>ν</span> <span class="ps-val" id="ps-nu-val">0.30</span></label>
+      <input type="range" id="ps-nu" min="0" max="0.49" step="0.01" value="0.30">
+    </div>
+    <div class="ps-control">
+      <label for="ps-e"><span>E</span> <span class="ps-val"><span id="ps-e-val">200</span> GPa</span></label>
+      <input type="range" id="ps-e" min="10" max="300" step="5" value="200">
     </div>
   </div>
 
-  <div class="note">
-    The two criteria always agree exactly at the hexagon's corners (uniaxial-like states, where two
-    principal stresses coincide) and diverge most at the midpoints of the hexagon's edges
-    (pure-shear-like states), where Tresca is more conservative by a factor of 2/√3 ≈ 1.155.
-    Motion purely along the hydrostatic axis (σ₁=σ₂=σ₃) doesn't move the point in this plane at
-    all — both criteria are pressure-independent. Because σ_tresca ≥ σ_vm always, the only possible
-    disagreement is Tresca predicting yield first. A stress state far enough out to leave the frame
-    is drawn as a hollow marker on the boundary; the readouts stay exact.
+  <div class="ps-presets">
+    <button type="button" id="ps-preset-1">Uniaxial, ν = 0.3</button>
+    <button type="button" id="ps-preset-2">ν = 0</button>
+    <button type="button" id="ps-preset-3">σ<sub>11</sub> + σ<sub>22</sub> = 0</button>
+    <button type="button" id="ps-preset-4">Equibiaxial, ν = 0.49</button>
+    <button type="button" id="ps-preset-5">Uniaxial, E = 70 GPa</button>
   </div>
 
+  <div class="ps-panels">
+
+    <!-- ============ PLANE STRESS ============ -->
+    <div class="ps-panel">
+      <h4 class="anchored">Plane stress</h4>
+      <p class="ps-sub">thin plate, stress-free faces (σ<sub>33</sub> = 0)</p>
+      <svg viewbox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="ps-a-tip-t" viewbox="0 0 10 10" refx="8" refy="5" markerwidth="7" markerheight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--ps-tension)"></path>
+          </marker>
+          <marker id="ps-a-tip-c" viewbox="0 0 10 10" refx="8" refy="5" markerwidth="7" markerheight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--ps-compression)"></path>
+          </marker>
+        </defs>
+        <rect class="ps-block" x="60" y="50" width="80" height="80"></rect>
+        <line id="ps-a-arrow-left" x1="60" y1="90" x2="30" y2="90" stroke-width="3"></line>
+        <line id="ps-a-arrow-right" x1="140" y1="90" x2="170" y2="90" stroke-width="3"></line>
+        <line id="ps-a-arrow-top" x1="100" y1="50" x2="100" y2="20" stroke-width="3"></line>
+        <line id="ps-a-arrow-bottom" x1="100" y1="130" x2="100" y2="160" stroke-width="3"></line>
+        <text x="100" y="190" text-anchor="middle" font-size="8.5" fill="var(--ps-fg-muted)">out-of-plane thickness (exaggerated)</text>
+        <rect id="ps-thickbar" class="ps-thickbar" x="70" y="200" width="60" height="12"></rect>
+        <text id="ps-a-clampflag" x="100" y="232" text-anchor="middle" font-size="8" fill="var(--ps-accent)"></text>
+      </svg>
+      <div class="ps-readout">
+        ε<sub>33</sub> = <span class="ps-eqline" id="ps-eps33-val">0</span> ×10<sup>−6</sup>
+      </div>
+    </div>
+
+    <!-- ============ PLANE STRAIN ============ -->
+    <div class="ps-panel">
+      <h4 class="anchored">Plane strain</h4>
+      <p class="ps-sub">long body, axially restrained (ε<sub>33</sub> = 0)</p>
+      <svg viewbox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="ps-b-tip-t" viewbox="0 0 10 10" refx="8" refy="5" markerwidth="7" markerheight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--ps-tension)"></path>
+          </marker>
+          <marker id="ps-b-tip-c" viewbox="0 0 10 10" refx="8" refy="5" markerwidth="7" markerheight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--ps-compression)"></path>
+          </marker>
+        </defs>
+        <rect class="ps-block" x="60" y="50" width="80" height="80"></rect>
+        <line id="ps-b-arrow-left" x1="60" y1="90" x2="30" y2="90" stroke-width="3"></line>
+        <line id="ps-b-arrow-right" x1="140" y1="90" x2="170" y2="90" stroke-width="3"></line>
+        <line id="ps-b-arrow-top" x1="100" y1="50" x2="100" y2="20" stroke-width="3"></line>
+        <line id="ps-b-arrow-bottom" x1="100" y1="130" x2="100" y2="160" stroke-width="3"></line>
+        <g transform="translate(100,90)">
+          <circle r="12" fill="none" stroke="var(--ps-block-stroke)" stroke-width="1.5"></circle>
+          <circle id="ps-out-dot" r="3.5" fill="var(--ps-tension)"></circle>
+          <g id="ps-out-cross" stroke="var(--ps-compression)" stroke-width="2">
+            <line x1="-6" y1="-6" x2="6" y2="6"></line>
+            <line x1="-6" y1="6" x2="6" y2="-6"></line>
+          </g>
+        </g>
+        <text x="100" y="158" text-anchor="middle" font-size="8" fill="var(--ps-fg-muted)">⊙ out of page &nbsp;/&nbsp; ⊗ into page</text>
+
+        <text x="100" y="170" text-anchor="middle" font-size="8.5" fill="var(--ps-fg-muted)">side view along the axis</text>
+        <rect id="ps-sv-ghost" x="40" y="176" width="120" height="8" fill="none" stroke="var(--ps-fg-muted)" stroke-width="1.2" stroke-dasharray="4,3"></rect>
+        <g class="ps-wallhatch">
+          <line x1="36" y1="188" x2="36" y2="216"></line>
+          <line x1="30" y1="192" x2="36" y2="188"></line>
+          <line x1="30" y1="201" x2="36" y2="197"></line>
+          <line x1="30" y1="210" x2="36" y2="206"></line>
+          <line x1="164" y1="188" x2="164" y2="216"></line>
+          <line x1="170" y1="192" x2="164" y2="188"></line>
+          <line x1="170" y1="201" x2="164" y2="197"></line>
+          <line x1="170" y1="210" x2="164" y2="206"></line>
+        </g>
+        <rect class="ps-thickbar" x="40" y="191" width="120" height="22"></rect>
+        <line id="ps-sv-reaction-l" x1="95" y1="202" x2="75" y2="202" stroke-width="2.5"></line>
+        <line id="ps-sv-reaction-r" x1="105" y1="202" x2="125" y2="202" stroke-width="2.5"></line>
+        <text x="100" y="226" text-anchor="middle" font-size="7.5" fill="var(--ps-fg-muted)">dashed = length it would take if free to move axially</text>
+        <text id="ps-b-clampflag" x="100" y="234" text-anchor="middle" font-size="8" fill="var(--ps-accent)"></text>
+      </svg>
+      <div class="ps-readout">
+        σ<sub>33</sub> = <span class="ps-eqline" id="ps-sig33-val">0</span> MPa
+      </div>
+    </div>
+
+  </div>
+
+  <p class="ps-note">
+    <strong>Notes.</strong>
+    Linearised (small-strain) elasticity throughout: ε<sub>33</sub> =
+    −(ν/E)(σ<sub>11</sub>+σ<sub>22</sub>) and
+    σ<sub>33</sub> = ν(σ<sub>11</sub>+σ<sub>22</sub>), with no shear
+    component in either panel.
+    Both out-of-plane effects are drawn at ×1000 exaggeration — real strains here are
+    of order 10<sup>−4</sup> and would be invisible at true scale.
+    The thickness bar and the dashed free length are <em>drawn</em> within a fixed box; when a
+    state runs past it the figure says so and switches to a dashed outline, but the readouts
+    below always report the true value.
+    The dashed length is the same material at the same in-plane stress with the axial
+    constraint released — a thought experiment, not a second physical body.
+    The restraint is idealised as bonded: it both pushes and pulls, so
+    σ<sub>33</sub> can be tensile. A smooth rigid wall could only push.
+  </p>
 
 <script>
-(function(){
-  const root = document.querySelector(".viz-pi");
+(function () {
+  const root = document.querySelector('.viz-planestress');
   if (!root) return;
-  const __q = (id) => root.querySelector("#" + id);
+  const __q = (id) => root.querySelector('#' + id);
 
-const els = {
-  s1: __q('pi-s1'),
-  s2: __q('pi-s2'),
-  s3: __q('pi-s3'),
-  sy: __q('pi-sy'),
-};
-const valEls = {
-  s1: __q('pi-v1'),
-  s2: __q('pi-v2'),
-  s3: __q('pi-v3'),
-  sy: __q('pi-vy'),
-};
+  const s11In = __q('ps-s11');
+  const s22In = __q('ps-s22');
+  const nuIn  = __q('ps-nu');
+  const eIn   = __q('ps-e');
 
-const SCALE = 0.55;   // data units -> svg units
-const R_DRAW = 228;   // svg units; viewBox half-width is 245, so this keeps the 6px marker inside
+  const K = 1000;                       // drawing exaggeration, stated in the .note
+  // ONE draw factor shared by both panels, so they saturate at the same state.
+  // Bounds set by whichever figure runs out of room first (the ghost strip).
+  const FAC_LO = 0.35, FAC_HI = 1.45;
 
-function project(s1, s2, s3) {
-  const sm = (s1 + s2 + s3) / 3;
-  const d1 = s1 - sm, d2 = s2 - sm, d3 = s3 - sm;
-  const x = (2 * d1 - d2 - d3) / Math.sqrt(6);
-  const y = (d2 - d3) / Math.sqrt(2);
-  return { x, y, sm };
-}
+  // snap -0 and float dust to a clean zero (GUIDELINES §7)
+  const snap = (x, eps) => (Math.abs(x) < eps ? 0 : x);
+  // pad positives with U+00A0 so the sign column does not drift
+  const signed = (x, dp) => (x > 0 ? '\u00A0' : '') + x.toFixed(dp);
 
-function hexagonPoints(Rvm) {
-  const pts = [];
-  for (let k = 0; k < 6; k++) {
-    const theta = k * Math.PI / 3;
-    pts.push([Rvm * Math.cos(theta) * SCALE, -Rvm * Math.sin(theta) * SCALE]);
-  }
-  return pts.map(p => p.join(',')).join(' ');
-}
-
-function update() {
-  const s1 = parseFloat(els.s1.value);
-  const s2 = parseFloat(els.s2.value);
-  const s3 = parseFloat(els.s3.value);
-  const sy = parseFloat(els.sy.value);
-
-  valEls.s1.textContent = s1.toFixed(0);
-  valEls.s2.textContent = s2.toFixed(0);
-  valEls.s3.textContent = s3.toFixed(0);
-  valEls.sy.textContent = sy.toFixed(0);
-
-  const svm = Math.sqrt(0.5 * ((s1 - s2) ** 2 + (s2 - s3) ** 2 + (s3 - s1) ** 2));
-  const stresca = Math.max(s1, s2, s3) - Math.min(s1, s2, s3);
-  const { x, y, sm } = project(s1, s2, s3);
-
-  __q('pi-r-sm').textContent = sm.toFixed(1);
-  __q('pi-r-vm').textContent = svm.toFixed(1);
-  __q('pi-r-tr').textContent = stresca.toFixed(1);
-
-  const statusEl = __q('pi-status');
-  const vmYield = svm >= sy;
-  const trYield = stresca >= sy;
-  if (vmYield && trYield) {
-    statusEl.textContent = 'Outside both surfaces (yielded)';
-    statusEl.style.background = 'rgba(193,68,14,0.18)';
-    statusEl.style.color = '#C1440E';
-  } else if (!vmYield && !trYield) {
-    statusEl.textContent = 'Inside both surfaces (elastic)';
-    statusEl.style.background = 'rgba(62,137,20,0.18)';
-    statusEl.style.color = '#3E8914';
-  } else {
-    // sigma_tresca >= sigma_vm always, so this branch can only ever be Tresca-first.
-    statusEl.textContent = 'Between the criteria — Tresca yields, Von Mises does not';
-    statusEl.style.background = 'rgba(176,137,0,0.18)';
-    statusEl.style.color = '#b08900';
+  function setArrow(panel, side, stress) {
+    const el = __q('ps-' + panel + '-arrow-' + side);
+    if (!el) return;
+    if (stress === 0) { el.style.display = 'none'; return; }
+    el.style.display = '';
+    const tension = stress > 0;
+    const len = 10 + 30 * Math.min(Math.abs(stress) / 100, 1);
+    el.setAttribute('stroke', tension ? 'var(--ps-tension)' : 'var(--ps-compression)');
+    el.setAttribute('marker-end', 'url(#ps-' + panel + '-tip-' + (tension ? 't' : 'c') + ')');
+    let x1, y1, x2, y2;
+    if (side === 'left')        { [x1,y1,x2,y2] = tension ? [60,90,60-len,90]   : [60-len,90,60,90]; }
+    else if (side === 'right')  { [x1,y1,x2,y2] = tension ? [140,90,140+len,90] : [140+len,90,140,90]; }
+    else if (side === 'top')    { [x1,y1,x2,y2] = tension ? [100,50,100,50-len] : [100,50-len,100,50]; }
+    else                        { [x1,y1,x2,y2] = tension ? [100,130,100,130+len] : [100,130+len,100,130]; }
+    el.setAttribute('x1', x1); el.setAttribute('y1', y1);
+    el.setAttribute('x2', x2); el.setAttribute('y2', y2);
   }
 
-  const Rvm = Math.sqrt(2 / 3) * sy;
-  const svg = __q('pi-svg-pi');
+  function update() {
+    const s11   = parseFloat(s11In.value);
+    const s22   = parseFloat(s22In.value);
+    const nu    = parseFloat(nuIn.value);
+    const E_GPa = parseFloat(eIn.value);
+    const E_MPa = E_GPa * 1000;
 
-  // The slider corners reach a deviatoric radius of ~490 data units (e.g. 300,-300,-300),
-  // i.e. ~269 svg units against a 245 half-width — the marker used to vanish off-frame.
-  let px = x * SCALE, py = -y * SCALE;
-  const r = Math.hypot(px, py);
-  const offScale = r > R_DRAW;
-  if (offScale && r > 0) {
-    px *= R_DRAW / r;
-    py *= R_DRAW / r;
+    __q('ps-s11-val').textContent = s11.toFixed(0);
+    __q('ps-s22-val').textContent = s22.toFixed(0);
+    __q('ps-nu-val').textContent  = nu.toFixed(2);
+    __q('ps-e-val').textContent   = E_GPa.toFixed(0);
+
+    ['a', 'b'].forEach((p) => {
+      setArrow(p, 'left', s11);  setArrow(p, 'right', s11);
+      setArrow(p, 'top', s22);   setArrow(p, 'bottom', s22);
+    });
+
+    /* ---- plane stress: eps33 = -(nu/E)(s11+s22) ---- */
+    const eps33 = snap(-(nu / E_MPa) * (s11 + s22), 1e-12);
+    __q('ps-eps33-val').textContent = signed(eps33 * 1e6, 1);
+
+    let fac = 1 + K * eps33;
+    const facSat = (fac < FAC_LO || fac > FAC_HI);
+    fac = Math.max(FAC_LO, Math.min(FAC_HI, fac));
+    const bar = __q('ps-thickbar');
+    const h = 14 * fac;
+    bar.setAttribute('y', 206 - h / 2);
+    bar.setAttribute('height', h);
+    bar.setAttribute('fill', facSat ? 'none'
+      : (eps33 < 0 ? 'var(--ps-compression)'
+      : (eps33 > 0 ? 'var(--ps-tension)' : 'var(--ps-block-fill)')));
+    bar.setAttribute('stroke-dasharray', facSat ? '4,3' : 'none');
+    bar.setAttribute('stroke', facSat ? 'var(--ps-accent)' : 'var(--ps-block-stroke)');
+    __q('ps-a-clampflag').textContent = facSat ? 'drawing saturated \u2014 readout is exact' : '';
+
+    /* ---- plane strain: sig33 = nu*(s11+s22) ---- */
+    const sig33 = snap(nu * (s11 + s22), 1e-12);
+    __q('ps-sig33-val').textContent = signed(sig33, 1);
+
+    const dot = __q('ps-out-dot'), cross = __q('ps-out-cross');
+    if (sig33 === 0) { dot.style.display = 'none'; cross.style.display = 'none'; }
+    else if (sig33 > 0) {
+      dot.style.display = ''; cross.style.display = 'none';
+      dot.setAttribute('r', 2 + Math.min(Math.abs(sig33) / 50, 1) * 4);
+    } else { dot.style.display = 'none'; cross.style.display = ''; }
+
+    // dashed ghost = free axial length, from the SAME fac as the thickness bar
+    const ghost = __q('ps-sv-ghost');
+    const gw = 120 * fac;
+    ghost.setAttribute('width', gw);
+    ghost.setAttribute('x', 100 - gw / 2);
+    ghost.setAttribute('stroke', facSat ? 'var(--ps-accent)' : 'var(--ps-fg-muted)');
+    __q('ps-b-clampflag').textContent = facSat ? 'drawing saturated \u2014 readout is exact' : '';
+
+    // clamp reactions
+    const rl = __q('ps-sv-reaction-l'), rr = __q('ps-sv-reaction-r');
+    if (sig33 === 0) { rl.style.display = 'none'; rr.style.display = 'none'; }
+    else {
+      rl.style.display = ''; rr.style.display = '';
+      const rLen = 6 + Math.min(Math.abs(sig33) / 50, 1) * 22;
+      const t = sig33 > 0;
+      const col = t ? 'var(--ps-tension)' : 'var(--ps-compression)';
+      const mk  = 'url(#ps-b-tip-' + (t ? 't' : 'c') + ')';
+      [rl, rr].forEach((el) => { el.setAttribute('stroke', col); el.setAttribute('marker-end', mk); });
+      rl.setAttribute('x1', t ? 95 : 95 - rLen);  rl.setAttribute('x2', t ? 95 - rLen : 95);
+      rr.setAttribute('x1', t ? 105 : 105 + rLen); rr.setAttribute('x2', t ? 105 + rLen : 105);
+    }
   }
 
-  // axis directions for σ1, σ2, σ3 projected (labels)
-  const axisLen = 210;
-  const axes = [0, 2 * Math.PI / 3, 4 * Math.PI / 3].map((theta, i) => {
-    const ax = axisLen * Math.cos(theta), ay = -axisLen * Math.sin(theta);
-    return { ax, ay, label: ['σ₁', 'σ₂', 'σ₃'][i] };
+  [s11In, s22In, nuIn, eIn].forEach((el) => el.addEventListener('input', update));
+
+  // presets set values and call update(); they never duplicate drawing logic
+  const PRESETS = {
+    'ps-preset-1': [100,   0, 0.30, 200],
+    'ps-preset-2': [100, -40, 0.00, 200],
+    'ps-preset-3': [ 60, -60, 0.30, 200],
+    'ps-preset-4': [100, 100, 0.49, 200],
+    'ps-preset-5': [100,   0, 0.30,  70]
+  };
+  Object.keys(PRESETS).forEach((id) => {
+    const btn = __q(id);
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const [a, b, n, e] = PRESETS[id];
+      s11In.value = a; s22In.value = b; nuIn.value = n; eIn.value = e;
+      update();
+    });
   });
 
-  svg.innerHTML = `
-    ${axes.map(a => `<line x1="0" y1="0" x2="${a.ax}" y2="${a.ay}" stroke="var(--grid)" stroke-width="1" stroke-dasharray="3,3"/>
-      <text x="${a.ax * 1.06}" y="${a.ay * 1.06}" font-size="13" fill="var(--fg-muted)" text-anchor="middle">${a.label}</text>`).join('')}
-    <circle cx="0" cy="0" r="${Rvm * SCALE}" fill="none" stroke="var(--vm)" stroke-width="2.5"/>
-    <polygon points="${hexagonPoints(Rvm)}" fill="none" stroke="var(--tresca)" stroke-width="2.5"/>
-    <line x1="0" y1="0" x2="${px.toFixed(1)}" y2="${py.toFixed(1)}" stroke="var(--point)" stroke-width="1.5" stroke-dasharray="4,3"/>
-    <circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="6"
-      fill="${offScale ? 'none' : 'var(--point)'}" stroke="var(--point)" stroke-width="${offScale ? 2 : 1.5}"/>
-  `;
-}
-
-Object.values(els).forEach(el => el.addEventListener('input', update));
-root.querySelectorAll('.presets button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const [a, b, c] = btn.dataset.s.split(',').map(Number);
-    els.s1.value = a; els.s2.value = b; els.s3.value = c;
-    update();
-  });
-});
-
-update();
+  update();
 })();
 </script>
 </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
