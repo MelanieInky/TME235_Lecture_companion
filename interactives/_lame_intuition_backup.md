@@ -97,37 +97,35 @@
   <div class="panels">
     <div class="panel">
       <h2 style="color:var(--mat)">μ — resistance to shape change</h2>
-      <div class="desc">Set the shear stress τ; γ = τ/μ is the resulting shear strain</div>
+      <div class="desc">Apply a shear strain γ; τ = μγ is the stress needed to hold it there</div>
       <svg id="li-svg-shear" viewBox="0 0 260 220"></svg>
       <div class="slider-group" style="margin:10px auto 0;">
-        <label>Shear stress τ <span class="val" id="li-vTau">10.0 GPa</span></label>
-        <input type="range" id="li-tau" min="0" max="50" step="0.5" value="10">
+        <label>Shear strain γ <span class="val" id="li-vGamma">0.25</span></label>
+        <input type="range" id="li-gamma" min="0" max="0.5" step="0.01" value="0.25">
       </div>
-      <div class="readout">γ = τ/μ = <b id="li-r-gamma"></b></div>
+      <div class="readout">τ = μγ = <b id="li-r-tau"></b></div>
     </div>
 
     <div class="panel">
       <h2 style="color:var(--push)">λ — sideways stress when confined</h2>
-      <div class="desc">Set the axial stress σ on a bar between rigid walls (ε_lateral locked at 0); ε_axial = σ/(λ+2μ)</div>
+      <div class="desc">Squeeze/stretch a bar between rigid walls (ε_lateral locked at 0)</div>
       <svg id="li-svg-confined" viewBox="0 0 260 220"></svg>
       <div class="slider-group" style="margin:10px auto 0;">
-        <label>Axial stress σ_axial <span class="val" id="li-vSigax">21 GPa</span></label>
-        <input type="range" id="li-sigax" min="-50" max="100" step="1" value="21">
+        <label>Axial strain ε <span class="val" id="li-vEpsA">0.15</span></label>
+        <input type="range" id="li-epsA" min="-0.3" max="0.3" step="0.01" value="0.15">
       </div>
-      <div class="readout">ε_axial = σ/(λ+2μ) = <b id="li-r-epsax"></b><br>σ_wall = λε = <b id="li-r-sigwall"></b></div>
+      <div class="readout">σ_axial = (λ+2μ)ε = <b id="li-r-sigax"></b><br>σ_wall = λε = <b id="li-r-sigwall"></b></div>
     </div>
   </div>
 
   <div class="note">
-    Left: apply a shear stress τ and read off the resulting angle γ = τ/μ — no volume or lateral
-    coupling involved, just μ resisting the change of shape. Right: apply an axial stress σ to a bar
-    whose sides are clamped so it <b>can't</b> bulge or neck sideways (ε_lateral = 0 by construction,
-    not by Poisson relaxation) — the walls still feel a push or pull, and that reaction is exactly λε.
-    λ isn't a "stiffness" you can feel directly in an unconstrained pull test (that's E); it only shows
-    up once something stops the material from doing what its Poisson's ratio would otherwise let it do.
-    Note λ+2μ = M, the constrained (uniaxial-strain) modulus — the same quantity that sets P-wave speed
-    in geomechanics/seismology. If λ+2μ ≤ 0 (possible at the low end of these sliders) the material is
-    unstable and the strain readout is suppressed rather than shown as a nonsense sign.
+    Left: shear an element with the walls free to move — no volume or lateral coupling involved, just μ
+    fighting the change of angle. Right: pull/push a bar but clamp its sides so it <b>can't</b> bulge or
+    neck sideways (ε_lateral = 0 by construction, not by Poisson relaxation) — the walls still feel a
+    push or pull, and that reaction is exactly λε. λ isn't a "stiffness" you can feel directly in an
+    unconstrained pull test (that's E); it only shows up once something stops the material from doing
+    what its Poisson's ratio would otherwise let it do. Note λ+2μ = M, the constrained (uniaxial-strain)
+    modulus — the same quantity that sets P-wave speed in geomechanics/seismology.
   </div>
 
 
@@ -140,14 +138,14 @@
 const els = {
   mu: __q('li-mu'),
   lambda: __q('li-lambda'),
-  tau: __q('li-tau'),
-  sigAx: __q('li-sigax'),
+  gamma: __q('li-gamma'),
+  epsA: __q('li-epsA'),
 };
 const vals = {
   mu: __q('li-vMu'),
   lambda: __q('li-vLambda'),
-  tau: __q('li-vTau'),
-  sigAx: __q('li-vSigax'),
+  gamma: __q('li-vGamma'),
+  epsA: __q('li-vEpsA'),
 };
 
 function drawShear(gamma) {
@@ -218,32 +216,24 @@ function drawConfined(epsA, lambda) {
 function update() {
   const mu = parseFloat(els.mu.value);
   const lambda = parseFloat(els.lambda.value);
-  const tau = parseFloat(els.tau.value);
-  const sigAx = parseFloat(els.sigAx.value);
+  const gamma = parseFloat(els.gamma.value);
+  const epsA = parseFloat(els.epsA.value);
 
   vals.mu.textContent = `${mu} GPa`;
   vals.lambda.textContent = `${lambda} GPa`;
-  vals.tau.textContent = `${tau.toFixed(1)} GPa`;
-  vals.sigAx.textContent = `${sigAx} GPa`;
+  vals.gamma.textContent = gamma.toFixed(2);
+  vals.epsA.textContent = epsA.toFixed(2);
 
-  const gamma = tau / mu;
-
-  const M = lambda + 2*mu; // constrained modulus; must be > 0 for a stable material
-  const unstable = M <= 0;
-  const epsA = unstable ? 0 : sigAx / M;
+  const tau = mu * gamma;
+  const sigAx = (lambda + 2*mu) * epsA;
   const sigWall = lambda * epsA;
 
-  __q('li-r-gamma').textContent = gamma.toFixed(3);
-  __q('li-r-epsax').textContent = unstable ? '— (λ+2μ ≤ 0, unstable)' : epsA.toFixed(3);
-  __q('li-r-sigwall').textContent = unstable ? '—' : `${sigWall.toFixed(1)} GPa`;
+  __q('li-r-tau').textContent = `${tau.toFixed(1)} GPa`;
+  __q('li-r-sigax').textContent = `${sigAx.toFixed(1)} GPa`;
+  __q('li-r-sigwall').textContent = `${sigWall.toFixed(1)} GPa`;
 
-  // Clamp only what's drawn, not the reported numbers: a stress-controlled slider
-  // can push gamma or epsA well outside what a small fixed-size SVG box can depict.
-  const gammaDraw = Math.min(Math.max(gamma, 0), 1.2);
-  const epsADraw = Math.min(Math.max(epsA, -0.9), 2.5);
-
-  drawShear(gammaDraw);
-  drawConfined(epsADraw, lambda);
+  drawShear(gamma);
+  drawConfined(epsA, lambda);
 }
 
 Object.values(els).forEach(el => el.addEventListener('input', update));
