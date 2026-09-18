@@ -1,37 +1,38 @@
 ```{=html}
 <style>
-.viz-pi {
-  --bg: #ffffff;
-    --fg: #1a1a1a;
-    --fg-muted: #6b6b6b;
-    --panel-bg: #f7f7f8;
-    --border: #e2e2e4;
-    --vm: #2E86AB;
-    --tresca: #C1440E;
-    --point: #3E8914;
-    --grid: #dcdcde;
-    --inside: #3E8914;
-    --outside: #C1440E;
+/* Light tokens. The [data-bs-theme]/body.quarto-* selectors are ANCESTOR-scoped,
+   so they only bite when Quarto's own theme toggle is present — they never apply
+   unconditionally the way a bare [data-theme="dark"] rule would. */
+.viz-pi,
+[data-bs-theme="light"] .viz-pi,
+body.quarto-light .viz-pi {
+  --fg: #1a1a1a; --fg-muted: #6b6b6b;
+  --panel-bg: #f7f7f8; --border: #e2e2e4; --grid: #dcdcde;
+  --slider: #555;
+  --vm: #2E86AB; --tresca: #C1440E; --point: #3E8914;
 }
 @media (prefers-color-scheme: dark) {
   .viz-pi {
-    --bg: #1c1c1e; --fg: #f0f0f0; --fg-muted: #a0a0a3;
-      --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
+    --fg: #f0f0f0; --fg-muted: #a0a0a3;
+    --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
+    --slider: #9a9a9d;
   }
 }
+[data-bs-theme="dark"] .viz-pi,
+body.quarto-dark .viz-pi {
+  --fg: #f0f0f0; --fg-muted: #a0a0a3;
+  --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
+  --slider: #9a9a9d;
+}
+
 .viz-pi *, .viz-pi *::before, .viz-pi *::after {
   box-sizing: border-box;
 }
 .viz-pi {
-  background: var(--bg); color: var(--fg);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    margin: 0; padding: 24px 16px 40px;
-}
-.viz-pi .wrap {
-  max-width: 1080px; margin: 0 auto;
-}
-.viz-pi h1 {
-  font-size: 1.3rem; font-weight: 600; text-align: center; margin: 0 0 4px;
+  color: var(--fg);
+  font-family: inherit;
+  margin: 0 0 1.5rem;
+  padding: 0;
 }
 .viz-pi .subtitle {
   text-align: center; color: var(--fg-muted); font-size: 0.9rem; margin-bottom: 22px;
@@ -46,7 +47,7 @@
 }
 .viz-pi .controls {
   background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
-    padding: 16px 18px;
+  padding: 16px 18px;
 }
 .viz-pi .controls h3 {
   font-size: 0.85rem; margin: 0 0 10px; color: var(--fg-muted); font-weight: 600;
@@ -61,14 +62,14 @@
   font-variant-numeric: tabular-nums; color: var(--fg-muted);
 }
 .viz-pi input[type="range"] {
-  width: 100%; accent-color: #555;
+  width: 100%; accent-color: var(--slider);
 }
 .viz-pi .presets {
   display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
 }
 .viz-pi .presets button {
   font-size: 0.75rem; padding: 5px 10px; border-radius: 999px;
-    border: 1px solid var(--border); background: var(--bg); color: var(--fg); cursor: pointer;
+  border: 1px solid var(--border); background: var(--panel-bg); color: var(--fg); cursor: pointer;
 }
 .viz-pi .presets button:hover {
   border-color: var(--fg-muted);
@@ -87,24 +88,22 @@
 }
 .viz-pi .plot-panel {
   background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
-    padding: 14px; text-align: center;
+  padding: 14px; text-align: center;
 }
 .viz-pi svg {
-  display: block; margin: 0 auto; max-width: 100%; height: auto;
+  display: block; margin: 0 auto; width: 100%; height: auto; max-width: 460px;
 }
 .viz-pi .legend {
   display: flex; justify-content: center; gap: 18px; margin-top: 10px; font-size: 0.78rem; color: var(--fg-muted);
 }
+.viz-pi .legend span { white-space: nowrap; }
 .viz-pi .legend .swatch {
   display: inline-block; width: 14px; height: 3px; margin-right: 5px; vertical-align: middle;
 }
 .viz-pi .note {
   max-width: 720px; margin: 22px auto 0; font-size: 0.8rem; color: var(--fg-muted);
-    line-height: 1.5; text-align: center;
+  line-height: 1.5; text-align: center;
 }
-.viz-pi svg { width: 100%; height: auto; max-width: 460px; }
-.viz-pi .legend span { white-space: nowrap; }
-.viz-pi { margin: 0 0 1.5rem; padding: 0; font-family: inherit; }
 </style>
 
 <div class="viz-pi">
@@ -114,20 +113,20 @@
     <div class="controls">
       <h3>PRINCIPAL STRESSES</h3>
       <div class="slider-group">
-        <label>σ₁ <span class="val" id="pi-v1">200</span></label>
+        <label for="pi-s1">σ₁ <span class="val" id="pi-v1">200</span></label>
         <input type="range" id="pi-s1" min="-300" max="300" step="1" value="200">
       </div>
       <div class="slider-group">
-        <label>σ₂ <span class="val" id="pi-v2">0</span></label>
+        <label for="pi-s2">σ₂ <span class="val" id="pi-v2">0</span></label>
         <input type="range" id="pi-s2" min="-300" max="300" step="1" value="0">
       </div>
       <div class="slider-group">
-        <label>σ₃ <span class="val" id="pi-v3">0</span></label>
+        <label for="pi-s3">σ₃ <span class="val" id="pi-v3">0</span></label>
         <input type="range" id="pi-s3" min="-300" max="300" step="1" value="0">
       </div>
       <h3 style="margin-top:16px">YIELD STRESS</h3>
       <div class="slider-group">
-        <label>σ_y <span class="val" id="pi-vy">200</span></label>
+        <label for="pi-sy">σ_y <span class="val" id="pi-vy">200</span></label>
         <input type="range" id="pi-sy" min="50" max="300" step="1" value="200">
       </div>
 
@@ -159,9 +158,12 @@
 
   <div class="note">
     The two criteria always agree exactly at the hexagon's corners (uniaxial-like states, where two
-    principal stresses coincide) and diverge most at the corners' midpoints (pure-shear-like states),
-    where Tresca is more conservative by a factor of 2/√3 ≈ 1.155. Motion purely along the hydrostatic
-    axis (σ₁=σ₂=σ₃) doesn't move the point in this plane at all — both criteria are pressure-independent.
+    principal stresses coincide) and diverge most at the midpoints of the hexagon's edges
+    (pure-shear-like states), where Tresca is more conservative by a factor of 2/√3 ≈ 1.155.
+    Motion purely along the hydrostatic axis (σ₁=σ₂=σ₃) doesn't move the point in this plane at
+    all — both criteria are pressure-independent. Because σ_tresca ≥ σ_vm always, the only possible
+    disagreement is Tresca predicting yield first. A stress state far enough out to leave the frame
+    is drawn as a hollow marker on the boundary; the readouts stay exact.
   </div>
 
 
@@ -184,7 +186,8 @@ const valEls = {
   sy: __q('pi-vy'),
 };
 
-const SCALE = 0.55; // data units -> svg units
+const SCALE = 0.55;   // data units -> svg units
+const R_DRAW = 228;   // svg units; viewBox half-width is 245, so this keeps the 6px marker inside
 
 function project(s1, s2, s3) {
   const sm = (s1 + s2 + s3) / 3;
@@ -234,14 +237,24 @@ function update() {
     statusEl.style.background = 'rgba(62,137,20,0.18)';
     statusEl.style.color = '#3E8914';
   } else {
-    statusEl.textContent = 'Between criteria — Tresca yields, Von Mises doesn\'t (or vice versa)';
+    // sigma_tresca >= sigma_vm always, so this branch can only ever be Tresca-first.
+    statusEl.textContent = 'Between the criteria — Tresca yields, Von Mises does not';
     statusEl.style.background = 'rgba(176,137,0,0.18)';
     statusEl.style.color = '#b08900';
   }
 
   const Rvm = Math.sqrt(2 / 3) * sy;
   const svg = __q('pi-svg-pi');
-  const px = x * SCALE, py = -y * SCALE;
+
+  // The slider corners reach a deviatoric radius of ~490 data units (e.g. 300,-300,-300),
+  // i.e. ~269 svg units against a 245 half-width — the marker used to vanish off-frame.
+  let px = x * SCALE, py = -y * SCALE;
+  const r = Math.hypot(px, py);
+  const offScale = r > R_DRAW;
+  if (offScale && r > 0) {
+    px *= R_DRAW / r;
+    py *= R_DRAW / r;
+  }
 
   // axis directions for σ1, σ2, σ3 projected (labels)
   const axisLen = 210;
@@ -255,8 +268,9 @@ function update() {
       <text x="${a.ax * 1.06}" y="${a.ay * 1.06}" font-size="13" fill="var(--fg-muted)" text-anchor="middle">${a.label}</text>`).join('')}
     <circle cx="0" cy="0" r="${Rvm * SCALE}" fill="none" stroke="var(--vm)" stroke-width="2.5"/>
     <polygon points="${hexagonPoints(Rvm)}" fill="none" stroke="var(--tresca)" stroke-width="2.5"/>
-    <line x1="0" y1="0" x2="${px}" y2="${py}" stroke="var(--point)" stroke-width="1.5" stroke-dasharray="4,3"/>
-    <circle cx="${px}" cy="${py}" r="6" fill="var(--point)" stroke="var(--bg)" stroke-width="1.5"/>
+    <line x1="0" y1="0" x2="${px.toFixed(1)}" y2="${py.toFixed(1)}" stroke="var(--point)" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="6"
+      fill="${offScale ? 'none' : 'var(--point)'}" stroke="var(--point)" stroke-width="${offScale ? 2 : 1.5}"/>
   `;
 }
 

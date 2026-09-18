@@ -1,37 +1,46 @@
 ```{=html}
 <style>
-.viz-lame-c {
-  --bg: #ffffff; --fg: #1a1a1a; --fg-muted: #6b6b6b;
-    --panel-bg: #f7f7f8; --border: #e2e2e4; --grid: #dcdcde;
-    --pos: #2E86AB; --neg: #C1440E; --accent: #3E8914;
+/* Light tokens. The [data-bs-theme]/body.quarto-* selectors are ANCESTOR-scoped,
+   so they only bite when Quarto's own theme toggle is present — they never apply
+   unconditionally the way a bare [data-theme="dark"] rule would. */
+.viz-lame-c,
+[data-bs-theme="light"] .viz-lame-c,
+body.quarto-light .viz-lame-c {
+  --fg: #1a1a1a; --fg-muted: #6b6b6b;
+  --panel-bg: #f7f7f8; --border: #e2e2e4; --grid: #dcdcde;
+  --slider: #555;
+  --pos: #2E86AB; --neg: #C1440E; --accent: #3E8914;
 }
 @media (prefers-color-scheme: dark) {
   .viz-lame-c {
-    --bg: #1c1c1e; --fg: #f0f0f0; --fg-muted: #a0a0a3;
-      --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
+    --fg: #f0f0f0; --fg-muted: #a0a0a3;
+    --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
+    --slider: #9a9a9d;
   }
 }
+[data-bs-theme="dark"] .viz-lame-c,
+body.quarto-dark .viz-lame-c {
+  --fg: #f0f0f0; --fg-muted: #a0a0a3;
+  --panel-bg: #262628; --border: #3a3a3c; --grid: #38383a;
+  --slider: #9a9a9d;
+}
+
 .viz-lame-c *, .viz-lame-c *::before, .viz-lame-c *::after {
   box-sizing: border-box;
 }
 .viz-lame-c {
-  background: var(--bg); color: var(--fg);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    margin: 0; padding: 22px 16px 36px;
-}
-.viz-lame-c .wrap {
-  max-width: 1040px; margin: 0 auto;
-}
-.viz-lame-c h1 {
-  font-size: 1.25rem; font-weight: 600; text-align: center; margin: 0 0 4px;
+  color: var(--fg);
+  font-family: inherit;
+  margin: 0 0 1.5rem;
+  padding: 0;
 }
 .viz-lame-c .subtitle {
   text-align: center; color: var(--fg-muted); font-size: 0.88rem; margin-bottom: 20px;
 }
 .viz-lame-c .controls {
   display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
-    background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
-    padding: 16px 20px; margin-bottom: 18px;
+  background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px 20px; margin-bottom: 18px;
 }
 .viz-lame-c .slider-group {
   min-width: 240px; flex: 1 1 240px; max-width: 360px;
@@ -43,11 +52,11 @@
   font-variant-numeric: tabular-nums; color: var(--fg-muted);
 }
 .viz-lame-c input[type="range"] {
-  width: 100%; accent-color: #555;
+  width: 100%; accent-color: var(--slider);
 }
 .viz-lame-c .warning {
   text-align: center; font-size: 0.78rem; font-weight: 600; padding: 6px 10px;
-    border-radius: 8px; margin: 0 auto 18px; max-width: 520px; display: none;
+  border-radius: 8px; margin: 0 auto 18px; max-width: 520px; display: none;
 }
 .viz-lame-c .warning.show {
   display: block; background: rgba(193,68,14,0.18); color: var(--neg);
@@ -79,7 +88,7 @@
   font-size: 0.75rem; color: var(--fg-muted); margin-top: 10px; line-height: 1.6;
 }
 .viz-lame-c svg {
-  display: block; margin: 0 auto; max-width: 100%; height: auto;
+  display: block; margin: 0 auto; width: 100%; height: auto; max-width: 460px;
 }
 .viz-lame-c .heat-label {
   font-size: 9px; fill: var(--fg-muted);
@@ -89,11 +98,8 @@
 }
 .viz-lame-c .note {
   max-width: 720px; margin: 20px auto 0; font-size: 0.78rem; color: var(--fg-muted);
-    line-height: 1.5; text-align: center;
+  line-height: 1.5; text-align: center;
 }
-.viz-lame-c svg { width: 100%; height: auto; max-width: 460px; }
-.viz-lame-c .legend span { white-space: nowrap; }
-.viz-lame-c { margin: 0 0 1.5rem; padding: 0; font-family: inherit; }
 </style>
 
 <div class="viz-lame-c">
@@ -101,11 +107,11 @@
 
   <div class="controls">
     <div class="slider-group">
-      <label>E (Young's modulus) <span class="val" id="lc-vE">70 GPa</span></label>
+      <label for="lc-E">E (Young's modulus) <span class="val" id="lc-vE">70 GPa</span></label>
       <input type="range" id="lc-E" min="10" max="300" step="1" value="70">
     </div>
     <div class="slider-group">
-      <label>ν (Poisson's ratio) <span class="val" id="lc-vNu">0.33</span></label>
+      <label for="lc-nu">ν (Poisson's ratio) <span class="val" id="lc-vNu">0.330</span></label>
       <input type="range" id="lc-nu" min="-0.90" max="0.49" step="0.005" value="0.33">
     </div>
   </div>
@@ -125,7 +131,7 @@
       </div>
 
       <h3 style="margin-top:18px">λ(ν) AT FIXED E — SINGULARITY AT ν=0.5</h3>
-      <svg id="lc-svg-curve" viewBox="0 0 320 170"></svg>
+      <svg id="lc-svg-curve" viewBox="0 0 320 180"></svg>
     </div>
 
     <div class="panel">
@@ -137,7 +143,9 @@
   <div class="note">
     C relates Voigt stress and (engineering-shear) strain vectors: σ_V = C·ε_V, with the diagonal shear
     terms equal to μ (not 2μ) because γ_ij = 2ε_ij already carries the factor of two. Off-diagonal 4-5-6
-    blocks are zero for an isotropic material — normal and shear response never couple.
+    blocks are zero for an isotropic material — normal and shear response never couple. λ is linear in E
+    at fixed ν, so moving the E slider rescales the λ(ν) curve without changing its shape — watch the
+    axis numbers, not the outline.
   </div>
 
 
@@ -159,15 +167,18 @@ function computeConstants(E, nu) {
   return { mu, lambda, K };
 }
 
+function lambdaOf(E, nu) {
+  return (E * nu) / ((1 + nu) * (1 - 2 * nu));
+}
+
+// Alpha-blended fill rather than blending toward a hard-coded light background:
+// the old version mixed toward #f7f7f8, so in dark mode small-magnitude cells came
+// out near-white behind light --fg text.
 function colorFor(val, maxAbs) {
-  if (val === 0) return 'transparent';
+  if (val === 0) return 'none';
   const t = Math.min(Math.abs(val) / maxAbs, 1);
-  const base = val > 0 ? [46, 134, 171] : [193, 68, 14]; // pos blue, neg red
-  const bg = [247, 247, 248];
-  const r = Math.round(bg[0] + (base[0]-bg[0])*t);
-  const g = Math.round(bg[1] + (base[1]-bg[1])*t);
-  const b = Math.round(bg[2] + (base[2]-bg[2])*t);
-  return `rgb(${r},${g},${b})`;
+  const base = val > 0 ? '46,134,171' : '193,68,14'; // pos blue, neg red
+  return `rgba(${base},${(0.12 + 0.88 * t).toFixed(3)})`;
 }
 
 function drawHeatmap(lambda, mu) {
@@ -205,38 +216,48 @@ function drawHeatmap(lambda, mu) {
 
 function drawCurve(E, nu) {
   const svg = __q('lc-svg-curve');
-  const W = 320, H = 170, ml = 34, mr = 10, mt = 10, mb = 24;
+  const W = 320, H = 180, ml = 44, mr = 10, mt = 12, mb = 26;
   const nuMin = -0.9, nuMax = 0.49;
-  const yCap = 4 * E; // clip for display so the asymptote is visible, not infinite
-
-  const pts = [];
-  const N = 140;
-  for (let k = 0; k <= N; k++) {
-    const nv = nuMin + (nuMax - nuMin) * k / N;
-    let lam = (E * nv) / ((1 + nv) * (1 - 2 * nv));
-    lam = Math.max(-yCap, Math.min(yCap, lam));
-    pts.push([nv, lam]);
-  }
+  const yCap = 4 * E; // display window; scales with E, so the axis numbers carry the E dependence
 
   const xScale = (v) => ml + (v - nuMin) / (nuMax - nuMin) * (W - ml - mr);
   const yScale = (v) => H - mb - (v + yCap) / (2 * yCap) * (H - mt - mb);
 
-  const path = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${xScale(p[0]).toFixed(1)} ${yScale(p[1]).toFixed(1)}`).join(' ');
+  // Break the path where lambda leaves the window instead of clamping it: clamping
+  // drew flat horizontal runs at +/-yCap that read as a plateau rather than a blow-up.
+  const N = 400;
+  let path = '', pen = false;
+  for (let k = 0; k <= N; k++) {
+    const nv = nuMin + (nuMax - nuMin) * k / N;
+    const lam = lambdaOf(E, nv);
+    if (!isFinite(lam) || Math.abs(lam) > yCap) { pen = false; continue; }
+    path += `${pen ? ' L' : ' M'} ${xScale(nv).toFixed(1)} ${yScale(lam).toFixed(1)}`;
+    pen = true;
+  }
 
-  const curLambda = Math.max(-yCap, Math.min(yCap, (E * nu) / ((1 + nu) * (1 - 2 * nu))));
-  const cx = xScale(nu), cy = yScale(curLambda);
+  const lamNow = lambdaOf(E, nu);
+  const inView = Math.abs(lamNow) <= yCap;
+  const cx = xScale(nu), cy = yScale(Math.max(-yCap, Math.min(yCap, lamNow)));
   const zeroY = yScale(0);
   const asymptoteX = xScale(0.5);
+  const zeroNuX = xScale(0);
+  const capLabel = yCap >= 100 ? yCap.toFixed(0) : yCap.toFixed(1);
 
   svg.innerHTML = `
     <line x1="${ml}" y1="${zeroY}" x2="${W-mr}" y2="${zeroY}" stroke="var(--grid)" stroke-width="1"/>
+    <line x1="${zeroNuX}" y1="${mt}" x2="${zeroNuX}" y2="${H-mb}" stroke="var(--grid)" stroke-width="1"/>
     <line x1="${asymptoteX}" y1="${mt}" x2="${asymptoteX}" y2="${H-mb}" stroke="var(--neg)" stroke-width="1" stroke-dasharray="3,3"/>
     <text x="${asymptoteX}" y="${mt+8}" font-size="8.5" fill="var(--neg)" text-anchor="middle">ν=0.5</text>
-    <path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2"/>
-    <circle cx="${cx}" cy="${cy}" r="4" fill="var(--accent)" stroke="var(--bg)" stroke-width="1.3"/>
+    <path d="${path.trim()}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <circle cx="${cx}" cy="${cy}" r="4" fill="${inView ? 'var(--accent)' : 'none'}" stroke="var(--accent)" stroke-width="1.6"/>
+    <text x="${ml - 4}" y="${mt + 8}" font-size="8.5" fill="var(--fg-muted)" text-anchor="end">${capLabel}</text>
+    <text x="${ml - 4}" y="${zeroY + 3}" font-size="8.5" fill="var(--fg-muted)" text-anchor="end">0</text>
+    <text x="${ml - 4}" y="${H - mb}" font-size="8.5" fill="var(--fg-muted)" text-anchor="end">−${capLabel}</text>
+    <text x="4" y="${mt + 8}" font-size="8.5" fill="var(--fg-muted)">λ</text>
+    <text x="4" y="${mt + 18}" font-size="7.5" fill="var(--fg-muted)">GPa</text>
     <text x="${ml}" y="${H-6}" font-size="8.5" fill="var(--fg-muted)">ν=${nuMin}</text>
+    <text x="${zeroNuX}" y="${H-6}" font-size="8.5" fill="var(--fg-muted)" text-anchor="middle">0</text>
     <text x="${W-mr}" y="${H-6}" font-size="8.5" fill="var(--fg-muted)" text-anchor="end">ν=0.49</text>
-    <text x="4" y="${mt+8}" font-size="8.5" fill="var(--fg-muted)">λ</text>
   `;
 }
 
