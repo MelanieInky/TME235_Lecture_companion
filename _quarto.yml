@@ -2,6 +2,8 @@ project:
   type: website
   output-dir: _site
 
+jupyter: python3
+
 website:
   title: "Continuum Mechanics — Companion Site"
   navbar:
@@ -27,8 +29,7 @@ format:
     theme: cosmo
     toc: true
     css: styles.css
-    include-after-body: resize_iframes.html
-    code-fold: false
+    code-fold: true
     mainfont: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
 
 execute:

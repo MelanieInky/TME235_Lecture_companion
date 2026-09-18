@@ -3,12 +3,16 @@ title: "Mechanics of Solids — Companion Site"
 ---
 
 Interactive companions to the lecture material, organized by topic. Each page has the
-relevant theory alongside live, adjustable visualization.
+relevant theory alongside live, adjustable visualization. 
+
+:::{.callout-caution}
+Some of the live visualizations have had some of the formula modified for visual clarity. Use them for developing intuition, not verifications.  
+:::
 
 In addition, you will find the code shown during the problem tutorial.
 
 ## Problem sets
-- [Helper function](problems/00-helper_functions.qmd) - Set of helper function (write them yourself)
+- [Helper functions](problems/00-helper_functions.qmd) - Set of helper functions (write them yourself)
 - [Problem 1 to 7](problems/01-problems1_to7.qmd) - Topic 1 to 4
 
 ## Topics

@@ -3,3 +3,336 @@ title: "Problems 1–7: Code and hint"
 date: 2026-09-17
 ---
 
+```{python}
+import numpy as np
+import sympy as sp
+```
+
+```{python}
+#| echo: false
+from helper_functions import *
+```
+
+# Problem 1
+
+
+::: {.callout-note title="Problem 1"}
+Show that if we divide the stress and strain in their deviatoric and volumetric components, then we can express (for the case of linear elasticity) the strain energy density as:
+$$
+U_0 = \frac{\sigma_{ii}\epsilon_{jj}}{6} + \frac{\sigma_{ij}^{\text{dev}}\epsilon_{ij}^{\text{dev}}}{2}.
+$$
+:::
+
+Solution steps: The strain energy density for a linear elastic material is given by
+
+$$
+U_0 = \frac{1}{2}\sigma_{ij}\epsilon_{ij}
+$$
+
+Then, write the decomposition for the strain and stress (here given for the stress tensor):
+
+
+$$
+\sigma_{ij}  = \sigma_{ij}^{\text{dev}} + \sigma_{ij}^{\text{sph}} = \sigma_{ij}^\text{dev} + \frac{1}{3} \sigma_{kk} \delta_{ij}
+$$
+
+Then, some tensor algebra should get you to the wanted result!
+
+
+# Problem 2
+
+::: {.callout-note title="Problem 2"}
+Based on (1.11) and (1.12), derive the relations between the elastic constants in (1.13) and (1.14)
+:::
+
+::: {.callout-tip title="Lecture note exerpt"}
+In Voigt notation the relations in (1.9) and (1.10) can be written as $\underline{\sigma} = \underline{C}_{\text{iso}}\,\underline{\epsilon}$ and $\underline{\epsilon} = \underline{S}_{\text{iso}}\,\underline{\sigma}$. More explicitly, these relations become:
+
+$$
+\begin{bmatrix}
+\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}
+\end{bmatrix}
+=
+\begin{bmatrix}
+2\mu+\lambda & \lambda & \lambda & 0 & 0 & 0 \\
+\lambda & 2\mu+\lambda & \lambda & 0 & 0 & 0 \\
+\lambda & \lambda & 2\mu+\lambda & 0 & 0 & 0 \\
+0 & 0 & 0 & \mu & 0 & 0 \\
+0 & 0 & 0 & 0 & \mu & 0 \\
+0 & 0 & 0 & 0 & 0 & \mu
+\end{bmatrix}
+\begin{bmatrix}
+\epsilon_{11} \\ \epsilon_{22} \\ \epsilon_{33} \\ 2\epsilon_{23} \\ 2\epsilon_{13} \\ 2\epsilon_{12}
+\end{bmatrix}
+$$ {#eq-voigt-stiffness}
+
+$$
+\begin{bmatrix}
+\epsilon_{11} \\ \epsilon_{22} \\ \epsilon_{33} \\ 2\epsilon_{23} \\ 2\epsilon_{13} \\ 2\epsilon_{12}
+\end{bmatrix}
+=
+\frac{1}{E}
+\begin{bmatrix}
+1 & -\nu & -\nu & 0 & 0 & 0 \\
+-\nu & 1 & -\nu & 0 & 0 & 0 \\
+-\nu & -\nu & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 2(1+\nu) & 0 & 0 \\
+0 & 0 & 0 & 0 & 2(1+\nu) & 0 \\
+0 & 0 & 0 & 0 & 0 & 2(1+\nu)
+\end{bmatrix}
+\begin{bmatrix}
+\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}
+\end{bmatrix}.
+$$ {#eq-voigt-compliance}
+
+By inverting the matrix $\underline{C}_{\text{iso}}$ we can identify the following relations between the elastic constants:
+
+$$
+E = \frac{\mu(3\lambda + 2\mu)}{\lambda + \mu}, \qquad \nu = \frac{\lambda}{2(\lambda+\mu)}
+$$ {#eq-elastic-constants-1}
+
+or
+
+$$
+\mu = G = \frac{E}{2(1+\nu)} \qquad \lambda = \frac{\nu E}{(1+\nu)(1-2\nu)} = \frac{2\nu\mu}{(1-2\nu)}
+$$ {#eq-elastic-constants-2}
+:::
+
+Clearly from the relation above we have that $C_iso^{-1} = S_{iso}$. To find the relationship between each parameters we can invert the matrix.
+
+
+```{python}
+
+#First, define two sympy "symbols"
+mu, lam = sp.symbols("mu,lambda")
+
+#Write the helper function first!
+C = stiffness_matrix_voigt(lam,mu)
+S = C.inv() #Compliance matrix
+S
+```
+
+Then we can identify the values for $E$ and $\nu$ from the diagonal elements (1.13 in lecture notes):
+
+$$
+E = \frac{\mu (3\lambda + 2\mu)}{\lambda + \mu}
+$$
+
+and 
+
+$$
+\nu = \frac{\lambda}{2 (\lambda + \mu)}
+$$
+
+Alternatively, we can write $\lambda$ and $\mu$ as a function of $E$ and $\nu$. You can do it by hand or use like in the code below:
+
+
+```{python}
+lam_sol, mu_sol = sp.symbols('lam mu')
+E, nu = sp.symbols('E nu')
+
+E_expr = mu*(3*lam+2*mu)/(lam+mu)   # fixed formula
+nu_expr = lam / (2*(lam+mu))
+
+sol = sp.solve([sp.Eq(E, E_expr), sp.Eq(nu, nu_expr)], [lam, mu], dict=True)[0]
+sol
+```
+
+And it becomes possible to write $C_{iso}$ with $E$ and $\nu$ if we want.
+
+
+```{python}
+C_E_nu = sp.simplify(C.subs(sol))
+C_E_nu
+```
+
+# Problem 3
+
+::: {.callout-note title="Problem 3"}
+Determine the stress components at a point of a linear isotropic elastic material (steel) with $E = 200 \cdot 10^3$ MPa and $\nu = 0.3$ if the strain components (in the same coordinate system) are
+
+$$
+[\epsilon_{ij}] =
+\begin{bmatrix}
+2 & 0.5 & 0 \\
+0.5 & 1 & 0 \\
+0 & 0 & 1.5
+\end{bmatrix}
+\cdot 10^{-3}
+$$
+:::
+
+
+This be done numerically. The steps are:
+
+1) Express the strain in the Voigt format.
+1) Calculate the stress in Voigt format.
+1) Express the stress in matrix format again.
+
+
+```{python}
+eps = np.array([[2,0.5,0.],[0.5,1.,0.],[0.,0.,1.5]])*1e-3
+eps_voigt = to_voigt(eps)
+
+Emod = 200e3; nu = 0.3
+lam,mu = lambda_mu(Emod,nu)
+
+C = stiffness_matrix_voigt(lam,mu)
+
+sigma_voigt = C@eps_voigt
+sigma = from_voigt(sigma_voigt,mode="stress")
+sp.Matrix(np.round(sigma, 1)) #For pretty printing of output
+```
+
+## Problem 4
+
+::: {.callout-note title="Problem 4"}
+Determine the principal stresses at a point of a linear isotropic elastic material (aluminum) with $E = 75 \cdot 10^3$ MPa and $\nu = 0.3$ if the strain components (in a coordinate system) are
+
+$$
+[\epsilon_{ij}] =
+\begin{bmatrix}
+2 & 0 & 0.5 \\
+0 & 1 & 0 \\
+0.5 & 0 & 1.5
+\end{bmatrix}
+\cdot 10^{-3}
+$$
+:::
+
+There are two ways to do it, numerically and by hand. First compute the stress like in the previous problem. First, we will compute the stress like in the last problem
+
+
+```{python}
+eps = np.array([[2,0,0.5],[0,1,0],[0.5,0,1.5]])*1e-3
+
+
+E = 75e3
+nu = 0.3
+lam,mu = lambda_mu(E,nu)
+
+C = stiffness_matrix_voigt(lam,mu)
+
+stress_voigt = C@to_voigt(eps,"strain")
+
+
+stress = from_voigt(stress_voigt,"stress")
+sp.Matrix(np.round(stress, 1)) #For pretty printing of output
+```
+
+Then, the principal stresses are the eigenvalues of the stress tensors. The principal stresses are ordered, with $\sigma_1$ being the largest.
+
+
+```{python}
+principal_stresses = np.linalg.eigvals(stress)
+sp.Matrix(np.sort(principal_stresses)[::-1].round(1)) #[::-1] reverses the array so the first one is the largest
+```
+
+
+Doing it by hand, we need to find the eigenvalues by finding the root of the characteristic polynomial:
+
+$$
+\det(\boldsymbol{\sigma} - \lambda \boldsymbol{I}) = \lambda^3 - I_1\lambda^2 + I_2\lambda - I_3 = 0
+$$
+
+$$
+I_1 = \text{tr}(\boldsymbol{\sigma}) = \sigma_{11}+\sigma_{22}+\sigma_{33}
+$$
+
+$$
+I_2 = \frac{1}{2}\left[(\text{tr}\,\boldsymbol{\sigma})^2 - \text{tr}(\boldsymbol{\sigma}^2)\right] = \sigma_{11}\sigma_{22}+\sigma_{22}\sigma_{33}+\sigma_{33}\sigma_{11} - \sigma_{12}^2-\sigma_{23}^2-\sigma_{13}^2
+$$
+
+$$
+I_3 = \det(\boldsymbol{\sigma})
+$$
+
+Small trick: For a isotropic, linear elastic constitutive law the principal directions vector are co-axials. This means that if we express the strain tensor in the principal direction basis, that is 
+
+$$
+\boldsymbol{\epsilon} = \begin{pmatrix}
+\epsilon_1 & 0 & 0 \\
+0 & \epsilon_2 & 0 \\
+0 & 0 & \epsilon_3
+\end{pmatrix}
+$$
+
+Then the resulting stress we get is also expressed in terms of principal stresses:
+
+$$
+\boldsymbol{\sigma} = \begin{pmatrix}
+\sigma_1 & 0 & 0 \\
+0 & \sigma_2 & 0 \\
+0 & 0 & \sigma_3
+\end{pmatrix}
+$$
+
+Given the expressions that we are given for the strain tensor and the stress tensor that we calculated above, which characteristic polynomial do you feel will be easiest to solve by hand? How do you use it to your advantage?
+
+## Problem 5
+
+::: {.callout-note title="Problem 5"}
+Derive the explicit expression for the Mises equivalent stress in terms of the principal stresses $\sigma_1$, $\sigma_2$ and $\sigma_3$:
+
+$$
+\sigma_{\text{eM}}(\sigma_{ij}) = \frac{1}{\sqrt{2}}\left[(\sigma_1 - \sigma_2)^2 + (\sigma_2 - \sigma_3)^2 + (\sigma_3 - \sigma_1)^2\right]^{1/2}
+$$
+:::
+
+
+We first verify that the Von-Mises stress is invariant under a change of basis (You can also take it as granted).
+
+::: {.callout-note title="Optional: VM stress is an invariant" collapse="true"}
+ To do so, we prove that the double contraction is invariant under a change of basis. Let $T$ be a second order tensor and $T'$ the same tensor expressed in a different orthonormal basis. Then, the component of $T'$ can be written as
+
+$$
+T'_{ij} = L_{ik} T_{kl} L_{lj}^T
+$$
+
+where $L$ is an orthogonal tensor so that $L_{ik}L_{kj}^T = \delta_{ij} = L_{ik}^T L_{kj}$. Then
+
+$$
+T'_{ij} T'_{ij} = L_{ik} T_{kl} L_{lj}^T L_{im} T_{mn} L_{mj}^T = T_{kl} T_{mn}  L_{ki}^T L_{im} L_{lj}^T L_{jm}
+$$
+
+This gives
+
+$$
+T'_{ij} T'_{ij} =  T_{kl} T_{mn} \delta_{km} \delta_{lm} =  T_{mn} T_{mn}
+$$
+
+Then, because the trace operator is invariant under a change of basis, it follows that $T'^{\text{dev}} = T^\text{dev}$.
+
+:::
+
+Then, we write the stress tensor in the principal eigenvector basis so that 
+
+$$
+\sigma  = \begin{pmatrix} 
+\sigma_1 & 0 & 0\\
+0 & \sigma2 & 0 \\
+0 & 0 & \sigma_3
+\end{pmatrix}
+$$
+
+so that $\sigma^{dev} : \sigma^{dev} = (\sigma_i - 1/3 \sigma_{mm}) (\sigma_i -1/3 \sigma_{nn}) = \sigma_i \sigma_i -1/9(\sigma_{mm}\sigma_{nn})$.
+
+You can solve everything by hand, but a simple verification is to write both formula and check that they are equal using sympy. To get rid of the square root we consider the formulas for $\sigma_{vM}^2$ instead.
+
+
+```{python}
+s1 , s2 , s3 = sp.symbols("s1,s2,s3")
+vM_sq1 = 3/2*(s1**2+s2**2+s3**2 -1/3*(s1+s2+s3)**2) #First formula
+vM_sq2  = 1/2*((s1-s2)**2+(s2-s3)**2+(s1-s3)**2) #Second formula
+diff = vM_sq1-vM_sq2
+sp.simplify(diff)
+```
+
+
+## Problem 6
+
+WIP
+
+## Problem 7
+
+WIP

@@ -1,0 +1,257 @@
+---
+title: "Helper functions"
+execute: 
+  eval: false
+code-fold: false
+date: 2026-09-16
+---
+
+
+Below are a set of helper functions that are used in the problem sets. They are not written completely, you have to complete them yourselves to run code that depends on them. 
+
+```{python}
+import numpy as np
+import sympy as sp
+```
+
+## Elastic constants function
+
+
+
+
+```{python}
+def lambda_mu(E,nu):
+    """Convert linear elastic constant parameters from E,nu to lambda, mu
+
+    Args:
+        E : Young's modulus
+        nu : Poisson ratio
+
+    Returns:
+        (lambda,mu): The Lamé constants parameters.
+    """    
+    lam = 0. #Write them yourself
+    mu = 0. #Write it yourself
+    return lam,mu
+```
+
+
+```{python}
+def E_nu(lam, mu):
+    """Convert linear elastic constant parameters from lambda, mu to E, nu
+
+    Args:
+        lam : First Lamé parameter
+        mu : Second Lamé parameter (shear modulus)
+
+    Returns:
+        (E, nu): Young's modulus and Poisson ratio.
+    """
+    E = 0. #Write it yourself
+    nu = 0. #Write it yourself
+    return E, nu
+```
+
+## Deviatoric and Volumetric part helpers
+
+For convenience, we will write the function in such a way that they can be used for both numpy and sympy computation. To do so, a small trick we use is the following function:
+
+```{python}
+def is_sympy_array(S):
+    """
+    Check whether S is a sympy matrix/array rather than a numpy array.
+    Useful when you want one function to work generically with either
+    numeric (numpy) or symbolic (sympy) tensors.
+    """
+    return isinstance(S, sp.MatrixBase)
+```
+
+We use this function in the way below:
+
+
+```{python}
+def vol(S):
+    """
+    Volumetric (spherical) part of a second order tensor.
+    vol(S) = tr(S)/3 * I.
+    """
+    n = S.shape[0]
+    if is_sympy_array(S):
+        trace = 0. #Write it yourself
+        I = 0. #Write it yourself
+    else:
+        trace = 0. #Write it yourself
+        I = 0. #Write it yourself
+    return trace * I
+
+def dev(S):
+    """
+    Deviatoric part of a second order tensor (additive decomposition).
+    dev(S) = S - vol(S).
+    """
+    return 0. #Write it yourself
+```
+
+
+## Voigt formulation and elasticity matrix
+
+A very regular thing we do is switching back and forth between the Voigt and Tensor notation for both the stress and the strain. The following helpers function do that. Beforehand, reminder that the Cauchy stress tensor $\boldsymbol{\sigma}$ and small strain tensor $\boldsymbol{\epsilon}$ are symmetric. The following function will be used to check that to prevent input errors.
+
+```{python}
+def check_symmetry(A, tol=1e-10):
+    """
+    Raise an error if matrix A is not symmetric.
+
+    Parameters
+    ----------
+    A : array-like or sympy Matrix, shape (n,n)
+    tol : float
+        Tolerance for numeric comparisons (ignored for symbolic input,
+        where equality must hold exactly after simplification).
+    """
+    symbolic = is_sympy_array(A)
+
+    if symbolic:
+        diff = sp.simplify(A - A.T)
+        if not diff.is_zero_matrix:
+            raise ValueError("Matrix is not symmetric")
+    else:
+        A = np.asarray(A)
+        if A.shape[0] != A.shape[1]:
+            raise ValueError("Matrix is not square")
+        if not np.allclose(A, A.T, atol=tol):
+            raise ValueError("Matrix is not symmetric")
+
+```
+
+::: {.callout-important}
+
+Be mindful of convention when switching back and forth between Voigt and Tensor notation, the shear component have a factor of 2 in the case of strain, but not for the stress!
+
+:::
+
+```{python}
+def stiffness_matrix_voigt(lam, mu) -> np.ndarray:
+    """
+    Isotropic stiffness matrix C_iso in Voigt notation (6x6), engineering shear strain convention.
+    sigma = C_iso @ [e11, e22, e33, 2e23, 2e13, 2e12]
+    Automatically uses sympy if lam or mu is a sympy expression, else numpy.
+    """
+    symbolic = isinstance(lam, sp.Basic) or isinstance(mu, sp.Basic)
+    C = sp.zeros(6, 6) if symbolic else np.zeros((6, 6))
+
+    C[0, 0] = C[1, 1] = C[2, 2] = 0. #Write it yourself
+    C[0, 1] = C[0, 2] = C[1, 0] = C[1, 2] = C[2, 0] = C[2, 1] = 0. #Write it yourself
+    C[3, 3] = C[4, 4] = C[5, 5] = 0. #Write it yourself
+    return C
+
+def compliance_matrix_voigt(E, nu) -> np.ndarray:
+    """
+    Isotropic compliance matrix S_iso in Voigt notation (6x6), engineering shear strain convention.
+    [e11, e22, e33, 2e23, 2e13, 2e12] = S_iso @ sigma
+    Automatically uses sympy if E or nu is a sympy expression, else numpy.
+    """
+    symbolic = isinstance(E, sp.Basic) or isinstance(nu, sp.Basic)
+    S = sp.zeros(6, 6) if symbolic else np.zeros((6, 6))
+
+    S[0, 0] = S[1, 1] = S[2, 2] = 0. #Write it yourself
+    S[0, 1] = S[0, 2] = S[1, 0] = S[1, 2] = S[2, 0] = S[2, 1] = 0. #Write it yourself
+    S[3, 3] = S[4, 4] = S[5, 5] = 0. #Write it yourself
+
+    S = 0. #Write it yourself
+
+    return S
+
+def to_voigt(eps_or_sigma, mode="strain"):
+    """
+    Convert a symmetric second-order tensor (2x2 or 3x3) to Voigt notation.
+
+    Parameters
+    ----------
+    eps_or_sigma : array-like or sympy Matrix, shape (2,2) or (3,3)
+        Strain or stress tensor.
+    mode : str
+        "strain" -> off-diagonal terms multiplied by 2 (engineering shear strain)
+        "stress" -> off-diagonal terms unchanged
+
+    Returns
+    -------
+    Voigt vector:
+        3x3 input -> shape (6,): [11, 22, 33, 23, 13, 12]
+        2x2 input -> shape (3,): [11, 22, 12]
+    """
+    check_symmetry(eps_or_sigma)
+    symbolic = isinstance(eps_or_sigma[0, 0], sp.Basic)
+    dim = eps_or_sigma.shape[0]
+
+    if mode == "strain":
+        n = 2
+    elif mode == "stress":
+        n = 1
+    else:
+        raise ValueError('Unknown mode. Allowed modes are "stress" and "strain"')
+
+    if dim == 3:
+        voigt = sp.zeros(6, 1) if symbolic else np.zeros(6)
+        voigt[0] = 0. #Write it yourself
+        voigt[1] = 0. #Write it yourself
+        voigt[2] = 0. #Write it yourself
+        voigt[3] = 0. #Write it yourself
+        voigt[4] = 0. #Write it yourself
+        voigt[5] = 0. #Write it yourself
+    elif dim == 2:
+        voigt = sp.zeros(3, 1) if symbolic else np.zeros(3)
+        voigt[0] = 0. #Write it yourself
+        voigt[1] = 0. #Write it yourself
+        voigt[2] = 0. #Write it yourself
+    else:
+        raise ValueError("Input must be a 2x2 or 3x3 tensor")
+
+    return voigt
+
+def from_voigt(voigt, mode="strain"):
+    """
+    Convert a Voigt-notation vector back to a symmetric second-order tensor.
+
+    Parameters
+    ----------
+    voigt : array-like or sympy Matrix, length 3 or 6
+        length 6 -> [11, 22, 33, 23, 13, 12] -> returns 3x3 tensor
+        length 3 -> [11, 22, 12]             -> returns 2x2 tensor
+    mode : str
+        "strain" -> off-diagonal voigt terms divided by 2 (undo engineering shear strain)
+        "stress" -> off-diagonal voigt terms unchanged
+
+    Returns
+    -------
+    Symmetric tensor, shape (2,2) or (3,3)
+    """
+    symbolic = isinstance(voigt[0], sp.Basic)
+    n_entries = voigt.shape[0] if hasattr(voigt, "shape") else len(voigt)
+
+    if mode == "strain":
+        n = 2
+    elif mode == "stress":
+        n = 1
+    else:
+        raise ValueError('Unknown mode. Allowed modes are "stress" and "strain"')
+
+    if n_entries == 6:
+        T = sp.zeros(3, 3) if symbolic else np.zeros((3, 3))
+        T[0, 0] = 0. #Write it yourself
+        T[1, 1] = 0. #Write it yourself
+        T[2, 2] = 0. #Write it yourself
+        T[1, 2] = T[2, 1] = 0. #Write it yourself
+        T[0, 2] = T[2, 0] = 0. #Write it yourself
+        T[0, 1] = T[1, 0] = 0. #Write it yourself
+    elif n_entries == 3:
+        T = sp.zeros(2, 2) if symbolic else np.zeros((2, 2))
+        T[0, 0] = 0. #Write it yourself
+        T[1, 1] = 0. #Write it yourself
+        T[0, 1] = T[1, 0] = 0. #Write it yourself
+    else:
+        raise ValueError("Input must have length 3 or 6")
+
+    return T
+```
+
