@@ -213,6 +213,47 @@ window.Quarto = {
 <p>We also defined the Tresca criterion. <span class="math display">\[
 \sigma_{\text{Tresca}} = \max\big(|\sigma_1-\sigma_2|,\ |\sigma_2-\sigma_3|,\ |\sigma_3-\sigma_1|\big) = \sigma_{max} - \sigma_{min}
 \]</span></p>
+<div class="callout callout-style-default callout-note callout-titled" title="$\sigma_{vM} \leq \sigma_\text{tresca}$">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><span class="math inline">\(\sigma_{vM} \leq \sigma_\text{tresca}\)</span>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Setup.</strong> Order the principal stresses <span class="math inline">\(\sigma_1 \ge \sigma_2 \ge \sigma_3\)</span>. Define</p>
+<p><span class="math display">\[
+\sigma_T = \sigma_1 - \sigma_3 \qquad \text{(Tresca equivalent stress)}
+\]</span></p>
+<p><strong>Claim.</strong> <span class="math inline">\(\sigma_{vM} \le \sigma_T\)</span>, with equality if and only if <span class="math inline">\(\sigma_2 = \sigma_1\)</span> or <span class="math inline">\(\sigma_2 = \sigma_3\)</span>.</p>
+<p><strong>Proof.</strong> Let <span class="math inline">\(a = \sigma_1 - \sigma_2 \ge 0\)</span> and <span class="math inline">\(b = \sigma_2 - \sigma_3 \ge 0\)</span> (both non-negative by the ordering). Then</p>
+<p><span class="math display">\[
+\sigma_1 - \sigma_3 = a + b, \qquad \sigma_T = a+b.
+\]</span></p>
+<p>Substituting into the von Mises expression:</p>
+<p><span class="math display">\[
+\sigma_{vM}^2 = \tfrac{1}{2}\left[a^2 + b^2 + (a+b)^2\right] = \tfrac{1}{2}\left[2a^2+2b^2+2ab\right] = a^2+ab+b^2.
+\]</span></p>
+<p>Meanwhile</p>
+<p><span class="math display">\[
+\sigma_T^2 = (a+b)^2 = a^2+2ab+b^2.
+\]</span></p>
+<p>Subtracting,</p>
+<p><span class="math display">\[
+\sigma_T^2 - \sigma_{vM}^2 = ab \ge 0,
+\]</span></p>
+<p>since <span class="math inline">\(a,b \ge 0\)</span>. Because both <span class="math inline">\(\sigma_T\)</span> and <span class="math inline">\(\sigma_{vM}\)</span> are non-negative, this gives</p>
+<p><span class="math display">\[
+\sigma_{vM} \le \sigma_T.
+\]</span></p>
+<p>Equality holds iff <span class="math inline">\(ab = 0\)</span>, i.e.&nbsp;iff <span class="math inline">\(a=0\)</span> (<span class="math inline">\(\sigma_1=\sigma_2\)</span>) or <span class="math inline">\(b=0\)</span> (<span class="math inline">\(\sigma_2=\sigma_3\)</span>). <span class="math inline">\(\blacksquare\)</span></p>
+</div>
+</div>
+</div>
 <p>In the following cell, you can play around the two criterion and see when they differ.</p>
 <style>
 /* Light tokens. The [data-bs-theme]/body.quarto-* selectors are ANCESTOR-scoped,
