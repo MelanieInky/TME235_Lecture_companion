@@ -184,7 +184,7 @@ sigma = from_voigt(sigma_voigt,mode="stress")
 sp.Matrix(np.round(sigma, 1)) #For pretty printing of output
 ```
 
-## Problem 4
+# Problem 4
 
 ::: {.callout-note title="Problem 4"}
 Determine the principal stresses at a point of a linear isotropic elastic material (aluminum) with $E = 75 \cdot 10^3$ MPa and $\nu = 0.3$ if the strain components (in a coordinate system) are
@@ -269,7 +269,7 @@ $$
 
 Given the expressions that we are given for the strain tensor and the stress tensor that we calculated above, which characteristic polynomial do you feel will be easiest to solve by hand? How do you use it to your advantage?
 
-## Problem 5
+# Problem 5
 
 ::: {.callout-note title="Problem 5"}
 Derive the explicit expression for the Mises equivalent stress in terms of the principal stresses $\sigma_1$, $\sigma_2$ and $\sigma_3$:
@@ -329,10 +329,10 @@ sp.simplify(diff)
 ```
 
 
-## Problem 6
+# Problem 6
 
 WIP
 
-## Problem 7
+# Problem 7
 
 WIP

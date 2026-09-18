@@ -1,5 +1,6 @@
 ---
 title: "Voigt notation"
+description: "A convenient way to work with stress and strain tensors"
 ---
 
 
