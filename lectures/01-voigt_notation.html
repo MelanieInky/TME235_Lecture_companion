@@ -173,6 +173,7 @@ window.Quarto = {
   <ul>
   <li><a href="#stress-tensor-voigt-vector" id="toc-stress-tensor-voigt-vector" class="nav-link active" data-scroll-target="#stress-tensor-voigt-vector">Stress tensor → Voigt vector</a></li>
   <li><a href="#strain-tensor-voigt-vector" id="toc-strain-tensor-voigt-vector" class="nav-link" data-scroll-target="#strain-tensor-voigt-vector">Strain tensor → Voigt vector</a></li>
+  <li><a href="#generalized-hookes-law-with-voigt-notation" id="toc-generalized-hookes-law-with-voigt-notation" class="nav-link" data-scroll-target="#generalized-hookes-law-with-voigt-notation">Generalized Hooke’s law with Voigt notation</a></li>
   </ul>
 </nav>
     </div>
@@ -209,7 +210,7 @@ window.Quarto = {
 \sigma_{31} &amp; \sigma_{32} &amp; \sigma_{33}
 \end{pmatrix}
 \quad\longrightarrow\quad
-\boldsymbol{\sigma}_V =
+\underline{\sigma} =
 \begin{pmatrix}
 \sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}
 \end{pmatrix}
@@ -230,7 +231,7 @@ window.Quarto = {
 \varepsilon_{31} &amp; \varepsilon_{32} &amp; \varepsilon_{33}
 \end{pmatrix}
 \quad\longrightarrow\quad
-\boldsymbol{\varepsilon}_V =
+\underline{\varepsilon} =
 \begin{pmatrix}
 \varepsilon_{11} \\ \varepsilon_{22} \\ \varepsilon_{33} \\ 2\varepsilon_{23} \\ 2\varepsilon_{13} \\ 2\varepsilon_{12}
 \end{pmatrix}
@@ -243,6 +244,67 @@ window.Quarto = {
 \varepsilon_1 \\ \varepsilon_2 \\ \varepsilon_3 \\ \varepsilon_4 \\ \varepsilon_5 \\ \varepsilon_6
 \end{pmatrix}
 \]</span></p>
+</section>
+<section id="generalized-hookes-law-with-voigt-notation" class="level2">
+<h2 class="anchored" data-anchor-id="generalized-hookes-law-with-voigt-notation">Generalized Hooke’s law with Voigt notation</h2>
+<p>A place where the use of Voigt notation makes clear sense is when we consider linear elastic materials. For a linear elastic material, the stress tensor is given by</p>
+<p><span class="math display">\[
+\sigma_{ij} = C_{ijkl} \epsilon_{kl}
+\]</span></p>
+<p>where <span class="math inline">\(C_{ijkl}\)</span> is a fourth order tensor. In the lecture, we showed that because of major and minor symmetries, there are only <span class="math inline">\(6\times 6 = 36\)</span> independent component for <span class="math inline">\(\boldsymbol{C}\)</span>, exactly enough to fit in a <span class="math inline">\(6 \times 6\)</span> matrix as <span class="math inline">\(\underline{\sigma} = \underline{C} \underline{\epsilon}\)</span></p>
+<p><span id="eq-stiffness-tensor"><span class="math display">\[
+\begin{pmatrix}
+\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}
+\end{pmatrix}
+=
+\begin{pmatrix}
+C_{1111} &amp; C_{1122} &amp; C_{1133} &amp; C_{1123} &amp; C_{1113} &amp; C_{1112} \\
+C_{2211} &amp; C_{2222} &amp; C_{2233} &amp; C_{2223} &amp; C_{2213} &amp; C_{2212} \\
+C_{3311} &amp; C_{3322} &amp; C_{3333} &amp; C_{3323} &amp; C_{3313} &amp; C_{3312} \\
+C_{2311} &amp; C_{2322} &amp; C_{2333} &amp; C_{2323} &amp; C_{2313} &amp; C_{2312} \\
+C_{1311} &amp; C_{1322} &amp; C_{1333} &amp; C_{1323} &amp; C_{1313} &amp; C_{1312} \\
+C_{1211} &amp; C_{1222} &amp; C_{1233} &amp; C_{1223} &amp; C_{1213} &amp; C_{1212}
+\end{pmatrix}
+\begin{pmatrix}
+\epsilon_{11} \\ \epsilon_{22} \\ \epsilon_{33} \\ 2\epsilon_{23} \\ 2\epsilon_{13} \\ 2\epsilon_{12}
+\end{pmatrix}
+\tag{1}\]</span></span></p>
+<p>In this course we will mostly consider isotropic materials, in which case the stiffness matrix only has two independent components.</p>
+<p><span id="eq-voigt-stiffness"><span class="math display">\[
+\begin{pmatrix}
+\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}
+\end{pmatrix}
+=
+\begin{pmatrix}
+2\mu+\lambda &amp; \lambda &amp; \lambda &amp; 0 &amp; 0 &amp; 0 \\
+\lambda &amp; 2\mu+\lambda &amp; \lambda &amp; 0 &amp; 0 &amp; 0 \\
+\lambda &amp; \lambda &amp; 2\mu+\lambda &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; \mu &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; \mu &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \mu
+\end{pmatrix}
+\begin{pmatrix}
+\epsilon_{11} \\ \epsilon_{22} \\ \epsilon_{33} \\ 2\epsilon_{23} \\ 2\epsilon_{13} \\ 2\epsilon_{12}
+\end{pmatrix}
+\tag{2}\]</span></span></p>
+<p><span id="eq-voigt-compliance"><span class="math display">\[
+\begin{pmatrix}
+\epsilon_{11} \\ \epsilon_{22} \\ \epsilon_{33} \\ 2\epsilon_{23} \\ 2\epsilon_{13} \\ 2\epsilon_{12}
+\end{pmatrix}
+=
+\frac{1}{E}
+\begin{pmatrix}
+1 &amp; -\nu &amp; -\nu &amp; 0 &amp; 0 &amp; 0 \\
+-\nu &amp; 1 &amp; -\nu &amp; 0 &amp; 0 &amp; 0 \\
+-\nu &amp; -\nu &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 2(1+\nu) &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 2(1+\nu) &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 2(1+\nu)
+\end{pmatrix}
+\begin{pmatrix}
+\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}
+\end{pmatrix}.
+\tag{3}\]</span></span></p>
 
 
 </section>
