@@ -23,7 +23,25 @@ We reproduce it with only $E,\nu,\mu,\lambda$ to make it more readable.
 
 : $R=\pm \sqrt{E^2+9\lambda^2+2E\lambda}$.
 
+
+## Typical material parameters
+
+| Material | E (GPa) | ν (–) | μ = G (GPa) | λ (GPa) | Notes |
+|---|---|---|---|---|---|
+| Steel | 200 | 0.30 | 76.9 | 115.4 | λ and μ comparable magnitude |
+| Copper | 120 | 0.34 | 44.8 | 95.2 | λ > μ, typical of ductile FCC metals |
+| Aluminium | 69 | 0.33 | 25.9 | 50.4 | Lower E than steel/copper, common structural metal |
+| Rubber | 0.01 | 0.499 | 0.0033 | 1.66 | λ ≫ μ — signature of near-incompressibility |
+| Cork | 0.02 | 0.0 | 0.01 | 0 | λ = 0 exactly when ν = 0 |
+
 To give a more intuitive understanding of the parameters, you can use the interactive widgets below:
+
+
+## Lamé constants ↔ (E, ν)
+In the following you can play around with setting Young's modulus and Poisson ratio and see the resulting stiffness matrix and Lamé parameters.
+
+
+{{< include ../interactives/_lame_constants.md >}}
 
 ## Poisson's ratio — what does it mean?
 
@@ -34,13 +52,6 @@ when stretched).
 
 {{< include ../interactives/_poisson_intuition.md >}}
 
-## Lamé constants ↔ (E, ν)
-
-$$
-\mu = \frac{E}{2(1+\nu)}, \qquad \lambda = \frac{E\nu}{(1+\nu)(1-2\nu)}, \qquad K = \frac{E}{3(1-2\nu)}
-$$
-
-{{< include ../interactives/_lame_constants.md >}}
 
 ## What do λ and μ mean physically?
 
