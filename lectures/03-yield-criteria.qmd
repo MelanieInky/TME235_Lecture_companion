@@ -29,6 +29,50 @@ $$
 \sigma_{\text{Tresca}} = \max\big(|\sigma_1-\sigma_2|,\ |\sigma_2-\sigma_3|,\ |\sigma_3-\sigma_1|\big) = \sigma_{max} - \sigma_{min}
 $$
 
+:::{.callout-note collapse="true" title="$\sigma_{vM} \leq \sigma_\text{tresca}$"}
+
+**Setup.** Order the principal stresses $\sigma_1 \ge \sigma_2 \ge \sigma_3$. Define
+
+$$
+\sigma_T = \sigma_1 - \sigma_3 \qquad \text{(Tresca equivalent stress)}
+$$
+
+
+**Claim.** $\sigma_{vM} \le \sigma_T$, with equality if and only if $\sigma_2 = \sigma_1$ or $\sigma_2 = \sigma_3$.
+
+**Proof.** Let $a = \sigma_1 - \sigma_2 \ge 0$ and $b = \sigma_2 - \sigma_3 \ge 0$ (both non-negative by the ordering). Then
+
+$$
+\sigma_1 - \sigma_3 = a + b, \qquad \sigma_T = a+b.
+$$
+
+Substituting into the von Mises expression:
+
+$$
+\sigma_{vM}^2 = \tfrac{1}{2}\left[a^2 + b^2 + (a+b)^2\right] = \tfrac{1}{2}\left[2a^2+2b^2+2ab\right] = a^2+ab+b^2.
+$$
+
+Meanwhile
+
+$$
+\sigma_T^2 = (a+b)^2 = a^2+2ab+b^2.
+$$
+
+Subtracting,
+
+$$
+\sigma_T^2 - \sigma_{vM}^2 = ab \ge 0,
+$$
+
+since $a,b \ge 0$. Because both $\sigma_T$ and $\sigma_{vM}$ are non-negative, this gives
+
+$$
+\sigma_{vM} \le \sigma_T.
+$$
+
+Equality holds iff $ab = 0$, i.e. iff $a=0$ ($\sigma_1=\sigma_2$) or $b=0$ ($\sigma_2=\sigma_3$). $\blacksquare$
+:::
+
 In the following cell, you can play around the two criterion and see when they differ.
 
 {{< include ../interactives/_pi_plane_yield.md >}}
