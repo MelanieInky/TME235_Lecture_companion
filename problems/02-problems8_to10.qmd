@@ -32,75 +32,177 @@ $$\int\frac{x+\alpha x^{2}}{1+\beta x}\,dx
 
 ## Solution by hand
 
-### 1. Equilibrium
+### Step 1–2. Governing equation
 
-Differential equilibrium equation of the linear elastic bar, eq. (2.4), with $A=b\,h(x)$:
+Differential equilibrium equation of the linear elastic bar, eq. (2.4), with $A=b\,h(x)$
+and $E,b$ constant:
 
-$$\frac{d}{dx}\!\left[EA\frac{du}{dx}\right]=-K_xA$$
+$$\frac{d}{dx}\!\left[EA\frac{du}{dx}\right]=-K_xA,
+\qquad\left\{\begin{array}{l}A=b\,h(x)\\ E=\text{const}\end{array}\right.$$
 
-Since $E$ and $b$ are constant they cancel out, leaving
+Dividing through by the constant $E\,b$:
 
 $$\frac{d}{dx}\!\left[h(x)\frac{du}{dx}\right]=-\frac{K_x\,h(x)}{E}$$
 
-The answer will depend only on the *shape* of the cross section, not on its size.
+Note that $b$ and $h_0$ have already cancelled: the answer will depend only on the
+*shape* of the cross section, not on its size.
 
-### 2. Integrate
+### Step 3–5. Two integrations
 
-A first integration gives
+Integrating once:
+
+$$\int\frac{d}{dx}\!\left[h\frac{du}{dx}\right]dx=-\int\frac{K_xh}{E}\,dx$$
 
 $$h(x)\frac{du}{dx}=-\int\frac{K_xh}{E}\,dx+C_1$$
 
-With $h(x)=h_0(1-x/(2L))$, the load integral is
+Dividing by $h(x)$ — legitimate because $h(x)>0$ on $[0,L]$, since $h(L)=h_0/2$ and the
+height would only vanish at $x=2L$:
 
-$$\int\frac{K_xh}{E}\,dx=\frac{K_xh_0}{E}\left(x-\frac{x^{2}}{4L}\right)$$
+$$\frac{du}{dx}=-\frac{1}{h(x)}\int\frac{K_xh(x)}{E}\,dx+\frac{C_1}{h(x)}$$
 
-Dividing by $h(x)$ (legal since $h>0$ on $[0,L]$) and integrating a second time — using the
-hint with $\alpha=-1/(4L)$, $\beta=-1/(2L)$ — gives
+Integrating a second time:
 
-$$u(x)=-\frac{K_x}{E}\left[-Lx+\frac{x^{2}}{4}-2L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]
--\frac{2LC_1}{h_0}\ln\!\left(1-\frac{x}{2L}\right)+C_2$$
+$$u(x)=\int\left[-\frac{1}{h(x)}\int\frac{K_xh(x)}{E}\,dx\right]dx
++\int\frac{C_1}{h(x)}\,dx+C_2\qquad ①$$
 
-### 3. Boundary conditions
+### Step 6a. Inner (load) integral
 
-$u(0)=0$: every term has either an $x$ or a $\ln(1)=0$, so $C_2=0$.
+$$\int\frac{K_xh(x)}{E}dx=\frac{K_x}{E}\int h_0\!\left(1-\frac{x}{2L}\right)dx
+=\frac{K_xh_0}{E}\left(x-\frac{x^{2}}{4L}\right)\qquad ②$$
 
-$u(L)=0$, with $\ln(1/2)=-\ln2$, gives
+### Step 6b. Outer integral — here the hint is used
 
-$$C_1=\frac{K_xh_0L}{E}\left(1-\frac{3}{8\ln2}\right)\approx0.459\,\frac{K_xh_0L}{E}$$
+$$\int\left[-\frac{1}{h}\int\frac{K_xh}{E}dx\right]dx
+=-\frac{K_x\,h_0}{E}\int\frac{x-\dfrac{x^{2}}{4L}}{h_0\left(1-\dfrac{x}{2L}\right)}dx
+=-\frac{K_x}{E}\int\frac{x+\alpha x^{2}}{1+\beta x}\,dx\qquad ③$$
+
+with $\alpha=-\dfrac{1}{4L}$ and $\beta=-\dfrac{1}{2L}$.
+
+The three coefficients of the hint, evaluated explicitly (this is where sign errors
+happen):
+
+$$\frac{\beta-\alpha}{\beta^{2}}=\frac{-\frac{1}{4L}}{\frac{1}{4L^{2}}}=-L$$
+
+$$\frac{\alpha}{2\beta}=\frac{-\frac{1}{4L}}{-\frac{1}{L}}=\frac14$$
+
+$$\frac{\alpha-\beta}{\beta^{3}}=\frac{\frac{1}{4L}}{-\frac{1}{8L^{3}}}=-2L^{2}$$
+
+$$③=-\frac{K_x}{E}\left[-Lx+\frac{x^{2}}{4}
+-2L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]\qquad ④$$
+
+### Step 6c. The $C_1$ integral
+
+$$\int\frac{C_1}{h(x)}dx=\frac{C_1}{h_0}\int\frac{dx}{1-\frac{x}{2L}}
+=\frac{C_1}{h_0}(-2L)\ln\!\left(1-\frac{x}{2L}\right)\qquad ⑤$$
+
+### Replacing ④ and ⑤ in ①
+
+$$u(x)=-\frac{K_x}{E}\left[-Lx+\frac{x^{2}}{4}
+-2L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]
+-\frac{2LC_1}{h_0}\ln\!\left(1-\frac{x}{2L}\right)+C_2\qquad ⑥$$
+
+### Step 7. Boundary conditions
+
+$u(0)=0$: every term contains either $x$ or $\ln(1)=0$, hence
+
+$$C_2=0\qquad ⑦$$
+
+$u(L)=0$, with $\ln\!\left(\tfrac12\right)=-\ln 2$:
+
+$$-\frac{K_x}{E}\left[-L^{2}+\frac{L^{2}}{4}+2L^{2}\ln 2\right]
++\frac{2LC_1}{h_0}\ln 2=0$$
+
+$$\frac{2L\ln 2}{h_0}C_1=\frac{K_x}{E}\left[-\frac{3L^{2}}{4}+2L^{2}\ln 2\right]$$
+
+$$C_1=\frac{K_xh_0L}{E}\left(1-\frac{3}{8\ln 2}\right)
+\approx 0.45899\,\frac{K_xh_0L}{E}\qquad ⑧$$
+
+### Step 8. Replacing ⑧ in ⑥
+
+$$-\frac{2LC_1}{h_0}\ln\!\left(1-\frac{x}{2L}\right)
+=-\left(2-\frac{3}{4\ln 2}\right)\frac{K_xL^{2}}{E}\ln\!\left(1-\frac{x}{2L}\right)
+=-0.91798\,\frac{K_xL^{2}}{E}\ln\!\left(1-\frac{x}{2L}\right)$$
+
+Pulling out $-K_x/E$ and collecting with the $-2L^{2}\ln(\cdot)$ term already in ⑥:
+
+$$u(x)=-\frac{K_x}{E}\left[-Lx+\frac{x^{2}}{4}
+-\underbrace{(2-0.91798)}_{=\,3/(4\ln 2)\,=\,1.08202}
+L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]$$
 
 ### Result
 
-$$u(x)=\frac{K_x}{E}\left[xL-\frac{x^{2}}{4}+\frac{3L^{2}}{4\ln2}\ln\!\left(1-\frac{x}{2L}\right)\right]$$
+$$u(x)=-\frac{K_x}{E}\left[-xL+\frac{x^{2}}{4}
+-1.0820\,L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]$$
 
-This matches the answer printed in the lecture notes,
-$u=-\frac{K_x}{E}\left[-xL+x^{2}/4-2L^{2}\ln(1-x/(2L))(1+\beta)\right]$, with
-$2(1+\beta)=3/(4\ln2)\approx1.082$.
+$$u(x)=\frac{K_x}{E}\left[xL-\frac{x^{2}}{4}
++\frac{3L^{2}}{4\ln 2}\ln\!\left(1-\frac{x}{2L}\right)\right]$$
+
+This is the answer printed in the lecture notes,
+$u=-\frac{K_x}{E}\left[-xL+x^{2}/4-2L^{2}\ln(1-x/(2L))(1+\beta)\right]$, with the exact
+value of the constant
+
+$$2(1+\beta)=\frac{3}{4\ln 2}=1.08202\ldots$$
+
+$$\beta=\frac{3}{8\ln 2}-1=-0.45899\ldots\approx-0.46$$
+
+Note that this $\beta$ is **not** the $\beta=-1/(2L)$ of the hint — the notes reuse the
+same letter for two different quantities.
 
 ## Symbolic solution with SymPy
 
+The script follows exactly the same steps: two integrations, then the two boundary
+conditions.
+
+*Caveat:* `sympy` returns the antiderivative of ⑤ as $\ln(x-2L)$, which is complex for
+$x<2L$. The substitution `log(x - 2*L) -> log(2*L - x)` restores the real branch valid on
+$[0,L]$. Solving with `dsolve` directly gives the same answer with an extra `I*pi`, which
+is a constant and is absorbed by $C_2$.
+
 ```{python}
-# 1. Equilibrium: d/dx[h u'] = -(Kx/E) h, with h(x) = h0 (1 - x/(2L))
 x, L, E, b, h0, Kx = sp.symbols('x L E b h_0 K_x', positive=True)
 C1, C2 = sp.symbols('C1 C2')
 
-h = h0*(1 - x/(2*L))
+h = h0*(1 - x/(2*L))                     # height h(x)
+A = b*h                                  # cross-section area A(x)
+
+# --- Step 3-4: first integration of  d/dx[h u'] = -(Kx/E) h -----------------
+hu_p = -sp.integrate(Kx*h/E, x) + C1     # = h(x) u'(x)
+u_p  = sp.simplify(hu_p/h)               # u'(x)   (legal: h > 0 on [0, L])
+
+print("u'(x)")
+u_p
 ```
 
 ```{python}
-# 2. Integrate twice
-u_p = sp.simplify((-sp.integrate(Kx*h/E, x) + C1) / h)   # u'(x), legal since h > 0 on [0, L]
+# --- Step 5-6: second integration -------------------------------------------
 u = sp.integrate(u_p, x) + C2
-u = u.subs(sp.log(x - 2*L), sp.log(2*L - x))              # real branch on [0, L]
+u = u.subs(sp.log(x - 2*L), sp.log(2*L - x))    # real branch on 0 <= x <= L < 2L
 u = sp.simplify(u)
 u
 ```
 
-> **Caveat.** `sympy` writes the antiderivative as $\ln(x-2L)$, which is complex for
-> $x<2L$. The substitution above restores the real branch valid on $[0,L]$.
+```{python}
+# --- Step 7: boundary conditions u(0) = u(L) = 0 -----------------------------
+sol = sp.solve([u.subs(x, 0), u.subs(x, L)], [C1, C2], dict=True)[0]
+
+print("C1")
+sp.simplify(sol[C1])
+```
 
 ```{python}
-# 3. Boundary conditions u(0) = u(L) = 0
-sol = sp.solve([u.subs(x, 0), u.subs(x, L)], [C1, C2], dict=True)[0]
+print("C2")
+sp.simplify(sol[C2])
+```
+
+> **Why is $C_2\neq0$ here?** Because `sympy` writes the logarithm as $\ln(2L-x)$ instead
+> of $\ln\!\left(1-\frac{x}{2L}\right)$. The two differ by the constant $\ln(2L)$, which the
+> solver dumps into $C_2$. The split between $C_1$ and $C_2$ is therefore different from the
+> hand derivation, but **$C_1$ is identical** and so is the final $u(x)$ — as the check below
+> confirms. Writing the logarithm in the normalised form, as in step ⑤ above, is what makes
+> $C_2=0$ and keeps the algebra light.
+
+```{python}
+# --- Step 8: final displacement ----------------------------------------------
 u = sp.simplify(u.subs(sol))
 sp.expand(u)
 ```
@@ -145,36 +247,76 @@ Supports (read them off the figure **before** touching the equation):
 
 ## Solution by hand
 
-### 1. Equilibrium
+### Step 1–2. Equation and four integrations
 
 Differential equilibrium equation, eq. (2.15):
 
 $$EI\frac{d^{4}w}{dx^{4}}=q_0\frac{x}{L}$$
 
-### 2. Integrate
+$$\frac{d^{4}w}{dx^{4}}=\frac{q_0}{EI\,L}\,x$$
 
-Integrating four times:
+Integrating four times in a row:
 
-$$w(x)=\frac{q_0}{EI\,L}\frac{x^{5}}{120}+C_1\frac{x^{3}}{6}+C_2\frac{x^{2}}{2}+C_3x+C_4$$
+$$\frac{d^{3}w}{dx^{3}}=\frac{q_0}{EIL}\frac{x^{2}}{2}+C_1$$
 
-Comparing with eq. (2.18)–(2.19), the constants have a physical meaning:
+$$\frac{d^{2}w}{dx^{2}}=\frac{q_0}{EIL}\frac{x^{3}}{6}+C_1x+C_2$$
+
+$$\frac{dw}{dx}=\frac{q_0}{EIL}\frac{x^{4}}{24}+C_1\frac{x^{2}}{2}+C_2x+C_3$$
+
+$$w(x)=\frac{q_0}{EI\,L}\frac{x^{5}}{120}
++C_1\frac{x^{3}}{6}+C_2\frac{x^{2}}{2}+C_3x+C_4\qquad ①$$
+
+The constants have a physical meaning: comparing with (2.18)–(2.19),
 $EI\,C_1=-V(0)$ and $EI\,C_2=-M(0)$.
 
-### 3. Boundary conditions
+### Step 3. Clamped end
 
-Clamped end: $w(0)=0$ gives $C_4=0$, and $w'(0)=0$ gives $C_3=0$.
+$$w(0)=0\quad\Longrightarrow\quad C_4=0\qquad ②$$
 
-Roller: $M(L)=0\Rightarrow w''(L)=0$ gives one equation in $C_1,C_2$; together with
-$w(L)=0$, solving the pair gives
+$$w'(0)=\left(\frac{q_0}{EIL}\frac{x^{4}}{24}+C_1\frac{x^{2}}{2}+C_2x+C_3\right)_{x=0}=0$$
 
-$$C_1=-\frac{9q_0L}{40EI},\qquad C_2=\frac{7q_0L^{2}}{120EI}$$
+$$\Longrightarrow\quad C_3=0\qquad ③$$
+
+### Step 4. Roller
+
+$$M(L)=0\;\Longrightarrow\;-EI\,w''(L)=0,\qquad
+w''(x)=\frac{q_0}{EIL}\frac{x^{3}}{6}+C_1x+C_2$$
+
+$$\frac{q_0}{EIL}\frac{L^{3}}{6}+C_1L+C_2=0$$
+
+$$\Longrightarrow\quad C_2=-C_1L-\frac{q_0L^{2}}{6EI}\qquad ④$$
+
+$$w(L)=0\;\Longrightarrow\;
+\frac{q_0}{EIL}\frac{L^{5}}{120}+C_1\frac{L^{3}}{6}+C_2\frac{L^{2}}{2}=0$$
+
+Inserting ④:
+
+$$\frac{q_0L^{4}}{120EI}+C_1\frac{L^{3}}{6}
++\frac{L^{2}}{2}\left(-C_1L-\frac{q_0L^{2}}{6EI}\right)=0$$
+
+$$\frac{q_0L^{4}}{120EI}-\frac{L^{3}}{3}C_1-\frac{q_0L^{4}}{12EI}=0$$
+
+$$\frac{L^{3}}{3}C_1=\frac{q_0L^{4}}{EI}\left(\frac{1}{120}-\frac{1}{12}\right)
+=-\frac{9q_0L^{4}}{120EI}$$
+
+$$C_1=-\frac{27q_0L}{120EI}=-\frac{9q_0L}{40EI}\qquad ⑤$$
+
+and back into ④:
+
+$$C_2=\frac{9q_0L^{2}}{40EI}-\frac{q_0L^{2}}{6EI}=\frac{(27-20)q_0L^{2}}{120EI}
+=\frac{7q_0L^{2}}{120EI}\qquad ⑥$$
 
 ### Result
 
-$$w(x)=\frac{q_0L^{4}}{EI}\left[\frac{1}{120}\left(\frac{x}{L}\right)^{5}
--\frac{3}{80}\left(\frac{x}{L}\right)^{3}+\frac{7}{240}\left(\frac{x}{L}\right)^{2}\right]$$
+With ②–⑥, eq. ① becomes
 
-and the internal forces follow, with $\xi=x/L$:
+$$w(x)=\frac{q_0L^{4}}{EI}\left[\frac{1}{120}\left(\frac{x}{L}\right)^{5}
+-\frac{3}{80}\left(\frac{x}{L}\right)^{3}
++\frac{7}{240}\left(\frac{x}{L}\right)^{2}\right]$$
+
+$$w(x)=\frac{q_0\,x^{2}(x-L)\left(2x^{2}+2Lx-7L^{2}\right)}{240\,EI\,L}$$
+
+and the internal forces follow immediately, with $\xi=x/L$:
 
 $$\frac{M(x)}{q_0L^{2}}=-\left[\frac{\xi^{3}}{6}-\frac{9}{40}\xi+\frac{7}{120}\right]$$
 
@@ -183,27 +325,40 @@ $$\frac{V(x)}{q_0L}=-\left[\frac{\xi^{2}}{2}-\frac{9}{40}\right]$$
 ## Symbolic solution with SymPy
 
 ```{python}
-# 1-2. Equilibrium and integrate (general solution via dsolve)
 x, L, EI, q0 = sp.symbols('x L EI q_0', positive=True)
 w = sp.Function('w')
-q = q0*x/L
 
-W = sp.dsolve(sp.Eq(EI*sp.diff(w(x), x, 4), q), w(x)).rhs
-C = list(sp.symbols('C1:5'))
+q = q0*x/L
+W = sp.dsolve(sp.Eq(EI*sp.diff(w(x), x, 4), q), w(x)).rhs   # general solution
+C = list(sp.symbols('C1:5'))                                # C1 ... C4
+
 W
 ```
 
-> **Careful with the naming.** `dsolve` numbers its constants by *increasing* power of
-> $x$ — the opposite of the hand derivation, where $C_1$ multiplies the highest power.
-
 ```{python}
-# 3. Boundary conditions: w(0) = w'(0) = 0 (clamped), M(L) = w(L) = 0 (roller)
 M = -EI*sp.diff(W, x, 2)          # bending moment,  M = -EI w''
 V = sp.diff(M, x)                  # shear force,     V = dM/dx
 
-bc = [W.subs(x, 0), sp.diff(W, x).subs(x, 0), M.subs(x, L), W.subs(x, L)]
-sol = sp.solve(bc, C, dict=True)[0]
+bc = [W.subs(x, 0),                # w(0)  = 0   clamped
+      sp.diff(W, x).subs(x, 0),    # w'(0) = 0   clamped
+      M.subs(x, L),                # M(L)  = 0   roller
+      W.subs(x, L)]                # w(L)  = 0   roller
 
+sol = sp.solve(bc, C, dict=True)[0]
+for k in C:
+    sp.simplify(sol[k])
+```
+
+> **Careful with the naming.** `dsolve` numbers its constants by *increasing* power of
+> $x$, i.e. $\texttt{C1}+\texttt{C2}\,x+\texttt{C3}\,x^{2}+\texttt{C4}\,x^{3}$, which is the
+> opposite of the hand derivation. The correspondence is
+>
+> $$\texttt{C4}=\frac{C_1}{6}=-\frac{3q_0L}{80EI},\qquad
+> \texttt{C3}=\frac{C_2}{2}=\frac{7q_0L^{2}}{240EI}$$
+>
+> $$\texttt{C2}=C_3=0,\qquad \texttt{C1}=C_4=0$$
+
+```{python}
 W = sp.simplify(W.subs(sol))
 M = sp.simplify(M.subs(sol))
 V = sp.simplify(V.subs(sol))
@@ -465,9 +620,6 @@ ax.set_title('characteristic equation of the clamped-free beam')
 plt.tight_layout(); plt.show()
 ```
 
-Finally, we compare the mode shapes of the bar and the beam for the first four
-eigenfrequencies:
-
 ```{python}
 Nmodes = 4
 seeds = [(2*n - 1)*sp.pi/2 for n in range(1, Nmodes + 1)]
@@ -494,28 +646,55 @@ def beam_mode(n, xi):
     return Wn / np.max(np.abs(Wn))
 ```
 
+Finally, an interactive view of the first four mode shapes: pick a mode from the dropdown
+and watch the bar and beam vibrate through one period, $u(x,t)=U_n(x)\sin(\omega_n t)$.
+
 ```{python}
-# --- mode shapes for the first four eigenfrequencies --------------------------
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+
 xi = np.linspace(0, 1, 400)
+nphases = 24                                   # frames per vibration period
+phases = np.linspace(0, 2*np.pi, nphases, endpoint=False)
 
-fig, ax = plt.subplots(2, Nmodes, figsize=(12, 5), sharex=True)
+def frame_name(n, k):
+    return f"m{n}_p{k}"
+
+frames = []
 for n in range(1, Nmodes + 1):
-    gnb, gnm = gamma_bar[n-1], gamma_beam[n-1]
-    om_bar_n  = (gnb/Lv)   * np.sqrt(Ev/rho)
-    om_beam_n = (gnm/Lv)**2 * np.sqrt(Ev*I/(rho*A))
+    Un = bar_mode(n, xi)
+    Wn = beam_mode(n, xi)
+    for k, ph in enumerate(phases):
+        s = np.sin(ph)
+        frames.append(go.Frame(
+            name=frame_name(n, k),
+            data=[go.Scatter(y=Un*s), go.Scatter(y=Wn*s)],
+            traces=[0, 1],
+        ))
 
-    ax[0, n-1].plot(xi, bar_mode(n, xi), 'C0')
-    ax[0, n-1].axhline(0, color='k', lw=.6)
-    ax[0, n-1].set_title(f'bar $n$={n}, $\\gamma$={gnb:.3f}\n$\\omega$={om_bar_n:.0f} rad/s',
-                          fontsize=8)
+fig = make_subplots(rows=1, cols=2, subplot_titles=("bar mode", "beam mode"))
+fig.add_trace(go.Scatter(x=xi, y=bar_mode(1, xi), line=dict(color="#1f77b4")), row=1, col=1)
+fig.add_trace(go.Scatter(x=xi, y=beam_mode(1, xi), line=dict(color="#d62728")), row=1, col=2)
+fig.frames = frames
 
-    ax[1, n-1].plot(xi, beam_mode(n, xi), 'C3')
-    ax[1, n-1].axhline(0, color='k', lw=.6)
-    ax[1, n-1].set_title(f'beam $n$={n}, $\\gamma$={gnm:.3f}\n$\\omega$={om_beam_n:.0f} rad/s',
-                          fontsize=8)
-    ax[1, n-1].set_xlabel('$x/L$')
-
-ax[0, 0].set_ylabel('$U_n/\\max|U_n|$')
-ax[1, 0].set_ylabel('$W_n/\\max|W_n|$')
-plt.tight_layout(); plt.show()
+fig.update_yaxes(range=[-1.2, 1.2])
+fig.update_xaxes(title_text="x / L")
+fig.update_layout(
+    height=380,
+    showlegend=False,
+    margin=dict(t=90),
+    title="Vibrating mode shapes — pick a mode to play its vibration",
+    updatemenus=[dict(
+        type="dropdown", x=1.0, y=1.25, xanchor="right",
+        buttons=[
+            dict(label=f"Mode {n}", method="animate",
+                 args=[[frame_name(n, k) for k in range(nphases)],
+                       {"frame": {"duration": 60, "redraw": True},
+                        "transition": {"duration": 0},
+                        "mode": "immediate", "fromcurrent": False}])
+            for n in range(1, Nmodes + 1)
+        ],
+    )],
+)
+fig
 ```
