@@ -646,55 +646,31 @@ def beam_mode(n, xi):
     return Wn / np.max(np.abs(Wn))
 ```
 
-Finally, an interactive view of the first four mode shapes: pick a mode from the dropdown
-and watch the bar and beam vibrate through one period, $u(x,t)=U_n(x)\sin(\omega_n t)$.
+Finally, we compare the mode shapes of the bar and the beam for the first four
+eigenfrequencies:
 
 ```{python}
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
-
+# --- mode shapes for the first four eigenfrequencies --------------------------
 xi = np.linspace(0, 1, 400)
-nphases = 24                                   # frames per vibration period
-phases = np.linspace(0, 2*np.pi, nphases, endpoint=False)
 
-def frame_name(n, k):
-    return f"m{n}_p{k}"
-
-frames = []
+fig, ax = plt.subplots(2, Nmodes, figsize=(12, 5), sharex=True)
 for n in range(1, Nmodes + 1):
-    Un = bar_mode(n, xi)
-    Wn = beam_mode(n, xi)
-    for k, ph in enumerate(phases):
-        s = np.sin(ph)
-        frames.append(go.Frame(
-            name=frame_name(n, k),
-            data=[go.Scatter(y=Un*s), go.Scatter(y=Wn*s)],
-            traces=[0, 1],
-        ))
+    gnb, gnm = gamma_bar[n-1], gamma_beam[n-1]
+    om_bar_n  = (gnb/Lv)   * np.sqrt(Ev/rho)
+    om_beam_n = (gnm/Lv)**2 * np.sqrt(Ev*I/(rho*A))
 
-fig = make_subplots(rows=1, cols=2, subplot_titles=("bar mode", "beam mode"))
-fig.add_trace(go.Scatter(x=xi, y=bar_mode(1, xi), line=dict(color="#1f77b4")), row=1, col=1)
-fig.add_trace(go.Scatter(x=xi, y=beam_mode(1, xi), line=dict(color="#d62728")), row=1, col=2)
-fig.frames = frames
+    ax[0, n-1].plot(xi, bar_mode(n, xi), 'C0')
+    ax[0, n-1].axhline(0, color='k', lw=.6)
+    ax[0, n-1].set_title(f'bar $n$={n}, $\\gamma$={gnb:.3f}\n$\\omega$={om_bar_n:.0f} rad/s',
+                          fontsize=8)
 
-fig.update_yaxes(range=[-1.2, 1.2])
-fig.update_xaxes(title_text="x / L")
-fig.update_layout(
-    height=380,
-    showlegend=False,
-    margin=dict(t=90),
-    title="Vibrating mode shapes — pick a mode to play its vibration",
-    updatemenus=[dict(
-        type="dropdown", x=1.0, y=1.25, xanchor="right",
-        buttons=[
-            dict(label=f"Mode {n}", method="animate",
-                 args=[[frame_name(n, k) for k in range(nphases)],
-                       {"frame": {"duration": 60, "redraw": True},
-                        "transition": {"duration": 0},
-                        "mode": "immediate", "fromcurrent": False}])
-            for n in range(1, Nmodes + 1)
-        ],
-    )],
-)
-fig
+    ax[1, n-1].plot(xi, beam_mode(n, xi), 'C3')
+    ax[1, n-1].axhline(0, color='k', lw=.6)
+    ax[1, n-1].set_title(f'beam $n$={n}, $\\gamma$={gnm:.3f}\n$\\omega$={om_beam_n:.0f} rad/s',
+                          fontsize=8)
+    ax[1, n-1].set_xlabel('$x/L$')
+
+ax[0, 0].set_ylabel('$U_n/\\max|U_n|$')
+ax[1, 0].set_ylabel('$W_n/\\max|W_n|$')
+plt.tight_layout(); plt.show()
 ```
