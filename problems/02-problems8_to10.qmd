@@ -455,8 +455,9 @@ $$EI\frac{\partial^{4}w}{\partial x^{4}}+\rho A\ddot w=q(x,t)$$
 $$\frac{d^{4}W}{dx^{4}}-\omega^{2}\frac{\rho A}{EI}W=0 \qquad (2.25)$$
 
 $$W(x)=C_1\sin\!\left(\frac{\gamma x}{L}\right)+C_2\cos\!\left(\frac{\gamma x}{L}\right)
-+C_3\sinh\!\left(\frac{\gamma x}{L}\right)+C_4\cosh\!\left(\frac{\gamma x}{L}\right),
-\qquad\frac{\gamma}{L}=\sqrt[4]{\omega^{2}\frac{\rho A}{EI}} \qquad (2.26)$$
++C_3\sinh\!\left(\frac{\gamma x}{L}\right)+C_4\cosh\!\left(\frac{\gamma x}{L}\right)$$
+$$
+\frac{\gamma}{L}=\sqrt[4]{\omega^{2}\frac{\rho A}{EI}} \qquad (2.26)$$
 
 **Clamped end.** $W(0)=0$ gives
 
@@ -691,6 +692,7 @@ frame by frame, so the animation time is slowed down uniformly; the *relative* s
 between modes still matches the physics exactly ($\omega_n/\omega_1$, shown under each
 plot).
 
+```{=html}
 <div id="mode-viewer" style="max-width:720px;margin:1rem auto;">
   <div style="display:flex;gap:.5rem;justify-content:center;margin-bottom:.75rem;">
     <button class="mv-btn" data-mode="0">Mode 1</button>
@@ -783,3 +785,4 @@ plot).
   requestAnimationFrame(frame);
 })();
 </script>
+```
