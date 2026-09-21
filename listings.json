@@ -1,19 +1,20 @@
 [
   {
-    "listing": "/problems/index.html",
-    "items": [
-      "/problems/01-problems1_to7.html",
-      "/problems/00-helper_functions.html"
-    ]
-  },
-  {
     "listing": "/lectures/index.html",
     "items": [
       "/lectures/01-voigt_notation.html",
       "/lectures/02-decomposition.html",
       "/lectures/03-yield-criteria.html",
       "/lectures/04-elastic-constants.html",
-      "/lectures/05-plane-stress-strain.html"
+      "/lectures/05-plane-stress-strain.html",
+      "/lectures/06-beams_and_bars.html"
+    ]
+  },
+  {
+    "listing": "/problems/index.html",
+    "items": [
+      "/problems/01-problems1_to7.html",
+      "/problems/00-helper_functions.html"
     ]
   }
 ]

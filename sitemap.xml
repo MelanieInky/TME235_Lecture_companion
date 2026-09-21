@@ -2,42 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/03-yield-criteria.html</loc>
-    <lastmod>2026-09-18T23:34:45.433Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/01-voigt_notation.html</loc>
-    <lastmod>2026-09-18T23:34:45.432Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/04-elastic-constants.html</loc>
-    <lastmod>2026-09-18T23:34:45.433Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/problems/00-helper_functions.html</loc>
-    <lastmod>2026-09-18T23:34:45.433Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/problems/index.html</loc>
-    <lastmod>2026-09-18T23:34:45.434Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/index.html</loc>
-    <lastmod>2026-09-18T23:34:45.429Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/problems/01-problems1_to7.html</loc>
-    <lastmod>2026-09-18T23:34:45.434Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/index.html</loc>
-    <lastmod>2026-09-18T23:34:45.433Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/02-decomposition.html</loc>
-    <lastmod>2026-09-18T23:34:45.433Z</lastmod>
+    <lastmod>2026-09-21T12:56:13.172Z</lastmod>
   </url>
   <url>
     <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/05-plane-stress-strain.html</loc>
-    <lastmod>2026-09-18T23:34:45.433Z</lastmod>
+    <lastmod>2026-09-21T12:56:13.172Z</lastmod>
+  </url>
+  <url>
+    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/02-decomposition.html</loc>
+    <lastmod>2026-09-21T12:56:13.172Z</lastmod>
+  </url>
+  <url>
+    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/index.html</loc>
+    <lastmod>2026-09-21T12:56:13.172Z</lastmod>
+  </url>
+  <url>
+    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/problems/01-problems1_to7.html</loc>
+    <lastmod>2026-09-21T12:56:13.173Z</lastmod>
+  </url>
+  <url>
+    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/index.html</loc>
+    <lastmod>2026-09-21T12:56:13.167Z</lastmod>
+  </url>
+  <url>
+    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/problems/index.html</loc>
+    <lastmod>2026-09-21T12:56:13.173Z</lastmod>
+  </url>
+  <url>
+    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/problems/00-helper_functions.html</loc>
+    <lastmod>2026-09-21T12:56:13.172Z</lastmod>
+  </url>
+  <url>
+    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/04-elastic-constants.html</loc>
+    <lastmod>2026-09-21T12:56:13.172Z</lastmod>
+  </url>
+  <url>
+    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/01-voigt_notation.html</loc>
+    <lastmod>2026-09-21T12:56:13.171Z</lastmod>
+  </url>
+  <url>
+    <loc>https://MelanieInky.github.io/TME235_Lecture_companion/lectures/06-beams_and_bars.html</loc>
+    <lastmod>2026-09-21T12:56:13.172Z</lastmod>
   </url>
 </urlset>
