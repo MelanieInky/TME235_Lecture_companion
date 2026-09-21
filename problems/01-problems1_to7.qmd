@@ -593,15 +593,6 @@ $$
 
 with $\mu=\dfrac{E}{2(1+\nu)}$.
 
-```{python}
-Emod = 200e3; nu = 0.3
-lam, mu = lambda_mu(Emod, nu)
-sigma_eM = 500.
-
-eps12 = sp.sqrt((sp.Rational(2, 3)*sigma_eM**2 - 8e-6*mu**2) / (8*mu**2))
-float(eps12)
-```
-
 $$
 \Rightarrow\quad \epsilon_{12}=\pm1.59\cdot10^{-3}
 $$
