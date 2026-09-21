@@ -32,170 +32,75 @@ $$\int\frac{x+\alpha x^{2}}{1+\beta x}\,dx
 
 ## Solution by hand
 
-### Step 1–2. Governing equation
+### 1. Equilibrium
 
-Differential equilibrium equation of the linear elastic bar, eq. (2.4), with $A=b\,h(x)$
-and $E,b$ constant:
+Differential equilibrium equation of the linear elastic bar, eq. (2.4), with $A=b\,h(x)$:
 
-$$\frac{d}{dx}\!\left[EA\frac{du}{dx}\right]=-K_xA,
-\qquad\left\{\begin{array}{l}A=b\,h(x)\\ E=\text{const}\end{array}\right.$$
+$$\frac{d}{dx}\!\left[EA\frac{du}{dx}\right]=-K_xA$$
 
-$$E\,b\,\frac{d}{dx}\!\left[h(x)\frac{du}{dx}\right]=-K_x\,b\,h(x)
-\qquad\Longrightarrow\qquad
-\frac{d}{dx}\!\left[h(x)\frac{du}{dx}\right]=-\frac{K_x\,h(x)}{E}$$
+Since $E$ and $b$ are constant they cancel out, leaving
 
-Note that $b$ and $h_0$ have already cancelled: the answer will depend only on the
-*shape* of the cross section, not on its size.
+$$\frac{d}{dx}\!\left[h(x)\frac{du}{dx}\right]=-\frac{K_x\,h(x)}{E}$$
 
-### Step 3–5. Two integrations
+The answer will depend only on the *shape* of the cross section, not on its size.
 
-$$\int\frac{d}{dx}\!\left[h\frac{du}{dx}\right]dx=-\int\frac{K_xh}{E}\,dx
-\qquad\Longrightarrow\qquad
-h(x)\frac{du}{dx}=-\int\frac{K_xh}{E}\,dx+C_1$$
+### 2. Integrate
 
-Dividing by $h(x)$ — legitimate because $h(x)>0$ on $[0,L]$, since $h(L)=h_0/2$ and the
-height would only vanish at $x=2L$:
+A first integration gives
 
-$$\frac{du}{dx}=-\frac{1}{h(x)}\int\frac{K_xh(x)}{E}\,dx+\frac{C_1}{h(x)}$$
+$$h(x)\frac{du}{dx}=-\int\frac{K_xh}{E}\,dx+C_1$$
 
-$$u(x)=\int\left[-\frac{1}{h(x)}\int\frac{K_xh(x)}{E}\,dx\right]dx
-+\int\frac{C_1}{h(x)}\,dx+C_2\qquad ①$$
+With $h(x)=h_0(1-x/(2L))$, the load integral is
 
-### Step 6a. Inner (load) integral
+$$\int\frac{K_xh}{E}\,dx=\frac{K_xh_0}{E}\left(x-\frac{x^{2}}{4L}\right)$$
 
-$$\int\frac{K_xh(x)}{E}dx=\frac{K_x}{E}\int h_0\!\left(1-\frac{x}{2L}\right)dx
-=\frac{K_xh_0}{E}\left(x-\frac{x^{2}}{4L}\right)\qquad ②$$
+Dividing by $h(x)$ (legal since $h>0$ on $[0,L]$) and integrating a second time — using the
+hint with $\alpha=-1/(4L)$, $\beta=-1/(2L)$ — gives
 
-### Step 6b. Outer integral — here the hint is used
+$$u(x)=-\frac{K_x}{E}\left[-Lx+\frac{x^{2}}{4}-2L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]
+-\frac{2LC_1}{h_0}\ln\!\left(1-\frac{x}{2L}\right)+C_2$$
 
-$$\int\left[-\frac{1}{h}\int\frac{K_xh}{E}dx\right]dx
-=-\frac{K_x\,h_0}{E}\int\frac{x-\dfrac{x^{2}}{4L}}{h_0\left(1-\dfrac{x}{2L}\right)}dx
-=-\frac{K_x}{E}\int\frac{x+\alpha x^{2}}{1+\beta x}\,dx ,
-\qquad \alpha=-\frac{1}{4L},\;\; \beta=-\frac{1}{2L}\qquad ③$$
+### 3. Boundary conditions
 
-The three coefficients of the hint, evaluated explicitly (this is where sign errors happen):
+$u(0)=0$: every term has either an $x$ or a $\ln(1)=0$, so $C_2=0$.
 
-$$\frac{\beta-\alpha}{\beta^{2}}=\frac{-\frac{1}{4L}}{\frac{1}{4L^{2}}}=-L,
-\qquad
-\frac{\alpha}{2\beta}=\frac{-\frac{1}{4L}}{-\frac{1}{L}}=\frac14,
-\qquad
-\frac{\alpha-\beta}{\beta^{3}}=\frac{\frac{1}{4L}}{-\frac{1}{8L^{3}}}=-2L^{2}$$
+$u(L)=0$, with $\ln(1/2)=-\ln2$, gives
 
-$$③=-\frac{K_x}{E}\left[-Lx+\frac{x^{2}}{4}
--2L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]\qquad ④$$
-
-### Step 6c. The $C_1$ integral
-
-$$\int\frac{C_1}{h(x)}dx=\frac{C_1}{h_0}\int\frac{dx}{1-\frac{x}{2L}}
-=\frac{C_1}{h_0}(-2L)\ln\!\left(1-\frac{x}{2L}\right)\qquad ⑤$$
-
-### Replacing ④ and ⑤ in ①
-
-$$u(x)=-\frac{K_x}{E}\left[-Lx+\frac{x^{2}}{4}
--2L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]
--\frac{2LC_1}{h_0}\ln\!\left(1-\frac{x}{2L}\right)+C_2\qquad ⑥$$
-
-### Step 7. Boundary conditions
-
-$u(0)=0$: every term contains either $x$ or $\ln(1)=0$, hence
-
-$$C_2=0\qquad ⑦$$
-
-$u(L)=0$, with $\ln\!\left(\tfrac12\right)=-\ln 2$:
-
-$$-\frac{K_x}{E}\left[-L^{2}+\frac{L^{2}}{4}+2L^{2}\ln 2\right]
-+\frac{2LC_1}{h_0}\ln 2=0$$
-
-$$\frac{2L\ln 2}{h_0}C_1=\frac{K_x}{E}\left[-\frac{3L^{2}}{4}+2L^{2}\ln 2\right]$$
-
-$$C_1=\frac{K_xh_0L}{E}\left(1-\frac{3}{8\ln 2}\right)
-\approx 0.45899\,\frac{K_xh_0L}{E}\qquad ⑧$$
-
-### Step 8. Replacing ⑧ in ⑥
-
-$$-\frac{2LC_1}{h_0}\ln\!\left(1-\frac{x}{2L}\right)
-=-\left(2-\frac{3}{4\ln 2}\right)\frac{K_xL^{2}}{E}\ln\!\left(1-\frac{x}{2L}\right)
-=-0.91798\,\frac{K_xL^{2}}{E}\ln\!\left(1-\frac{x}{2L}\right)$$
-
-Pulling out $-K_x/E$ and collecting with the $-2L^{2}\ln(\cdot)$ term already in ⑥:
-
-$$u(x)=-\frac{K_x}{E}\left[-Lx+\frac{x^{2}}{4}
--\underbrace{(2-0.91798)}_{=\,3/(4\ln 2)\,=\,1.08202}
-L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]$$
+$$C_1=\frac{K_xh_0L}{E}\left(1-\frac{3}{8\ln2}\right)\approx0.459\,\frac{K_xh_0L}{E}$$
 
 ### Result
 
-$$u(x)=-\frac{K_x}{E}\left[-xL+\frac{x^{2}}{4}
--1.0820\,L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]
-=\frac{K_x}{E}\left[xL-\frac{x^{2}}{4}
-+\frac{3L^{2}}{4\ln 2}\ln\!\left(1-\frac{x}{2L}\right)\right]$$
+$$u(x)=\frac{K_x}{E}\left[xL-\frac{x^{2}}{4}+\frac{3L^{2}}{4\ln2}\ln\!\left(1-\frac{x}{2L}\right)\right]$$
 
-This is the answer printed in the lecture notes,
-$u=-\frac{K_x}{E}\left[-xL+x^{2}/4-2L^{2}\ln(1-x/(2L))(1+\beta)\right]$, with the exact value
-of the constant
-
-$$2(1+\beta)=\frac{3}{4\ln 2}=1.08202\ldots
-\qquad\Longrightarrow\qquad
-\beta=\frac{3}{8\ln 2}-1=-0.45899\ldots\approx-0.46$$
-
-Note that this $\beta$ is **not** the $\beta=-1/(2L)$ of the hint — the notes reuse the
-same letter for two different quantities.
+This matches the answer printed in the lecture notes,
+$u=-\frac{K_x}{E}\left[-xL+x^{2}/4-2L^{2}\ln(1-x/(2L))(1+\beta)\right]$, with
+$2(1+\beta)=3/(4\ln2)\approx1.082$.
 
 ## Symbolic solution with SymPy
 
-The script follows exactly the same steps: two integrations, then the two boundary
-conditions.
-
-*Caveat:* `sympy` returns the antiderivative of ⑤ as $\ln(x-2L)$, which is complex for
-$x<2L$. The substitution `log(x - 2*L) -> log(2*L - x)` restores the real branch valid on
-$[0,L]$. Solving with `dsolve` directly gives the same answer with an extra `I*pi`, which
-is a constant and is absorbed by $C_2$.
-
 ```{python}
+# 1. Equilibrium: d/dx[h u'] = -(Kx/E) h, with h(x) = h0 (1 - x/(2L))
 x, L, E, b, h0, Kx = sp.symbols('x L E b h_0 K_x', positive=True)
 C1, C2 = sp.symbols('C1 C2')
 
-h = h0*(1 - x/(2*L))                     # height h(x)
-A = b*h                                  # cross-section area A(x)
-
-# --- Step 3-4: first integration of  d/dx[h u'] = -(Kx/E) h -----------------
-hu_p = -sp.integrate(Kx*h/E, x) + C1     # = h(x) u'(x)
-u_p  = sp.simplify(hu_p/h)               # u'(x)   (legal: h > 0 on [0, L])
-
-print("u'(x)")
-u_p
+h = h0*(1 - x/(2*L))
 ```
 
 ```{python}
-# --- Step 5-6: second integration -------------------------------------------
+# 2. Integrate twice
+u_p = sp.simplify((-sp.integrate(Kx*h/E, x) + C1) / h)   # u'(x), legal since h > 0 on [0, L]
 u = sp.integrate(u_p, x) + C2
-u = u.subs(sp.log(x - 2*L), sp.log(2*L - x))    # real branch on 0 <= x <= L < 2L
+u = u.subs(sp.log(x - 2*L), sp.log(2*L - x))              # real branch on [0, L]
 u = sp.simplify(u)
 u
 ```
 
+> **Caveat.** `sympy` writes the antiderivative as $\ln(x-2L)$, which is complex for
+> $x<2L$. The substitution above restores the real branch valid on $[0,L]$.
+
 ```{python}
-# --- Step 7: boundary conditions u(0) = u(L) = 0 -----------------------------
+# 3. Boundary conditions u(0) = u(L) = 0
 sol = sp.solve([u.subs(x, 0), u.subs(x, L)], [C1, C2], dict=True)[0]
-
-print("C1")
-sp.simplify(sol[C1])
-```
-
-```{python}
-print("C2")
-sp.simplify(sol[C2])
-```
-
-> **Why is $C_2\neq0$ here?** Because `sympy` writes the logarithm as $\ln(2L-x)$ instead
-> of $\ln\!\left(1-\frac{x}{2L}\right)$. The two differ by the constant $\ln(2L)$, which the
-> solver dumps into $C_2$. The split between $C_1$ and $C_2$ is therefore different from the
-> hand derivation, but **$C_1$ is identical** and so is the final $u(x)$ — as the check below
-> confirms. Writing the logarithm in the normalised form, as in step ⑤ above, is what makes
-> $C_2=0$ and keeps the algebra light.
-
-```{python}
-# --- Step 8: final displacement ----------------------------------------------
 u = sp.simplify(u.subs(sol))
 sp.expand(u)
 ```
@@ -240,117 +145,65 @@ Supports (read them off the figure **before** touching the equation):
 
 ## Solution by hand
 
-### Step 1–2. Equation and four integrations
+### 1. Equilibrium
 
 Differential equilibrium equation, eq. (2.15):
 
-$$EI\frac{d^{4}w}{dx^{4}}=q_0\frac{x}{L}
-\qquad\Longrightarrow\qquad
-\frac{d^{4}w}{dx^{4}}=\frac{q_0}{EI\,L}\,x$$
+$$EI\frac{d^{4}w}{dx^{4}}=q_0\frac{x}{L}$$
 
-$$\frac{d^{3}w}{dx^{3}}=\frac{q_0}{EIL}\frac{x^{2}}{2}+C_1
-\qquad
-\frac{d^{2}w}{dx^{2}}=\frac{q_0}{EIL}\frac{x^{3}}{6}+C_1x+C_2$$
+### 2. Integrate
 
-$$\frac{dw}{dx}=\frac{q_0}{EIL}\frac{x^{4}}{24}+C_1\frac{x^{2}}{2}+C_2x+C_3$$
+Integrating four times:
 
-$$w(x)=\frac{q_0}{EI\,L}\frac{x^{5}}{120}
-+C_1\frac{x^{3}}{6}+C_2\frac{x^{2}}{2}+C_3x+C_4\qquad ①$$
+$$w(x)=\frac{q_0}{EI\,L}\frac{x^{5}}{120}+C_1\frac{x^{3}}{6}+C_2\frac{x^{2}}{2}+C_3x+C_4$$
 
-The constants have a physical meaning: comparing with (2.18)–(2.19),
+Comparing with eq. (2.18)–(2.19), the constants have a physical meaning:
 $EI\,C_1=-V(0)$ and $EI\,C_2=-M(0)$.
 
-### Step 3. Clamped end
+### 3. Boundary conditions
 
-$$w(0)=0\quad\Longrightarrow\quad C_4=0\qquad ②$$
+Clamped end: $w(0)=0$ gives $C_4=0$, and $w'(0)=0$ gives $C_3=0$.
 
-$$w'(0)=0\quad\Longrightarrow\quad
-\left(\frac{q_0}{EIL}\frac{x^{4}}{24}+C_1\frac{x^{2}}{2}+C_2x+C_3\right)_{x=0}=0
-\quad\Longrightarrow\quad C_3=0\qquad ③$$
+Roller: $M(L)=0\Rightarrow w''(L)=0$ gives one equation in $C_1,C_2$; together with
+$w(L)=0$, solving the pair gives
 
-### Step 4. Roller
-
-$$M(L)=0\;\Longrightarrow\;-EI\,w''(L)=0,\qquad
-w''(x)=\frac{q_0}{EIL}\frac{x^{3}}{6}+C_1x+C_2$$
-
-$$\frac{q_0}{EIL}\frac{L^{3}}{6}+C_1L+C_2=0
-\quad\Longrightarrow\quad
-C_2=-C_1L-\frac{q_0L^{2}}{6EI}\qquad ④$$
-
-$$w(L)=0\;\Longrightarrow\;
-\frac{q_0}{EIL}\frac{L^{5}}{120}+C_1\frac{L^{3}}{6}+C_2\frac{L^{2}}{2}=0$$
-
-Inserting ④:
-
-$$\frac{q_0L^{4}}{120EI}+C_1\frac{L^{3}}{6}
-+\frac{L^{2}}{2}\left(-C_1L-\frac{q_0L^{2}}{6EI}\right)=0
-\qquad\Longrightarrow\qquad
-\frac{q_0L^{4}}{120EI}-\frac{L^{3}}{3}C_1-\frac{q_0L^{4}}{12EI}=0$$
-
-$$\frac{L^{3}}{3}C_1=\frac{q_0L^{4}}{EI}\left(\frac{1}{120}-\frac{1}{12}\right)
-=-\frac{9q_0L^{4}}{120EI}
-\qquad\Longrightarrow\qquad
-C_1=-\frac{27q_0L}{120EI}
-\quad\Longrightarrow\quad
-C_1=-\frac{9q_0L}{40EI}\qquad ⑤$$
-
-and back into ④:
-
-$$C_2=\frac{9q_0L^{2}}{40EI}-\frac{q_0L^{2}}{6EI}=\frac{(27-20)q_0L^{2}}{120EI}
-\quad\Longrightarrow\quad
-C_2=\frac{7q_0L^{2}}{120EI}\qquad ⑥$$
+$$C_1=-\frac{9q_0L}{40EI},\qquad C_2=\frac{7q_0L^{2}}{120EI}$$
 
 ### Result
 
-With ②–⑥, eq. ① becomes
-
 $$w(x)=\frac{q_0L^{4}}{EI}\left[\frac{1}{120}\left(\frac{x}{L}\right)^{5}
--\frac{3}{80}\left(\frac{x}{L}\right)^{3}
-+\frac{7}{240}\left(\frac{x}{L}\right)^{2}\right]
-=\frac{q_0\,x^{2}(x-L)\left(2x^{2}+2Lx-7L^{2}\right)}{240\,EI\,L}$$
+-\frac{3}{80}\left(\frac{x}{L}\right)^{3}+\frac{7}{240}\left(\frac{x}{L}\right)^{2}\right]$$
 
-and the internal forces follow immediately, with $\xi=x/L$:
+and the internal forces follow, with $\xi=x/L$:
 
-$$\frac{M(x)}{q_0L^{2}}=-\left[\frac{\xi^{3}}{6}-\frac{9}{40}\xi+\frac{7}{120}\right],
-\qquad
-\frac{V(x)}{q_0L}=-\left[\frac{\xi^{2}}{2}-\frac{9}{40}\right]$$
+$$\frac{M(x)}{q_0L^{2}}=-\left[\frac{\xi^{3}}{6}-\frac{9}{40}\xi+\frac{7}{120}\right]$$
+
+$$\frac{V(x)}{q_0L}=-\left[\frac{\xi^{2}}{2}-\frac{9}{40}\right]$$
 
 ## Symbolic solution with SymPy
 
 ```{python}
+# 1-2. Equilibrium and integrate (general solution via dsolve)
 x, L, EI, q0 = sp.symbols('x L EI q_0', positive=True)
 w = sp.Function('w')
-
 q = q0*x/L
-W = sp.dsolve(sp.Eq(EI*sp.diff(w(x), x, 4), q), w(x)).rhs   # general solution
-C = list(sp.symbols('C1:5'))                                # C1 ... C4
 
+W = sp.dsolve(sp.Eq(EI*sp.diff(w(x), x, 4), q), w(x)).rhs
+C = list(sp.symbols('C1:5'))
 W
 ```
 
+> **Careful with the naming.** `dsolve` numbers its constants by *increasing* power of
+> $x$ — the opposite of the hand derivation, where $C_1$ multiplies the highest power.
+
 ```{python}
+# 3. Boundary conditions: w(0) = w'(0) = 0 (clamped), M(L) = w(L) = 0 (roller)
 M = -EI*sp.diff(W, x, 2)          # bending moment,  M = -EI w''
 V = sp.diff(M, x)                  # shear force,     V = dM/dx
 
-bc = [W.subs(x, 0),                # w(0)  = 0   clamped
-      sp.diff(W, x).subs(x, 0),    # w'(0) = 0   clamped
-      M.subs(x, L),                # M(L)  = 0   roller
-      W.subs(x, L)]                # w(L)  = 0   roller
-
+bc = [W.subs(x, 0), sp.diff(W, x).subs(x, 0), M.subs(x, L), W.subs(x, L)]
 sol = sp.solve(bc, C, dict=True)[0]
-for k in C:
-    sp.simplify(sol[k])
-```
 
-> **Careful with the naming.** `dsolve` numbers its constants by *increasing* power of
-> $x$, i.e. $\texttt{C1}+\texttt{C2}\,x+\texttt{C3}\,x^{2}+\texttt{C4}\,x^{3}$, which is the
-> opposite of the hand derivation. The correspondence is
->
-> $$\texttt{C4}=\frac{C_1}{6}=-\frac{3q_0L}{80EI},\qquad
-> \texttt{C3}=\frac{C_2}{2}=\frac{7q_0L^{2}}{240EI},\qquad
-> \texttt{C2}=C_3=0,\qquad \texttt{C1}=C_4=0 .$$
-
-```{python}
 W = sp.simplify(W.subs(sol))
 M = sp.simplify(M.subs(sol))
 V = sp.simplify(V.subs(sol))
@@ -401,34 +254,30 @@ From eq. (2.5) with $E,A,\rho$ constant and $K_x=0$:
 
 $$\frac{\partial^{2}u}{\partial x^{2}}-\frac{\rho}{E}\ddot u=0 \qquad (2.6)$$
 
-Separation of variables, $u(x,t)=U(x)\sin(\omega t)$, eq. (2.7):
+Separation of variables, $u(x,t)=U(x)\sin(\omega t)$, gives $u''=U''\sin(\omega t)$ and
+$\ddot u=-U\omega^{2}\sin(\omega t)$ (eq. 2.7), so
 
-$$\frac{\partial u}{\partial x}=U'\sin(\omega t),\quad
-\frac{\partial^{2}u}{\partial x^{2}}=U''\sin(\omega t),\quad
-\frac{\partial u}{\partial t}=U\omega\cos(\omega t),\quad
-\frac{\partial^{2}u}{\partial t^{2}}=-U\omega^{2}\sin(\omega t)$$
+$$U''+\frac{\rho}{E}\omega^{2}U=0 \qquad (2.8)$$
 
-$$\left[U''+\frac{\rho}{E}\omega^{2}U\right]\sin(\omega t)=0
-\qquad\Longrightarrow\qquad
-U''+\frac{\rho}{E}\omega^{2}U=0\qquad (2.8)$$
+with general solution
 
 $$U(x)=C_1\sin\!\left(\frac{\gamma x}{L}\right)+C_2\cos\!\left(\frac{\gamma x}{L}\right),
 \qquad \gamma=\sqrt{\frac{\rho}{E}}\,\omega L \qquad (2.9)$$
 
-Boundary conditions:
+Boundary conditions: $U(0)=0$ gives $C_2=0$; $N(L)=0\Rightarrow EA\,U'(L)=0$ gives
+$U'(L)=0$:
 
-$$U(0)=0\;\Longrightarrow\;C_2=0$$
+$$U'(x)=\frac{\gamma}{L}C_1\cos\!\left(\frac{\gamma x}{L}\right)$$
 
-$$N(L)=0\;\Longrightarrow\;\sigma(L)A=EA\,\epsilon(L)=0\;\Longrightarrow\;U'(L)=0$$
+$$U'(L)=\frac{\gamma}{L}C_1\cos\gamma=0$$
 
-$$U'(x)=\frac{\gamma}{L}C_1\cos\!\left(\frac{\gamma x}{L}\right)
-\quad\Longrightarrow\quad
-U'(L)=\frac{\gamma}{L}C_1\cos\gamma=0$$
+For a non-trivial solution ($C_1\neq0$):
 
-Non-trivial solution ($C_1\neq0$):
+$$\cos\gamma=0
+\qquad\Rightarrow\qquad
+\gamma=\frac{(2n+1)\pi}{2},\quad n=0,1,2,\dots$$
 
-$$\cos\gamma=0\quad\Longrightarrow\quad\gamma=\frac{(2n+1)\pi}{2},\;n=0,1,2,\dots
-\qquad n=0:\;\gamma=\frac{\pi}{2}$$
+$$n=0:\quad\gamma_1=\frac{\pi}{2}$$
 
 with $\omega_n=\dfrac{\gamma_n}{L}\sqrt{\dfrac{E}{\rho}}$ and modes
 $U_n=C_1\sin\!\left(\frac{\gamma_nx}{L}\right)$. The value $\gamma_1=\pi/2$ is exact — half
@@ -439,9 +288,7 @@ that of the clamped–clamped bar of Example 2.1, i.e. the free bar is softer.
 Differential equation for equilibrium, eq. (2.22), with $w(x,t)=W(x)\sin(\omega t)$ and
 $q=0$:
 
-$$EI\frac{\partial^{4}w}{\partial x^{4}}+\rho A\ddot w=q(x,t)
-\qquad\Longrightarrow\qquad
-\left(EI\frac{d^{4}W}{dx^{4}}-\rho A\omega^{2}W\right)\sin(\omega t)=0$$
+$$EI\frac{\partial^{4}w}{\partial x^{4}}+\rho A\ddot w=q(x,t)$$
 
 $$\frac{d^{4}W}{dx^{4}}-\omega^{2}\frac{\rho A}{EI}W=0 \qquad (2.25)$$
 
@@ -449,92 +296,57 @@ $$W(x)=C_1\sin\!\left(\frac{\gamma x}{L}\right)+C_2\cos\!\left(\frac{\gamma x}{L
 +C_3\sinh\!\left(\frac{\gamma x}{L}\right)+C_4\cosh\!\left(\frac{\gamma x}{L}\right),
 \qquad\frac{\gamma}{L}=\sqrt[4]{\omega^{2}\frac{\rho A}{EI}} \qquad (2.26)$$
 
-**Clamped end**
+**Clamped end.** $W(0)=0$ gives
 
-$$W(0)=0\;\Longrightarrow\;C_2+C_3\underbrace{\sinh 0}_{=0}+C_4\underbrace{\cosh 0}_{=1}=0
-\;\Longrightarrow\;C_2+C_4=0\qquad ①$$
+$$C_2+C_4=0 \qquad ①$$
 
-$$W'(x)=\frac{\gamma}{L}\left[C_1\cos\frac{\gamma x}{L}-C_2\sin\frac{\gamma x}{L}
-+C_3\cosh\frac{\gamma x}{L}+C_4\sinh\frac{\gamma x}{L}\right]$$
+$W'(0)=0$ gives
 
-$$W'(0)=0\;\Longrightarrow\;C_1+C_3=0\qquad ②$$
+$$C_1+C_3=0 \qquad ②$$
 
-**Free end.** Zero bending moment, $M=-EI\,W''$:
+**Free end.** Zero bending moment, $M=-EI\,W''$, at $x=L$ gives
 
-$$W''(x)=\frac{\gamma^{2}}{L^{2}}\left[-C_1\sin\frac{\gamma x}{L}-C_2\cos\frac{\gamma x}{L}
-+C_3\sinh\frac{\gamma x}{L}+C_4\cosh\frac{\gamma x}{L}\right]$$
+$$-C_1\sin\gamma-C_2\cos\gamma+C_3\sinh\gamma+C_4\cosh\gamma=0 \qquad ③$$
 
-$$W''(L)=0\;\Longrightarrow\;
--C_1\sin\gamma-C_2\cos\gamma+C_3\sinh\gamma+C_4\cosh\gamma=0\qquad ③$$
+Zero shear force, $V=-EI\,W'''$, at $x=L$ gives
 
-Zero shear force, $V=\dfrac{dM}{dx}=-EI\,W'''$:
+$$-C_1\cos\gamma+C_2\sin\gamma+C_3\cosh\gamma+C_4\sinh\gamma=0 \qquad ④$$
 
-$$W'''(x)=\frac{\gamma^{3}}{L^{3}}\left[-C_1\cos\frac{\gamma x}{L}+C_2\sin\frac{\gamma x}{L}
-+C_3\cosh\frac{\gamma x}{L}+C_4\sinh\frac{\gamma x}{L}\right]$$
+**Elimination.** From ① and ②: $C_4=-C_2$, $C_3=-C_1$. Substituting into ③:
 
-$$V(L)=0\;\Longrightarrow\;W'''(L)=0\;\Longrightarrow\;
--C_1\cos\gamma+C_2\sin\gamma+C_3\cosh\gamma+C_4\sinh\gamma=0\qquad ④$$
+$$C_2\left[\cos\gamma+\cosh\gamma\right]=-C_1\left[\sin\gamma+\sinh\gamma\right]$$
 
-**Elimination.** From ① and ②:
+$$C_2=-C_1\,\frac{\sin\gamma+\sinh\gamma}{\cos\gamma+\cosh\gamma} \qquad ⑤$$
 
-$$C_4=-C_2,\qquad C_3=-C_1\qquad ⑤$$
-
-From ③ with ⑤:
-
-$$-C_1\sin\gamma-C_2\cos\gamma-C_1\sinh\gamma-C_2\cosh\gamma=0
-\;\Longrightarrow\;
-C_2\left[\cos\gamma+\cosh\gamma\right]=-C_1\left[\sin\gamma+\sinh\gamma\right]$$
-
-$$C_2=-C_1\frac{\sin\gamma+\sinh\gamma}{\cos\gamma+\cosh\gamma}\qquad ⑥$$
-
-Substituting ⑤ and ⑥ into ④, dividing by $-C_1\neq0$ and multiplying by
-$(\cos\gamma+\cosh\gamma)$:
-
-$$\cos\gamma(\cos\gamma+\cosh\gamma)+(\sin\gamma+\sinh\gamma)\sin\gamma
-+\cosh\gamma(\cos\gamma+\cosh\gamma)-(\sin\gamma+\sinh\gamma)\sinh\gamma=0$$
-
-$$\cos^{2}\gamma+\cos\gamma\cosh\gamma+\sin^{2}\gamma
-+\cancel{\sinh\gamma\sin\gamma}
-+\cos\gamma\cosh\gamma+\cosh^{2}\gamma
--\cancel{\sin\gamma\sinh\gamma}-\sinh^{2}\gamma=0$$
-
-and with $\sin^{2}\gamma+\cos^{2}\gamma=1$, $\cosh^{2}\gamma-\sinh^{2}\gamma=1$:
+Substituting ⑤ (and $C_4=-C_2$, $C_3=-C_1$) into ④, then simplifying with
+$\sin^{2}\gamma+\cos^{2}\gamma=1$ and $\cosh^{2}\gamma-\sinh^{2}\gamma=1$:
 
 $$2+2\cos\gamma\cosh\gamma=0$$
 
-The same follows from the form printed in the lecture notes:
+$$\cos\gamma\,\cosh\gamma=-1$$
 
-$$\left\{\sinh^{2}\gamma-\sin^{2}\gamma\right\}-\left[\cos\gamma+\cosh\gamma\right]^{2}
-=-2\left(1+\cos\gamma\cosh\gamma\right)=0$$
-
-$$\cos\gamma\,\cosh\gamma=-1
-\quad\Longrightarrow\quad
-\gamma_1=1.87510,\quad\gamma_2=4.69409,\quad\gamma_3=7.85476$$
+$$\gamma_1=1.87510,\quad\gamma_2=4.69409,\quad\gamma_3=7.85476$$
 
 There is no closed form; solve numerically. For large $n$, $\cosh\gamma\to\infty$ forces
-$\cos\gamma\to0$, so $\gamma_n\to\frac{(2n-1)\pi}{2}$ — the same values as the bar. Already
+$\cos\gamma\to0$, so $\gamma_n\to(2n-1)\pi/2$ — the same values as the bar. Already
 $\gamma_3=7.85476$ against $5\pi/2=7.85398$.
 
 ## Solution by hand — (c) numerical values
 
-$$b=h=0.1\ \text{m}\;\Rightarrow\;A=bh=0.01\ \text{m}^{2},\qquad
-I=\frac{bh^{3}}{12}=8.3333\cdot10^{-6}\ \text{m}^{4}$$
+$$b=h=0.1\ \text{m}\ \Rightarrow\ A=bh=0.01\ \text{m}^{2},
+\qquad I=\frac{bh^{3}}{12}=8.3333\cdot10^{-6}\ \text{m}^{4}$$
 
-**Beam**, from $\dfrac{\gamma}{L}=\sqrt[4]{\omega^{2}\dfrac{\rho A}{EI}}$:
+**Beam**, from $\gamma/L=\sqrt[4]{\omega^{2}\rho A/(EI)}$:
 
-$$\omega_{\text{beam}}=\left(\frac{\gamma}{L}\right)^{2}\sqrt{\frac{EI}{\rho A}}
-=\sqrt{\frac{\gamma^{4}EI}{\rho AL^{4}}}
-=\sqrt{\frac{1.875^{4}\cdot210\cdot10^{9}\cdot\frac{0.1\cdot0.1^{3}}{12}}
-{7800\cdot0.01\cdot1^{4}}}
-\;\Longrightarrow\;
-\omega_{\text{beam}}\approx527\ \text{rad/s}$$
+$$\omega_{\text{beam}}=\sqrt{\frac{\gamma^{4}EI}{\rho AL^{4}}}$$
 
-**Bar**, from $\gamma=\sqrt{\dfrac{\rho}{E}}\,\omega L$:
+$$\omega_{\text{beam}}\approx527\ \text{rad/s}$$
 
-$$\omega_{\text{bar}}=\frac{\gamma}{L}\sqrt{\frac{E}{\rho}}
-=\sqrt{\frac{\left(\frac{\pi}{2}\right)^{2}\cdot210\cdot10^{9}}{1^{2}\cdot7800}}
-\;\Longrightarrow\;
-\omega_{\text{bar}}\approx8150\ \text{rad/s}$$
+**Bar**, from $\gamma=\sqrt{\rho/E}\,\omega L$:
+
+$$\omega_{\text{bar}}=\frac{\gamma}{L}\sqrt{\frac{E}{\rho}}$$
+
+$$\omega_{\text{bar}}\approx8150\ \text{rad/s}$$
 
 > **Watch out.** The most common error is using $\gamma^{2}$ instead of $\gamma^{4}$ under
 > the square root for the beam. A dimensional check of $\sqrt{EI/(\rho A)}$ (units m²/s)
