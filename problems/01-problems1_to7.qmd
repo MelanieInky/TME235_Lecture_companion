@@ -343,17 +343,27 @@ Direction $1'$ bisects the right angle between $1$ and $2$, i.e. it is at
 $\theta=\pi/4$ from axis $1$.
 :::
 
-## Solution steps
 
-$\theta=\pi/4$ for direction $1'$, and $\epsilon_{33}=\epsilon_{13}=\epsilon_{23}=0$.
+$\theta=\pi/4$ for direction $1'$ and $\epsilon_{33}=\epsilon_{13}=\epsilon_{23}=0$.
 
 With $\mathbf{e}_{1'}=\cos\theta\,\mathbf{e}_1+\sin\theta\,\mathbf{e}_2$, and
+
 $\boldsymbol\epsilon=\begin{bmatrix}\epsilon_{11}&\epsilon_{12}&0\\
-\epsilon_{12}&\epsilon_{22}&0\\0&0&0\end{bmatrix}$, we need
-$\epsilon_{1'1'}=\mathbf{e}_{1'}\cdot\boldsymbol\epsilon\cdot\mathbf{e}_{1'}$:
+\epsilon_{12}&\epsilon_{22}&0\\0&0&0\end{bmatrix}$,
+
+we need $\epsilon_{1'1'}=\mathbf{e}_{1'}\cdot\boldsymbol\epsilon\cdot\mathbf{e}_{1'}$, written in matrix
+form as a row vector times $\boldsymbol\epsilon$ times a column vector:
 
 $$
-c(c\epsilon_{11}+s\epsilon_{12})+c(c\epsilon_{12}+s\epsilon_{22})=\epsilon_{1'1'}
+\epsilon_{1'1'} =
+\begin{bmatrix}\cos\theta&\sin\theta&0\end{bmatrix}
+\begin{bmatrix}\epsilon_{11}&\epsilon_{12}&0\\\epsilon_{12}&\epsilon_{22}&0\\0&0&0\end{bmatrix}
+\begin{bmatrix}\cos\theta\\\sin\theta\\0\end{bmatrix}
+$$
+
+$$
+=\cos\theta(\cos\theta\,\epsilon_{11}+\sin\theta\,\epsilon_{12})
++\sin\theta(\cos\theta\,\epsilon_{12}+\sin\theta\,\epsilon_{22})
 $$
 
 With $\cos\theta=\sin\theta=1/\sqrt2$:
@@ -389,9 +399,18 @@ $$
 Hooke's law, $\sigma_{ij}=2\mu\epsilon_{ij}+\lambda\epsilon_{kk}\delta_{ij}$, with
 
 $$
-\mu=\frac{E}{2(1+\nu)},\qquad
-\lambda=\frac{\nu E}{(1+\nu)(1-2\nu)},\qquad
+\mu=\frac{E}{2(1+\nu)}\approx76.92\cdot10^3\ \text{MPa},\qquad
+\lambda=\frac{\nu E}{(1+\nu)(1-2\nu)}\approx115.38\cdot10^3\ \text{MPa},\qquad
 \epsilon_{kk}=0.03 .
+$$
+
+$$
+[\sigma_{ij}] \approx
+\begin{bmatrix}
+6539 & -769 & 0\\
+-769 & 5000 & 0\\
+0 & 0 & 3462
+\end{bmatrix}\ \text{MPa}.
 $$
 
 ```{python}
@@ -403,15 +422,6 @@ lam, mu = lambda_mu(Emod, nu)
 sigma = 2*mu*eps + lam*np.trace(eps)*np.eye(3)
 sp.Matrix(np.round(sigma, 0))  # MPa
 ```
-
-$$
-[\sigma_{ij}] \approx
-\begin{bmatrix}
-6539 & -769 & 0\\
--769 & 5000 & 0\\
-0 & 0 & 3462
-\end{bmatrix}\ \text{MPa}.
-$$
 
 # Problem 7
 
