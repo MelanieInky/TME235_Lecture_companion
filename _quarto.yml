@@ -25,3 +25,6 @@ format:
     css: styles.css
     code-fold: true
     mainfont: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
+
+execute:
+  freeze: auto
