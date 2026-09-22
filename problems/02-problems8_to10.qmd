@@ -490,7 +490,15 @@ $$\cos\gamma\,\cosh\gamma=-1$$
 
 $$\gamma_1=1.87510,\quad\gamma_2=4.69409,\quad\gamma_3=7.85476$$
 
-There is no closed form; solve numerically. For large $n$, $\cosh\gamma\to\infty$ forces
+There is no closed form; solve numerically with python:
+
+```{python}
+#| eval: false
+roots = [float(sp.nsolve(sp.cos(g)*sp.cosh(g) + 1, g, s)) for s in range(1, 10)]
+print("roots of cos(g)*cosh(g) = -1 :", [round(r, 5) for r in roots])
+```
+
+For large $n$, $\cosh\gamma\to\infty$ forces
 $\cos\gamma\to0$, so $\gamma_n\to(2n-1)\pi/2$ — the same values as the bar. Already
 $\gamma_3=7.85476$ against $5\pi/2=7.85398$.
 
@@ -661,8 +669,8 @@ eigenfrequencies:
 # --- mode shapes for the first four eigenfrequencies --------------------------
 xi = np.linspace(0, 1, 400)
 
-fig, ax = plt.subplots(2, Nmodes, figsize=(12, 5), sharex=True)
-for n in range(1, Nmodes + 1):
+fig, ax = plt.subplots(2, (Nmodes-1), figsize=(12, 5), sharex=True)
+for n in range(1, Nmodes):
     gnb, gnm = gamma_bar[n-1], gamma_beam[n-1]
     om_bar_n  = (gnb/Lv)   * np.sqrt(Ev/rho)
     om_beam_n = (gnm/Lv)**2 * np.sqrt(Ev*I/(rho*A))
@@ -685,12 +693,10 @@ plt.tight_layout(); plt.show()
 
 ## Interactive mode shapes
 
-Click a mode to see the bar and beam shapes vibrate. This widget is plain HTML/SVG/JS —
-no Python or external library involved, so it needs no kernel to render or to view.
-Real eigenfrequencies range from hundreds to thousands of rad/s, far too fast to watch
-frame by frame, so the animation time is slowed down uniformly; the *relative* speed
-between modes still matches the physics exactly ($\omega_n/\omega_1$, shown under each
-plot).
+Real eigenfrequencies are hundreds to thousands of rad/s — far too fast to watch
+oscillate frame by frame — so the animation time below is slowed down uniformly, purely
+for visualization. The *ratio* $\omega_n/\omega_1$ between modes is kept exact, so the
+relative speed you see between modes 1, 2 and 3 still matches the real physics.
 
 ```{=html}
 <div id="mode-viewer" style="max-width:720px;margin:1rem auto;">
