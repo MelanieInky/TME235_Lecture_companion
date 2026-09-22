@@ -172,7 +172,7 @@
     "href": "problems/02-problems8_to10.html#interactive-mode-shapes",
     "title": "Problems 8–10: Code and hint",
     "section": "Interactive mode shapes",
-    "text": "Interactive mode shapes\nReal eigenfrequencies are hundreds to thousands of rad/s — far too fast to watch oscillate frame by frame — so the animation time below is slowed down uniformly, purely for visualization. A single, shared scale factor is applied to every \\(\\omega_n\\) (all three bar modes and all three beam modes), so the relative speeds you see — including the bar vibrating noticeably faster than the beam — still match the real physics.\n\n  \n    Mode 1\n    Mode 2\n    Mode 3\n  \n  \n    \n      Bar (axial) — \n      \n        \n        \n      \n    \n    \n      Beam (bending) —"
+    "text": "Interactive mode shapes\nReal eigenfrequencies are hundreds to thousands of rad/s — far too fast to watch oscillate frame by frame — so the animation time below is slowed down uniformly, purely for visualization. A single, shared scale factor is applied to every \\(\\omega_n\\) (all three bar modes and all three beam modes), so the relative speeds you see — including the bar vibrating noticeably faster than the beam — still match the real physics.\n\n  \n    Mode 1\n    Mode 2\n    Mode 3\n  \n  \n    \n      Bar (axial) — \n      \n        \n        \n        x/L\n        Uₙ/max|Uₙ|\n      \n    \n    \n      Beam (bending) — \n      \n        \n        \n        x/L\n        Wₙ/max|Wₙ|"
   },
   {
     "objectID": "lectures/04-elastic-constants.html",

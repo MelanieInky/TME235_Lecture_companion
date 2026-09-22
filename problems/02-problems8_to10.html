@@ -256,7 +256,7 @@ window.Quarto = {
 </header>
 
 
-<div id="966f01ee" class="cell" data-execution_count="1">
+<div id="a7b4382f" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
@@ -366,7 +366,7 @@ L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]\]</span></p>
 <h2 class="anchored" data-anchor-id="symbolic-solution-with-sympy">Symbolic solution with SymPy</h2>
 <p>The script follows exactly the same steps: two integrations, then the two boundary conditions.</p>
 <p><em>Caveat:</em> <code>sympy</code> returns the antiderivative of ⑤ as <span class="math inline">\(\ln(x-2L)\)</span>, which is complex for <span class="math inline">\(x&lt;2L\)</span>. The substitution <code>log(x - 2*L) -&gt; log(2*L - x)</code> restores the real branch valid on <span class="math inline">\([0,L]\)</span>. Solving with <code>dsolve</code> directly gives the same answer with an extra <code>I*pi</code>, which is a constant and is absorbed by <span class="math inline">\(C_2\)</span>.</p>
-<div id="c28d0124" class="cell" data-execution_count="2">
+<div id="e894c510" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x, L, E, b, h0, Kx <span class="op">=</span> sp.symbols(<span class="st">'x L E b h_0 K_x'</span>, positive<span class="op">=</span><span class="va">True</span>)</span>
@@ -385,11 +385,11 @@ L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]\]</span></p>
 <div class="cell-output cell-output-stdout">
 <pre><code>u'(x)</code></pre>
 </div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="23">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
 <p><span class="math inline">\(\displaystyle \frac{4 C_{1} E L - 4 K_{x} L h_{0} x + K_{x} h_{0} x^{2}}{2 E h_{0} \left(2 L - x\right)}\)</span></p>
 </div>
 </div>
-<div id="46532a61" class="cell" data-execution_count="3">
+<div id="05e000e5" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. Integrate: second integration ----------------------------------------</span></span>
@@ -398,11 +398,11 @@ L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]\]</span></p>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> sp.simplify(u)</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
 <p><span class="math inline">\(\displaystyle \frac{C_{2} E h_{0} + \frac{K_{x} h_{0} x \left(4 L - x\right)}{4} - 2 L \left(C_{1} E - K_{x} L h_{0}\right) \log{\left(2 L - x \right)}}{E h_{0}}\)</span></p>
 </div>
 </div>
-<div id="133e1d1a" class="cell" data-execution_count="4">
+<div id="a8532d8c" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Boundary conditions: u(0) = u(L) = 0 ---------------------------------</span></span>
@@ -414,11 +414,11 @@ L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]\]</span></p>
 <div class="cell-output cell-output-stdout">
 <pre><code>C1</code></pre>
 </div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="25">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
 <p><span class="math inline">\(\displaystyle \frac{K_{x} L h_{0} \left(-3 + \log{\left(256 \right)}\right)}{8 E \log{\left(2 \right)}}\)</span></p>
 </div>
 </div>
-<div id="5f63047e" class="cell" data-execution_count="5">
+<div id="52427da2" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"C2"</span>)</span>
@@ -427,25 +427,25 @@ L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]\]</span></p>
 <div class="cell-output cell-output-stdout">
 <pre><code>C2</code></pre>
 </div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="26">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
 <p><span class="math inline">\(\displaystyle - \log{\left(\left(2 L\right)^{\frac{3 K_{x} L^{2}}{4 E \log{\left(2 \right)}}} \right)}\)</span></p>
 </div>
 </div>
 <blockquote class="blockquote">
 <p><strong>Why is <span class="math inline">\(C_2\neq0\)</span> here?</strong> Because <code>sympy</code> writes the logarithm as <span class="math inline">\(\ln(2L-x)\)</span> instead of <span class="math inline">\(\ln\!\left(1-\frac{x}{2L}\right)\)</span>. The two differ by the constant <span class="math inline">\(\ln(2L)\)</span>, which the solver dumps into <span class="math inline">\(C_2\)</span>. The split between <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> is therefore different from the hand derivation, but <strong><span class="math inline">\(C_1\)</span> is identical</strong> and so is the final <span class="math inline">\(u(x)\)</span> — as the check below confirms. Writing the logarithm in the normalised form, as in step ⑤ above, is what makes <span class="math inline">\(C_2=0\)</span> and keeps the algebra light.</p>
 </blockquote>
-<div id="69a2132f" class="cell" data-execution_count="6">
+<div id="6984ab78" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Boundary conditions: final displacement ------------------------------</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> sp.simplify(u.subs(sol))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sp.expand(u)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="27">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
 <p><span class="math inline">\(\displaystyle - \frac{3 K_{x} L^{2} \log{\left(L \right)}}{4 E \log{\left(2 \right)}} + \frac{3 K_{x} L^{2} \log{\left(2 L - x \right)}}{4 E \log{\left(2 \right)}} - \frac{3 K_{x} L^{2}}{4 E} + \frac{K_{x} L x}{E} - \frac{K_{x} x^{2}}{4 E}\)</span></p>
 </div>
 </div>
-<div id="2946e2e9" class="cell" data-execution_count="7">
+<div id="5adf317a" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- check against the answer printed in the lecture notes -------------------</span></span>
@@ -458,7 +458,7 @@ L^{2}\ln\!\left(1-\frac{x}{2L}\right)\right]\]</span></p>
 <pre><code>difference u_sympy - u_notes : 0</code></pre>
 </div>
 </div>
-<div id="173b3a3b" class="cell" data-execution_count="8">
+<div id="4180114d" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- plot (normalised) --------------------------------------------------------</span></span>
@@ -577,7 +577,7 @@ w''(x)=\frac{q_0}{EIL}\frac{x^{3}}{6}+C_1x+C_2\]</span></p>
 </section>
 <section id="symbolic-solution-with-sympy-1" class="level2">
 <h2 class="anchored" data-anchor-id="symbolic-solution-with-sympy-1">Symbolic solution with SymPy</h2>
-<div id="18a9bd5a" class="cell" data-execution_count="9">
+<div id="59860ea7" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1-2. Equilibrium and integrate (general solution via dsolve) ------------</span></span>
@@ -590,11 +590,11 @@ w''(x)=\frac{q_0}{EIL}\frac{x^{3}}{6}+C_1x+C_2\]</span></p>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>W</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
 <p><span class="math inline">\(\displaystyle C_{1} + C_{2} x + C_{3} x^{2} + C_{4} x^{3} + \frac{q_{0} x^{5}}{120 EI L}\)</span></p>
 </div>
 </div>
-<div id="8e6fe7a1" class="cell" data-execution_count="10">
+<div id="ea3f694f" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Boundary conditions: w(0)=w'(0)=0 (clamped), M(L)=w(L)=0 (roller) ----</span></span>
@@ -617,7 +617,7 @@ w''(x)=\frac{q_0}{EIL}\frac{x^{3}}{6}+C_1x+C_2\]</span></p>
 \texttt{C3}=\frac{C_2}{2}=\frac{7q_0L^{2}}{240EI}\]</span></p>
 <p><span class="math display">\[\texttt{C2}=C_3=0,\qquad \texttt{C1}=C_4=0\]</span></p>
 </blockquote>
-<div id="42f2e847" class="cell" data-execution_count="11">
+<div id="b038eb55" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Boundary conditions: substitute the constants back into w, M, V ------</span></span>
@@ -626,11 +626,11 @@ w''(x)=\frac{q_0}{EIL}\frac{x^{3}}{6}+C_1x+C_2\]</span></p>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> sp.simplify(V.subs(sol))</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>W</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="32">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
 <p><span class="math inline">\(\displaystyle \frac{q_{0} x^{2} \left(L^{2} \left(7 L - 9 x\right) + 2 x^{3}\right)}{240 EI L}\)</span></p>
 </div>
 </div>
-<div id="7e556377" class="cell" data-execution_count="12">
+<div id="2a7ca36f" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- max deflection and inflection point -------------------------------------</span></span>
@@ -646,7 +646,7 @@ w''(x)=\frac{q_0}{EIL}\frac{x^{3}}{6}+C_1x+C_2\]</span></p>
 M  = 0 at xi = 0.2746  (inflection point)</code></pre>
 </div>
 </div>
-<div id="deac212f" class="cell" data-execution_count="13">
+<div id="0646e4a8" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- plot ----------------------------------------------------------------------</span></span>
@@ -733,7 +733,7 @@ M  = 0 at xi = 0.2746  (inflection point)</code></pre>
 <p><span class="math display">\[\cos\gamma\,\cosh\gamma=-1\]</span></p>
 <p><span class="math display">\[\gamma_1=1.87510,\quad\gamma_2=4.69409,\quad\gamma_3=7.85476\]</span></p>
 <p>There is no closed form; solve numerically with python:</p>
-<div id="f5802984" class="cell" data-execution_count="14">
+<div id="57acac51" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>roots <span class="op">=</span> [<span class="bu">float</span>(sp.nsolve(sp.cos(g)<span class="op">*</span>sp.cosh(g) <span class="op">+</span> <span class="dv">1</span>, g, s)) <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>)]</span>
@@ -781,7 +781,7 @@ A(\gamma)\,\mathbf{C} =
 =
 \begin{bmatrix} 0 \\ 0 \\ 0 \\ 0 \end{bmatrix}
 \]</span></p>
-<div id="437e0fcc" class="cell" data-execution_count="15">
+<div id="e3888c09" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>g, x, L <span class="op">=</span> sp.symbols(<span class="st">'gamma x L'</span>, positive<span class="op">=</span><span class="va">True</span>)</span>
@@ -805,11 +805,11 @@ A(\gamma)\,\mathbf{C} =
 <pre><code>characteristic equation: -gamma*cos(gamma)/L = 0   -&gt;  cos(gamma) = 0
 gamma_1 = pi/2 = 1.5707963267948966</code></pre>
 </div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="35">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
 <p><span class="math inline">\(\displaystyle - \frac{\gamma \cos{\left(\gamma \right)}}{L}\)</span></p>
 </div>
 </div>
-<div id="7c323496" class="cell" data-execution_count="16">
+<div id="28f4b743" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------- (b) beam : W(0)=W'(0)=0 , M(L)=0 , V(L)=0 ---------------------</span></span>
@@ -834,11 +834,11 @@ gamma_1 = pi/2 = 1.5707963267948966</code></pre>
 <pre><code>characteristic equation (determinant): gamma**6*(2*cos(gamma)*cosh(gamma) + 2)/L**6 = 0
 form printed in the notes            : -2*cos(gamma)*cosh(gamma) - 2 = 0</code></pre>
 </div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="36">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
 <p><span class="math inline">\(\displaystyle \frac{\gamma^{6} \left(2 \cos{\left(\gamma \right)} \cosh{\left(\gamma \right)} + 2\right)}{L^{6}}\)</span></p>
 </div>
 </div>
-<div id="9dce9a13" class="cell" data-execution_count="17">
+<div id="fda0cbf6" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>roots <span class="op">=</span> [<span class="bu">float</span>(sp.nsolve(sp.cos(g)<span class="op">*</span>sp.cosh(g) <span class="op">+</span> <span class="dv">1</span>, g, s)) <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>)]</span>
@@ -848,7 +848,7 @@ form printed in the notes            : -2*cos(gamma)*cosh(gamma) - 2 = 0</code><
 <pre><code>roots of cos(g)*cosh(g) = -1 : [1.8751, 1.8751, 1.8751, 4.69409, 4.69409, 4.69409, 7.85476, 7.85476, 7.85476]</code></pre>
 </div>
 </div>
-<div id="d8bf4206" class="cell" data-execution_count="18">
+<div id="9cab0932" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------- (c) numerical values -------------------------------------------</span></span>
@@ -875,7 +875,7 @@ omega_beam =    526.7 rad/s  (   83.8 Hz)
 ratio omega_bar / omega_beam = 15.48</code></pre>
 </div>
 </div>
-<div id="ccb52863" class="cell" data-execution_count="19">
+<div id="470933d0" class="cell" data-execution_count="19">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- plot of the characteristic function ------------------------------------</span></span>
@@ -899,7 +899,7 @@ ratio omega_bar / omega_beam = 15.48</code></pre>
 </div>
 </div>
 </div>
-<div id="fa035291" class="cell" data-execution_count="20">
+<div id="1dedb274" class="cell" data-execution_count="20">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>Nmodes <span class="op">=</span> <span class="dv">4</span></span>
@@ -915,7 +915,7 @@ ratio omega_bar / omega_beam = 15.48</code></pre>
 gamma_beam: [1.8751, 4.6941, 7.8548, 10.9955]</code></pre>
 </div>
 </div>
-<div id="a7679792" class="cell" data-execution_count="21">
+<div id="0d71943e" class="cell" data-execution_count="21">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bar:  U(0)=0 forces C2=0  -&gt;  U_n(x) = sin(gamma_n x/L)</span></span>
@@ -934,7 +934,7 @@ gamma_beam: [1.8751, 4.6941, 7.8548, 10.9955]</code></pre>
 </details>
 </div>
 <p>Finally, we compare the mode shapes of the bar and the beam for the first four eigenfrequencies:</p>
-<div id="68c01347" class="cell" data-execution_count="22">
+<div id="1412d2e3" class="cell" data-execution_count="22">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- mode shapes for the first four eigenfrequencies --------------------------</span></span>
@@ -985,6 +985,8 @@ gamma_beam: [1.8751, 4.6941, 7.8548, 10.9955]</code></pre>
       <svg viewbox="0 0 320 160" width="320" height="160" style="border:1px solid #ccc;border-radius:4px;">
         <line x1="10" y1="80" x2="310" y2="80" stroke="#999" stroke-dasharray="4 3"></line>
         <polyline id="mv-bar-line" fill="none" stroke="#1f77b4" stroke-width="2"></polyline>
+        <text x="160" y="152" text-anchor="middle" font-size="11" fill="#555">x/L</text>
+        <text x="12" y="20" text-anchor="start" font-size="11" fill="#555">Uₙ/max|Uₙ|</text>
       </svg>
     </div>
     <div style="text-align:center;">
@@ -992,6 +994,8 @@ gamma_beam: [1.8751, 4.6941, 7.8548, 10.9955]</code></pre>
       <svg viewbox="0 0 320 160" width="320" height="160" style="border:1px solid #ccc;border-radius:4px;">
         <line x1="10" y1="80" x2="310" y2="80" stroke="#999" stroke-dasharray="4 3"></line>
         <polyline id="mv-beam-line" fill="none" stroke="#d62728" stroke-width="2"></polyline>
+        <text x="160" y="152" text-anchor="middle" font-size="11" fill="#555">x/L</text>
+        <text x="12" y="20" text-anchor="start" font-size="11" fill="#555">Wₙ/max|Wₙ|</text>
       </svg>
     </div>
   </div>
