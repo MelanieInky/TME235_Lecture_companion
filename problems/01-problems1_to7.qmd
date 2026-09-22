@@ -452,7 +452,6 @@ and assume that the elastic properties are $E=200\cdot10^{3}$ MPa, $\nu=0.3$.
 *Answer:* $\epsilon_{12}\approx1.59\cdot10^{-3}$.
 :::
 
-## Solution steps
 
 $$
 \epsilon_{kk}=\epsilon_{11}+\epsilon_{22}+\epsilon_{33}=0.001+0.002+0=0.003
