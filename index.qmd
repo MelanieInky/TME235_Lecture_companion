@@ -1,12 +1,13 @@
 ---
 title: "Mechanics of Solids — Companion Site"
+author: Mélanie Fournier & Paolo Antonioni
 ---
 
 Interactive companions to the lecture material, organized by topic. Each page has the
 relevant theory alongside live, adjustable visualization. This is not a replacement for the lecture notes, but rather a complement to be used interactively to build physical intuition.
 
 :::{.callout-note}
-The website and its content are brand new for this year so there may still be issues with it. I am also open to feedback.
+The website and its content are brand new for this year, so there may still be issues with it. We are also open to feedback.
 :::
 
 :::{.callout-caution}
