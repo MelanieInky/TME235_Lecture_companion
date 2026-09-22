@@ -709,8 +709,9 @@ the bar vibrating noticeably faster than the beam — still match the real physi
   <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
     <div style="text-align:center;">
       <div style="font-size:.85em;margin-bottom:.25rem;">Bar (axial) — <span id="mv-bar-om"></span></div>
-      <svg id="mv-bar-svg" viewBox="0 0 320 160" width="320" height="160" style="border:1px solid #ccc;border-radius:4px;">
-        <line x1="10" y1="80" x2="310" y2="80" stroke="#1f77b4" stroke-width="10" stroke-linecap="round"/>
+      <svg viewBox="0 0 320 160" width="320" height="160" style="border:1px solid #ccc;border-radius:4px;">
+        <line x1="10" y1="80" x2="310" y2="80" stroke="#999" stroke-dasharray="4 3"/>
+        <path id="mv-bar-shape" fill="#1f77b4" fill-opacity="0.85" stroke="#1f77b4" stroke-width="1"/>
       </svg>
     </div>
     <div style="text-align:center;">
@@ -760,7 +761,7 @@ the bar vibrating noticeably faster than the beam — still match the real physi
   const basePeriod = 3000; // ms, period of the slowest mode (slowed down for visibility)
 
   const root = document.getElementById('mode-viewer');
-  const barSvg = root.querySelector('#mv-bar-svg');
+  const barShapeEl = root.querySelector('#mv-bar-shape');
   const beamLine = root.querySelector('#mv-beam-line');
   const barOm = root.querySelector('#mv-bar-om');
   const beamOm = root.querySelector('#mv-beam-om');
@@ -768,34 +769,23 @@ the bar vibrating noticeably faster than the beam — still match the real physi
 
   let mode = 0;
 
-  // Bar: material cross-sections (ticks) whose x-position shifts by u(xi,t) — this is
-  // what axial deformation actually looks like (compression/stretch), not a y = U(x) graph.
-  const NTICKS = 25;
-  const tickXi = Array.from({length: NTICKS}, (_, i) => i / (NTICKS - 1));
-  const svgNS = 'http://www.w3.org/2000/svg';
-  const ticks = tickXi.map(x => {
-    const line = document.createElementNS(svgNS, 'line');
-    line.setAttribute('y1', 65); line.setAttribute('y2', 95);
-    line.setAttribute('stroke', '#08306b'); line.setAttribute('stroke-width', 1.5);
-    barSvg.appendChild(line);
-    return line;
-  });
-
-  function barValueAt(shape, xTarget) {
-    // linear interpolation of the (coarser) mode-shape sample at an arbitrary xi
-    const idx = xTarget * (shape.length - 1);
-    const i0 = Math.floor(idx), i1 = Math.min(i0 + 1, shape.length - 1);
-    const frac = idx - i0;
-    return shape[i0] * (1 - frac) + shape[i1] * frac;
-  }
-
-  function updateBar(shape, phase) {
-    const amp = 10; // px, exaggerated axial displacement for visibility
-    ticks.forEach((line, i) => {
-      const x = 10 + tickXi[i] * 300 + barValueAt(shape, tickXi[i]) * Math.sin(phase) * amp;
-      line.setAttribute('x1', x.toFixed(1));
-      line.setAttribute('x2', x.toFixed(1));
+  // Bar: the whole rod bulges/pinches according to |U_n(xi)| — thick at antinodes, a thin
+  // line at nodes, breathing in and out together (a standing wave). No separate moving
+  // markers, the outline of the rod itself is the deformation.
+  function barPathD(shape, phase) {
+    const ampY = 55; // px, half-thickness at |U|=1
+    const s = Math.abs(Math.sin(phase));
+    const top = shape.map((v, i) => {
+      const px = 10 + xi[i] * 300;
+      const py = 80 - Math.abs(v) * s * ampY;
+      return px.toFixed(1) + ' ' + py.toFixed(1);
     });
+    const bottom = shape.map((v, i) => {
+      const px = 10 + xi[i] * 300;
+      const py = 80 + Math.abs(v) * s * ampY;
+      return px.toFixed(1) + ' ' + py.toFixed(1);
+    }).reverse();
+    return 'M ' + top.join(' L ') + ' L ' + bottom.join(' L ') + ' Z';
   }
 
   function toPoints(shape, phase) {
@@ -821,7 +811,7 @@ the bar vibrating noticeably faster than the beam — still match the real physi
     // same global time scale for both: phase = 2*pi * (t/basePeriod) * (omega/omegaRef)
     const barPhase = 2 * Math.PI * (elapsed / basePeriod) * (omegaBar[mode] / omegaRef);
     const beamPhase = 2 * Math.PI * (elapsed / basePeriod) * (omegaBeam[mode] / omegaRef);
-    updateBar(barShapes[mode], barPhase);
+    barShapeEl.setAttribute('d', barPathD(barShapes[mode], barPhase));
     beamLine.setAttribute('points', toPoints(beamShapes[mode], beamPhase));
     requestAnimationFrame(frame);
   }
