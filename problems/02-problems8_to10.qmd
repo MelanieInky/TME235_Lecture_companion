@@ -711,7 +711,9 @@ the bar vibrating noticeably faster than the beam — still match the real physi
       <div style="font-size:.85em;margin-bottom:.25rem;">Bar (axial) — <span id="mv-bar-om"></span></div>
       <svg viewBox="0 0 320 160" width="320" height="160" style="border:1px solid #ccc;border-radius:4px;">
         <line x1="10" y1="80" x2="310" y2="80" stroke="#999" stroke-dasharray="4 3"/>
-        <path id="mv-bar-shape" fill="#1f77b4" fill-opacity="0.85" stroke="#1f77b4" stroke-width="1"/>
+        <polyline id="mv-bar-line" fill="none" stroke="#1f77b4" stroke-width="2"/>
+        <text x="160" y="152" text-anchor="middle" font-size="11" fill="#555">x/L</text>
+        <text x="12" y="20" text-anchor="start" font-size="11" fill="#555">U&#8345;/max|U&#8345;|</text>
       </svg>
     </div>
     <div style="text-align:center;">
@@ -719,6 +721,8 @@ the bar vibrating noticeably faster than the beam — still match the real physi
       <svg viewBox="0 0 320 160" width="320" height="160" style="border:1px solid #ccc;border-radius:4px;">
         <line x1="10" y1="80" x2="310" y2="80" stroke="#999" stroke-dasharray="4 3"/>
         <polyline id="mv-beam-line" fill="none" stroke="#d62728" stroke-width="2"/>
+        <text x="160" y="152" text-anchor="middle" font-size="11" fill="#555">x/L</text>
+        <text x="12" y="20" text-anchor="start" font-size="11" fill="#555">W&#8345;/max|W&#8345;|</text>
       </svg>
     </div>
   </div>
@@ -761,32 +765,13 @@ the bar vibrating noticeably faster than the beam — still match the real physi
   const basePeriod = 3000; // ms, period of the slowest mode (slowed down for visibility)
 
   const root = document.getElementById('mode-viewer');
-  const barShapeEl = root.querySelector('#mv-bar-shape');
+  const barLine = root.querySelector('#mv-bar-line');
   const beamLine = root.querySelector('#mv-beam-line');
   const barOm = root.querySelector('#mv-bar-om');
   const beamOm = root.querySelector('#mv-beam-om');
   const buttons = root.querySelectorAll('.mv-btn');
 
   let mode = 0;
-
-  // Bar: the whole rod bulges/pinches according to |U_n(xi)| — thick at antinodes, a thin
-  // line at nodes, breathing in and out together (a standing wave). No separate moving
-  // markers, the outline of the rod itself is the deformation.
-  function barPathD(shape, phase) {
-    const ampY = 55; // px, half-thickness at |U|=1
-    const s = Math.abs(Math.sin(phase));
-    const top = shape.map((v, i) => {
-      const px = 10 + xi[i] * 300;
-      const py = 80 - Math.abs(v) * s * ampY;
-      return px.toFixed(1) + ' ' + py.toFixed(1);
-    });
-    const bottom = shape.map((v, i) => {
-      const px = 10 + xi[i] * 300;
-      const py = 80 + Math.abs(v) * s * ampY;
-      return px.toFixed(1) + ' ' + py.toFixed(1);
-    }).reverse();
-    return 'M ' + top.join(' L ') + ' L ' + bottom.join(' L ') + ' Z';
-  }
 
   function toPoints(shape, phase) {
     return shape.map((v, i) => {
@@ -811,7 +796,7 @@ the bar vibrating noticeably faster than the beam — still match the real physi
     // same global time scale for both: phase = 2*pi * (t/basePeriod) * (omega/omegaRef)
     const barPhase = 2 * Math.PI * (elapsed / basePeriod) * (omegaBar[mode] / omegaRef);
     const beamPhase = 2 * Math.PI * (elapsed / basePeriod) * (omegaBeam[mode] / omegaRef);
-    barShapeEl.setAttribute('d', barPathD(barShapes[mode], barPhase));
+    barLine.setAttribute('points', toPoints(barShapes[mode], barPhase));
     beamLine.setAttribute('points', toPoints(beamShapes[mode], beamPhase));
     requestAnimationFrame(frame);
   }
