@@ -13,6 +13,7 @@
   {
     "listing": "/problems/index.html",
     "items": [
+      "/problems/02-problems8_to10.html",
       "/problems/01-problems1_to7.html",
       "/problems/00-helper_functions.html"
     ]
