@@ -695,8 +695,9 @@ plt.tight_layout(); plt.show()
 
 Real eigenfrequencies are hundreds to thousands of rad/s — far too fast to watch
 oscillate frame by frame — so the animation time below is slowed down uniformly, purely
-for visualization. The *ratio* $\omega_n/\omega_1$ between modes is kept exact, so the
-relative speed you see between modes 1, 2 and 3 still matches the real physics.
+for visualization. A single, shared scale factor is applied to every $\omega_n$ (all
+three bar modes and all three beam modes), so the relative speeds you see — including
+the bar vibrating noticeably faster than the beam — still match the real physics.
 
 ```{=html}
 <div id="mode-viewer" style="max-width:720px;margin:1rem auto;">
@@ -745,11 +746,19 @@ relative speed you see between modes 1, 2 and 3 still matches the real physics.
   const barShapes = gammaBar.map(barShape);
   const beamShapes = gammaBeam.map(beamShape);
 
-  // omega_n / omega_1: linear in gamma for the bar, quadratic for the beam
-  const omegaBarRel = gammaBar.map(g => g / gammaBar[0]);
-  const omegaBeamRel = gammaBeam.map(g => (g / gammaBeam[0]) ** 2);
+  // Real eigenfrequencies, same formulas and part (c) values as the hand/SymPy solution,
+  // so the bar (which is physically much stiffer/faster) stays visibly faster than the
+  // beam, not just faster relative to its own mode 1.
+  const E = 210e9, rho = 7800.0, b = 0.1, h = 0.1, L = 1.0;
+  const A = b * h, I = b * h ** 3 / 12;
+  const cBar = Math.sqrt(E / rho);            // omega_bar_n  = (gamma_n/L) * cBar
+  const cBeam = Math.sqrt(E * I / (rho * A)); // omega_beam_n = (gamma_n/L)^2 * cBeam
 
-  const basePeriod = 2200; // ms, mode-1 period (slowed down for visibility)
+  const omegaBar = gammaBar.map(g => (g / L) * cBar);
+  const omegaBeam = gammaBeam.map(g => (g / L) ** 2 * cBeam);
+  const omegaRef = Math.min(...omegaBar, ...omegaBeam); // slowest mode = beam, mode 1
+
+  const basePeriod = 3000; // ms, period of the slowest mode (slowed down for visibility)
 
   const root = document.getElementById('mode-viewer');
   const barLine = root.querySelector('#mv-bar-line');
@@ -770,8 +779,8 @@ relative speed you see between modes 1, 2 and 3 still matches the real physics.
 
   function setActive() {
     buttons.forEach(b => b.style.fontWeight = (+b.dataset.mode === mode) ? 'bold' : 'normal');
-    barOm.textContent = 'mode ' + (mode + 1) + ', ωₙ/ω₁ = ' + omegaBarRel[mode].toFixed(2);
-    beamOm.textContent = 'mode ' + (mode + 1) + ', ωₙ/ω₁ = ' + omegaBeamRel[mode].toFixed(2);
+    barOm.textContent = 'mode ' + (mode + 1) + ', ω ≈ ' + omegaBar[mode].toFixed(0) + ' rad/s';
+    beamOm.textContent = 'mode ' + (mode + 1) + ', ω ≈ ' + omegaBeam[mode].toFixed(0) + ' rad/s';
   }
 
   buttons.forEach(b => b.addEventListener('click', () => { mode = +b.dataset.mode; setActive(); }));
@@ -780,8 +789,9 @@ relative speed you see between modes 1, 2 and 3 still matches the real physics.
   function frame(t) {
     if (start === null) start = t;
     const elapsed = t - start;
-    const barPhase = 2 * Math.PI * (elapsed / basePeriod) * omegaBarRel[mode];
-    const beamPhase = 2 * Math.PI * (elapsed / basePeriod) * omegaBeamRel[mode];
+    // same global time scale for both: phase = 2*pi * (t/basePeriod) * (omega/omegaRef)
+    const barPhase = 2 * Math.PI * (elapsed / basePeriod) * (omegaBar[mode] / omegaRef);
+    const beamPhase = 2 * Math.PI * (elapsed / basePeriod) * (omegaBeam[mode] / omegaRef);
     barLine.setAttribute('points', toPoints(barShapes[mode], barPhase));
     beamLine.setAttribute('points', toPoints(beamShapes[mode], beamPhase));
     requestAnimationFrame(frame);
