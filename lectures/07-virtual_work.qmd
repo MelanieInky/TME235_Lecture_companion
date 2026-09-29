@@ -1,0 +1,65 @@
+---
+title: Principle of virtual work
+---
+
+# The principle of virtual work against the strong form
+
+Let $\Omega$ be a solid with boundary $\Gamma$. The main equation we are trying to solve **in this course** is, and always will be the quasi-static force equilibrium equation:
+
+$$
+- \nabla \cdot \boldsymbol{\sigma} = \boldsymbol{f} 
+$${#eq-solid_mechanics_equilibrium}
+
+where $\boldsymbol{f}$ are the applied body forces and $\boldsymbol{\sigma}$ is the Cauchy stress tensor. In addition, we have to set boundary conditions. The most simple ones being Dirichlet boundary conditions (set displacement $\boldsymbol{u} = \hat{\boldsymbol{u}}$), and Neumann boundary condition (set traction $\boldsymbol{t} = \hat{\boldsymbol{t}}$), so let us partition our boundary in two non intersecting part: a Dirichlet part $\Gamma_u$ and a Neumann part $\Gamma_\sigma$ so that $\Gamma = \Gamma_u \cup \Gamma_\sigma$. (TODO FIGURE THAT I SHOULD ALREADY HAVE MADE SOMEWHERE). It is a very simple and elegant equation (until we introduce advanced constitutive models, but that's another course...).
+
+And then we have the principle of virtual work, which we get from the principle of minimum potential energy (for elasticity and conservative forces), or by multiplying @eq-solid_mechanics_equilibrium by $\delta \boldsymbol{u}$, integrating over the volume, using the divergence theorem, and using Cauchy formula for the Neumann BC(Do it! It is one of the learning outcome and can come up during the exam!). A solid $\Omega$ with boundary $\Gamma_u \cup \Gamma_\sigma$ is at equilibrium **if and only if** for any arbitrary kinematically admissible virtual displacement $\delta \boldsymbol{u}$, we have that:
+
+$$
+\delta W_{\text{int}} = \delta W_\text{ext}
+$${#eq-virtual_work_equilibrium}
+
+where
+
+$$
+\delta W_\text{int} = \int_\Omega \boldsymbol{\sigma} : \delta \boldsymbol{\varepsilon} \; d\Omega
+$$
+
+and 
+
+$$
+\delta W_\text{ext} = \int_\Omega \boldsymbol{f} \cdot \delta \boldsymbol{u} \; d \Omega + \int_{\Gamma_{\sigma}} \hat{\boldsymbol{t}} \cdot \delta \boldsymbol{u} \; d \Gamma.
+$$
+
+We have also implicitly defined the virtual strain associated to the virtual displacement as $\delta \boldsymbol{\varepsilon} = \frac{1}{2} \left( \nabla \delta \boldsymbol{u} + \nabla \delta \boldsymbol{u}^\mathsf{T} \right)$
+<div style="font-size: 4em; font-weight: bold; text-align: center;">WHAT?</div>
+
+### A virtual displacement??
+
+TODO answer the question in an intuitive, non mathematical way
+
+### Kinematically admissible??
+
+TODO answer the question, $\delta \boldsymbol{u} = \boldsymbol{0}$ on $\Gamma_u$ which is why we integrate the external virtual work only on $\Gamma_\sigma$.
+
+
+### How could that possibly be nicer than @eq-solid_mechanics_equilibrium ???
+
+It turns out that the principle of the virtual work is a very powerful framework to work around solid mechanics problems, but its utility is sometimes difficult to see at first glance. It took me quite a while to get used to it, and I did not get the point especially at the start but over time I began to get it. In the lecture, you have seen its use notably to derive the Timoshenko's beam equation without having to write a local force equilibrium (and the appropriate boundary conditions as a two-for-one deal!), but there are other uses. Arguably one of the most useful properties of this framework is how simple @eq-virtual_work_equilibrium is. 
+
+
+1. We do not have any derivative on the stress tensor $\boldsymbol{\sigma}$ anymore. We only need to have the first derivative of $\boldsymbol{u}$.
+1. The Neumann boundary condition appears naturally in the external virtual work (hence the sometimes used term "natural" boundary conditions).
+1. It is an integral statement over the whole solid, while the differential equation has to be applied at every point.
+1. Work is also something that, just like force, has a physical meaning: it is **energy**. If you are a physicist at heart, you love working with energy-like formulations, and especially work! For an elastic solid, the virtual work is just saying that for an imaginary displacement, the work of the real forces will be stored as elastic energy in the solid. 
+
+The combination of all those points makes the formulation very convenient for simulations. You essentially have to find a displacement $\boldsymbol{u}$ such that, for any kinematically admissible virtual displacement $\delta \boldsymbol{u}$
+
+$$
+R(\boldsymbol{u};\delta \boldsymbol{u}) = \delta W_{\text{int}} - \delta W_\text{ext} = 0.
+$$
+
+In addition, you must respect the Dirichlet boundary conditions, that is $\boldsymbol{u} = \hat{\boldsymbol{u}} \in \Gamma_u$.
+
+
+If you are an applied mathematician at heart, you love this kind of formulation (even more if you like calculus of variations)! Of course, written as is, we cannot just put the principle of virtual work on a computer and tell it "solve!" because there are an infinity of kinematically admissible virtual displacements to play with, that's why we develop the finite element method (FEM) or similar techniques to do so. We will not care about FEM just yet, that will come later.
+
