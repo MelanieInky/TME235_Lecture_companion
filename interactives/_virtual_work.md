@@ -61,6 +61,25 @@ body.quarto-dark .viz-vw {
 .viz-vw .verdict.bad { color: var(--bad); }
 .viz-vw .note { font-size: .88em; color: var(--fg-muted); margin-top: .9em; }
 .viz-vw .note p { margin: 0 0 .5em; }
+.viz-vw .quiz button {
+  font: inherit; font-size: .85em; color: var(--fg); background: var(--panel-bg);
+  border: 1px solid var(--border); border-radius: 4px; padding: .25em .6em; cursor: pointer;
+}
+.viz-vw .quiz button:hover, .viz-vw .quiz button:focus-visible { border-color: var(--slider); }
+.viz-vw .quiz button:disabled { opacity: .4; cursor: default; }
+.viz-vw .quiz { padding: .8em; background: var(--panel-bg); border: 1px solid var(--border); border-radius: 6px; margin: .8em 0; }
+.viz-vw .quiz .qhead { font-size: .85em; color: var(--fg-muted); }
+.viz-vw .quiz .qtext { margin: .3em 0 .6em; font-weight: 600; }
+.viz-vw .quiz .qopts { display: flex; flex-direction: column; gap: .35em; }
+.viz-vw .quiz .qopt { text-align: left; }
+.viz-vw .quiz .qopt:disabled { cursor: default; opacity: 1; }
+.viz-vw .quiz .qopt.correct { border-color: var(--ok); color: var(--ok); }
+.viz-vw .quiz .qopt.wrong { border-color: var(--bad); color: var(--bad); }
+.viz-vw .quiz .qfeedback, .viz-vw .quiz .qtry { margin: .6em 0 0; font-size: .92em; }
+.viz-vw .quiz .qfeedback.ok { color: var(--ok); }
+.viz-vw .quiz .qfeedback.bad { color: var(--bad); }
+.viz-vw .quiz .qtry { color: var(--fg-muted); }
+.viz-vw .quiz .qnav { display: flex; justify-content: space-between; margin-top: .7em; }
 @media (max-width: 560px) {
   .viz-vw .controls { grid-template-columns: 1fr; }
 }
@@ -197,34 +216,9 @@ body.quarto-dark .viz-vw {
   </table>
   <div class="verdict" id="vw-verdict"></div>
 
-  <div class="note">
-    <p>The principle of virtual work: N(x) is in equilibrium with q and P if and only if
-    ∫ N δε dx = ∫ q δu dx + P δu(L) for <em>every</em> admissible δu, i.e. every δu with
-    δu(0) = 0 where the displacement is prescribed. Integrating by parts, the difference is
-    −∫ (dN/dx + q) δu dx + [N(L) − P] δu(L). A bump that vanishes at both ends therefore tests
-    only the field equation dN/dx + q = 0; any δu with δu(L) ≠ 0 also tests the natural
-    boundary condition N(L) = P, shown as the hollow marker on the N plot.</p>
-    <p>One passing test proves nothing. The constant field passes the linear δu because that
-    test only sees the total load (∫ q δu dx = qL/2 for every field), and the shifted field
-    passes every bump because it satisfies dN/dx + q = 0 everywhere — it only fails at the tip.
-    With q = 0 the constant field coincides with the equilibrium solution.</p>
-    <p>The rigid shift violates δu(0) = 0, so the wall reaction does virtual work and
-    W<sub>int</sub> ≠ W<sub>ext</sub> even for the true N; the gap equals R δu(0). In a real problem
-    R is unknown, which is why admissible δu must vanish on the supported boundary. For admissible
-    fields that row is zero.</p>
-    <p>The bottom plot draws the works as areas. The solid curve is the internal density N δε,
-    whose area is W<sub>int</sub>; the dashed curve is the external density q δu, whose area is the
-    distributed part of W<sub>ext</sub>. The tip load adds P δu(L) at a single point, so it has no
-    density and appears only as the hatched part of the "ext" bar. The bars show the totals on their
-    own scale; the numbers are in the table. The densities do not have to agree point by point,
-    even for the equilibrium field: with the linear δu, N δε = N(x) while q δu = q x/L. Only the
-    totals must match. A bump makes the internal work pile up on the bump's flanks, where δε is
-    large.</p>
-    <p>Virtual displacements are infinitesimal; δ = 1 mm is only a scale, so works are in
-    kN·mm = J. EA never enters: the principle is a statement about equilibrium, not about the
-    material. Integrals are evaluated with Simpson's rule (600 intervals); values below
-    0.0005 J are shown as zero.</p>
-  </div>
+  <div class="quiz" id="vw-quiz"></div>
+
+
 
   <script>
   (function () {
@@ -452,6 +446,62 @@ body.quarto-dark .viz-vw {
         update();
       });
     });
+
+    // ---- predict-first quiz ----
+    const QUIZ = [
+      { q: 'With the equilibrium field N = P + q(L − x), which admissible δu give W_int = W_ext?',
+        options: ['Only the linear one', 'Only the ones that reach the tip', 'Every admissible δu'],
+        answer: 2,
+        explain: 'That is the principle of virtual work: a field in equilibrium balances every virtual displacement with δu(0) = 0.',
+        check: 'keep the equilibrium field and go through the linear, quadratic, sine and bump options, moving the sliders as you like.' },
+      { q: 'The constant field N = P + qL/2 is wrong when q ≠ 0. Does it pass the linear test δu = δ·x/L?',
+        options: ['Yes', 'No'],
+        answer: 0,
+        explain: 'The linear test only sees the total load, and the constant field carries the right total. One passing test proves nothing.',
+        check: 'press "Constant N passes the linear test", then switch to the quadratic δu.' },
+      { q: 'The shifted field satisfies dN/dx + q = 0 but has N(L) ≠ P. Which test exposes it?',
+        options: ['A bump in the middle', 'Any δu with δu(L) ≠ 0', 'None, it is in equilibrium'],
+        answer: 1,
+        explain: 'A bump vanishes at the tip, so it only checks the field equation. The tip condition shows up only when δu(L) ≠ 0.',
+        check: 'choose the shifted field and compare the bump with the linear δu.' },
+      { q: 'With the equilibrium field and the rigid shift δu = δ, do W_int and W_ext match?',
+        options: ['Yes', 'No: the gap is the work of the support reaction'],
+        answer: 1,
+        explain: 'δu(0) ≠ 0 lets the unknown reaction do work, so the balance fails even for the true N. That is why admissible δu vanish at supports.',
+        check: 'press "Why δu(0) must be 0" and compare the difference with the reaction-work row.' },
+      { q: 'At equilibrium, are the densities N δε and q δu equal at every x?',
+        options: ['Yes', 'No, only the totals match'],
+        answer: 1,
+        explain: 'Only the integrals balance (plus P δu(L)). With the linear δu the internal density is N(x) and the external one is q x/L: different curves, matching totals.',
+        check: 'look at the bottom plot with the equilibrium field and the linear δu.' },
+    ];
+    function makeQuiz(box, Q) {
+      const chosen = Q.map(() => -1);
+      let i = 0;
+      function render() {
+        const it = Q[i], c = chosen[i];
+        let html = '<div class="qhead">Predict first: question ' + (i + 1) + ' of ' + Q.length + '</div>' +
+          '<p class="qtext">' + it.q + '</p><div class="qopts">';
+        it.options.forEach((o, j) => {
+          let cls = '', mark = '';
+          if (c >= 0 && j === it.answer) { cls = ' correct'; mark = '\u2713 '; }
+          else if (c >= 0 && j === c) { cls = ' wrong'; mark = '\u2717 '; }
+          html += '<button type="button" class="qopt' + cls + '" data-i="' + j + '"' + (c >= 0 ? ' disabled' : '') + '>' + mark + o + '</button>';
+        });
+        html += '</div>';
+        if (c >= 0) {
+          html += '<p class="qfeedback ' + (c === it.answer ? 'ok' : 'bad') + '">' + (c === it.answer ? 'Right. ' : 'Not quite. ') + it.explain + '</p>' +
+                  '<p class="qtry">Check it: ' + it.check + '</p>';
+        }
+        html += '<div class="qnav"><button type="button" data-nav="-1"' + (i === 0 ? ' disabled' : '') + '>Previous</button>' +
+                '<button type="button" data-nav="1"' + (i === Q.length - 1 ? ' disabled' : '') + '>Next question</button></div>';
+        box.innerHTML = html;
+        box.querySelectorAll('.qopt').forEach((b) => b.addEventListener('click', () => { chosen[i] = +b.dataset.i; render(); }));
+        box.querySelectorAll('[data-nav]').forEach((b) => b.addEventListener('click', () => { i += +b.dataset.nav; render(); }));
+      }
+      render();
+    }
+    makeQuiz(__q('vw-quiz'), QUIZ);
 
     update();
   })();

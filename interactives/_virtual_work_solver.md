@@ -198,24 +198,7 @@ body.quarto-dark .viz-vws {
 
   <div class="quiz" id="vws-quiz"></div>
 
-  <div class="note">
-    <p>The bar has length L = 1 m and is fixed at x = 0. For an admissible δu, one with δu(0) = 0,
-    the principle of virtual work requires ∫ N δε dx = ∫ q δu dx + P δu(L). Your guess is linear in
-    A, B and C, so each test becomes one linear equation, shown under its name. The residual
-    W<sub>int</sub> − W<sub>ext</sub> equals −∫ (dN/dx + q) δu dx + [N(L) − P] δu(L). The two
-    bumps vanish at both ends, so they test only the field equation dN/dx + q = 0. The other three
-    tests also test the tip condition N(L) = P.</p>
-    <p>With two unknowns, two independent tests fix A and B, and the rest are checks. In the plane
-    below, each test is the line on which it balances. When your trial function can represent the
-    equilibrium solution, all five lines meet at a single point. For a triangular load, dN/dx = −q(x)
-    varies, so a linear guess cannot satisfy every test. The lines then fail to meet until the
-    (x/L)² term is included and C is right. The plane is a slice at the current C. Choosing a finite
-    set of test functions from the same family as the trial function is the Galerkin method, the
-    starting point of the finite element method.</p>
-    <p>Virtual displacements have amplitude δ = 1 mm, so works are in kN·mm = J. A test counts as
-    balanced when |W<sub>int</sub> − W<sub>ext</sub>| &lt; 0.01 J. Integrals use Simpson's rule
-    with 600 intervals. Parts of N(x) outside the plotted range are not drawn.</p>
-  </div>
+
 
   <script>
   (function () {
