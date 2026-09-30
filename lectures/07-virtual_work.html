@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Principle of virtual work – TME235 Mechanics of Solids — Companion Site</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-2605f17c045620ebb5ff4d36ddf71b83.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">TME235 Mechanics of Solids — Companion Site</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lectures/index.html"> 
+<span class="menu-text">Topics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../problems/index.html"> 
+<span class="menu-text">Problems</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/MelanieInky/TME235_Lecture_companion"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-principle-of-virtual-work-against-the-strong-form" id="toc-the-principle-of-virtual-work-against-the-strong-form" class="nav-link active" data-scroll-target="#the-principle-of-virtual-work-against-the-strong-form">The principle of virtual work against the strong form</a>
+  <ul class="collapse">
+  <li><a href="#a-virtual-displacement" id="toc-a-virtual-displacement" class="nav-link" data-scroll-target="#a-virtual-displacement">A virtual displacement??</a></li>
+  <li><a href="#kinematically-admissible" id="toc-kinematically-admissible" class="nav-link" data-scroll-target="#kinematically-admissible">Kinematically admissible??</a></li>
+  <li><a href="#how-could-that-possibly-be-nicer-than-eq-solid_mechanics_equilibrium" id="toc-how-could-that-possibly-be-nicer-than-eq-solid_mechanics_equilibrium" class="nav-link" data-scroll-target="#how-could-that-possibly-be-nicer-than-eq-solid_mechanics_equilibrium">How could that possibly be nicer than Equation&nbsp;1 ???</a></li>
+  </ul></li>
+  <li><a href="#a-bar-example-with-an-interactive-widget" id="toc-a-bar-example-with-an-interactive-widget" class="nav-link" data-scroll-target="#a-bar-example-with-an-interactive-widget">A bar example, with an interactive widget!</a>
+  <ul class="collapse">
+  <li><a href="#kinematically-admissible-virtual-displacement" id="toc-kinematically-admissible-virtual-displacement" class="nav-link" data-scroll-target="#kinematically-admissible-virtual-displacement">Kinematically admissible virtual displacement</a></li>
+  <li><a href="#internal-virtual-work" id="toc-internal-virtual-work" class="nav-link" data-scroll-target="#internal-virtual-work">Internal virtual work</a></li>
+  <li><a href="#external-virtual-work" id="toc-external-virtual-work" class="nav-link" data-scroll-target="#external-virtual-work">External virtual work</a></li>
+  <li><a href="#choice-of-virtual-displacement-and-interactive-figure" id="toc-choice-of-virtual-displacement-and-interactive-figure" class="nav-link" data-scroll-target="#choice-of-virtual-displacement-and-interactive-figure">Choice of virtual displacement, and interactive figure</a></li>
+  <li><a href="#using-the-principle-of-virtual-work-as-a-solver" id="toc-using-the-principle-of-virtual-work-as-a-solver" class="nav-link" data-scroll-target="#using-the-principle-of-virtual-work-as-a-solver">Using the principle of virtual work as a solver</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Principle of virtual work</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="the-principle-of-virtual-work-against-the-strong-form" class="level2">
+<h2 class="anchored" data-anchor-id="the-principle-of-virtual-work-against-the-strong-form">The principle of virtual work against the strong form</h2>
+<p>Let <span class="math inline">\(\Omega\)</span> be a solid with boundary <span class="math inline">\(\Gamma\)</span>. The main equation we are trying to solve <strong>in this course</strong> is, and always will be, the quasi-static force equilibrium equation:</p>
+<p><span id="eq-solid_mechanics_equilibrium"><span class="math display">\[
+- \nabla \cdot \boldsymbol{\sigma} = \boldsymbol{f}
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(\boldsymbol{f}\)</span> are the applied body forces and <span class="math inline">\(\boldsymbol{\sigma}\)</span> is the Cauchy stress tensor. It is a very simple and elegant equation (until we introduce advanced constitutive models, but that’s another course…). In addition, we have to set boundary conditions. The simplest ones are Dirichlet boundary conditions (set displacement <span class="math inline">\(\boldsymbol{u} = \hat{\boldsymbol{u}}\)</span>), and Neumann boundary conditions (set traction <span class="math inline">\(\boldsymbol{t} = \hat{\boldsymbol{t}}\)</span>), so let us partition our boundary in two non-intersecting parts: a Dirichlet part <span class="math inline">\(\Gamma_u\)</span> and a Neumann part <span class="math inline">\(\Gamma_\sigma\)</span> so that <span class="math inline">\(\Gamma = \Gamma_u \cup \Gamma_\sigma\)</span> as illustrated in <a href="#fig-continuum-potato" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-continuum-potato" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-continuum-potato-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="continuum_potato.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-continuum-potato-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A solid with boundary split between a Neumann part and a Dirichlet part
+</figcaption>
+</figure>
+</div>
+<p>And then we have the principle of virtual work, which we get from the principle of minimum potential energy (for elasticity and conservative forces), or by multiplying <a href="#eq-solid_mechanics_equilibrium" class="quarto-xref">Equation&nbsp;1</a> by <span class="math inline">\(\delta \boldsymbol{u}\)</span>, integrating over the volume, using the divergence theorem, and using Cauchy’s formula for the Neumann BC (Do it! It is one of the learning outcomes and can come up during the exam!).</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Principle of virtual work">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Principle of virtual work
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A solid <span class="math inline">\(\Omega\)</span> with boundary <span class="math inline">\(\Gamma_u \cup \Gamma_\sigma\)</span> is at equilibrium <strong>if and only if</strong> for any kinematically admissible virtual displacement <span class="math inline">\(\delta \boldsymbol{u}\)</span>, we have that:</p>
+<p><span id="eq-virtual_work_equilibrium"><span class="math display">\[
+\delta W_{\text{int}} = \delta W_\text{ext}
+\tag{2}\]</span></span></p>
+<p>where</p>
+<p><span id="eq-internal_work"><span class="math display">\[
+\delta W_\text{int} = \int_\Omega \sigma_{ij} \, \delta \varepsilon_{ij} \; d\Omega
+\tag{3}\]</span></span></p>
+<p>and</p>
+<p><span id="eq-external_work"><span class="math display">\[
+\delta W_\text{ext} = \int_\Omega f_i \delta u_i \; d \Omega + \int_{\Gamma_{\sigma}} \hat{t}_i \, \delta u_i \; d \Gamma.
+\tag{4}\]</span></span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We have also implicitly defined the virtual strain associated with the virtual displacement as <span class="math inline">\(\delta \varepsilon_{ij} = \frac{1}{2} \left(  \delta u_{i,j} + \delta u_{j,i} \right)\)</span>.</p>
+</div>
+</div>
+<div style="font-size: 4em; font-weight: bold; text-align: center;">
+WHAT?
+</div>
+<section id="a-virtual-displacement" class="level3">
+<h3 class="anchored" data-anchor-id="a-virtual-displacement">A virtual displacement??</h3>
+<p>A virtual displacement is, well…virtual. We do not actually displace the solid from its equilibrium positions and the forces and stress tensor are kept constant.</p>
+<p>Think of a single particle with a net force <span class="math inline">\(\boldsymbol{F}\)</span> acting on it. Nudge it by <span class="math inline">\(\delta \boldsymbol{u}\)</span>: the work done by the force on the particle is <span class="math inline">\(\boldsymbol{F} \cdot \delta \boldsymbol{u}\)</span>. Now, any nudge you apply is a combination of a set of three elementary nudges <span class="math inline">\(\delta \boldsymbol{u} = \delta \hat{\boldsymbol{e}}_i\)</span> for <span class="math inline">\(i=1,2,3\)</span>. The work done by the force subjected to such an elementary nudge is then</p>
+<p><span class="math display">\[
+\delta W_i = \boldsymbol{F} \cdot \delta \hat{\boldsymbol{e}}_i = \delta F_i.
+\]</span></p>
+<p>Assume that you find <span class="math inline">\(\delta W_i= 0\)</span> in all three cases. Then <span class="math inline">\(F_i = 0 \implies \boldsymbol{F} = \boldsymbol{0}\)</span>: the particle is in equilibrium. The principle of virtual work is exactly this idea, applied to every point of the solid at once.</p>
+</section>
+<section id="kinematically-admissible" class="level3">
+<h3 class="anchored" data-anchor-id="kinematically-admissible">Kinematically admissible??</h3>
+<p>By kinematically admissible we mean that the virtual displacement should not put the solid in an unphysical state. The most important consequence of this is that if we have a prescribed displacement on a region <span class="math inline">\(\Gamma_u\)</span>, then the displaced body should still respect the prescribed displacement.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="On $\Gamma_u$, what is a kinematically admissible virtual displacement?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>On <span class="math inline">\(\Gamma_u\)</span>, what is a kinematically admissible virtual displacement?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\delta \boldsymbol{u} = \boldsymbol{0} \; \text{on} \; \Gamma_u
+\]</span></p>
+<p>This is why the external work formulation <a href="#eq-external_work" class="quarto-xref">Equation&nbsp;4</a> only has a surface integral on <span class="math inline">\(\Gamma_\sigma\)</span>!</p>
+</div>
+</div>
+</div>
+<p>A virtual displacement that introduces discontinuities, such as cracks or overlaps is also unphysical (we can actually handle cracks, but not in this course), so <span class="math inline">\(\delta \boldsymbol{u}\)</span> should be continuous.</p>
+</section>
+<section id="how-could-that-possibly-be-nicer-than-eq-solid_mechanics_equilibrium" class="level3">
+<h3 class="anchored" data-anchor-id="how-could-that-possibly-be-nicer-than-eq-solid_mechanics_equilibrium">How could that possibly be nicer than <a href="#eq-solid_mechanics_equilibrium" class="quarto-xref">Equation&nbsp;1</a> ???</h3>
+<p>It turns out that the principle of virtual work is a very powerful framework to tackle solid mechanics problems, but its utility is sometimes difficult to see at first glance. I did not get the point especially at the start but over time I began to get it. In the lecture, you have seen its use notably to derive Timoshenko’s beam model without having to write a local force equilibrium (and the appropriate boundary conditions as a two-for-one deal!), but there are other uses. Arguably one of the most useful properties of this framework is how simple <a href="#eq-virtual_work_equilibrium" class="quarto-xref">Equation&nbsp;2</a> is. Here are some justifications (there are more but once again we will keep to the scope of the course):</p>
+<ol type="1">
+<li>We do not have any derivative on the stress tensor <span class="math inline">\(\boldsymbol{\sigma}\)</span> anymore. We only need to have the first derivative of <span class="math inline">\(\boldsymbol{u}\)</span>.</li>
+<li>The Neumann boundary condition appears naturally in the external virtual work (hence the sometimes used term “natural” boundary conditions).</li>
+<li>It is an integral statement over the whole solid, while the differential equation has to be applied at every point.</li>
+<li>It is straightforward to expand: most of the time we just add more terms to our virtual works!</li>
+<li>Work is also something that, just like force, has a physical meaning: it is <strong>energy</strong>. If you are a physicist at heart, you love working with energy-like formulations, and especially work! For an elastic solid, the virtual work is just saying that for an imaginary displacement, the work of the real forces will be stored as elastic energy in the solid.</li>
+</ol>
+<p>The combination of all those points makes the formulation very convenient for simulations. You essentially have to find a displacement <span class="math inline">\(\boldsymbol{u}\)</span> such that, for any kinematically admissible virtual displacement <span class="math inline">\(\delta \boldsymbol{u}\)</span>,</p>
+<p><span class="math display">\[
+R(\boldsymbol{u};\delta \boldsymbol{u}) = \delta W_{\text{int}} - \delta W_\text{ext} = 0.
+\]</span></p>
+<p>In addition, you must respect the Dirichlet boundary conditions, that is <span class="math inline">\(\boldsymbol{u} = \hat{\boldsymbol{u}}\)</span> on <span class="math inline">\(\Gamma_u\)</span>.</p>
+<p>If you are an applied mathematician at heart, you love this kind of formulation (even more if you like calculus of variations)! Of course, written as is, we cannot just put the principle of virtual work on a computer and tell it “solve!” because there is an infinity of kinematically admissible virtual displacements to play with. That’s why we develop the finite element method (FEM) or similar techniques. We will not care about FEM just yet, that will come later.</p>
+</section>
+</section>
+<section id="a-bar-example-with-an-interactive-widget" class="level2">
+<h2 class="anchored" data-anchor-id="a-bar-example-with-an-interactive-widget">A bar example, with an interactive widget!</h2>
+<p>Okay, now that we introduced the principle of virtual work, we are going to use it. Consider a bar that is clamped at the left end and free at the right end. Let us apply the principle of virtual work.</p>
+<section id="kinematically-admissible-virtual-displacement" class="level3">
+<h3 class="anchored" data-anchor-id="kinematically-admissible-virtual-displacement">Kinematically admissible virtual displacement</h3>
+<p>First, we note that the bar can only displace in the horizontal direction, so any kinematically admissible virtual displacement must respect that, that is <span class="math inline">\(\delta \boldsymbol{u}(x) = (\delta u(x), 0, 0)\)</span>. Therefore, the only virtual strain left is the normal virtual strain in the horizontal direction <span class="math inline">\(\delta \varepsilon_{xx} = \frac{d \delta u}{dx}\)</span>. Furthermore, the bar is clamped at the left boundary, hence <span class="math inline">\(\delta u (0) = 0\)</span>.</p>
+</section>
+<section id="internal-virtual-work" class="level3">
+<h3 class="anchored" data-anchor-id="internal-virtual-work">Internal virtual work</h3>
+<p>Because we only have a uniaxial virtual strain, the internal virtual work becomes <span class="math display">\[
+\delta W_\text{int} = \int_\Omega \sigma_{xx} \delta \varepsilon_{xx} d\Omega = \int_{0}^L \int_A \sigma_{xx} \delta \varepsilon_{xx} \; dA dx = \int_{0}^L N \delta \varepsilon_{xx} \; dx = \int_0^L N \frac{d\delta u}{dx} dx
+\]</span></p>
+<p>where <span class="math inline">\(N = \int_A \sigma_{xx} \; dA\)</span> is the internal normal force in the bar.</p>
+</section>
+<section id="external-virtual-work" class="level3">
+<h3 class="anchored" data-anchor-id="external-virtual-work">External virtual work</h3>
+<p>The bar is loaded by a point force <span class="math inline">\(P\)</span> at the right end and is subjected to an axial distributed load <span class="math inline">\(q(x)\)</span>. For a point load, you can use the usual work done by a force on a particle. The external virtual work is then</p>
+<p><span class="math display">\[
+\delta W_\text{ext} = \int_{0}^L q(x) \delta u(x)\; dx + P\delta u(L)
+\]</span></p>
+</section>
+<section id="choice-of-virtual-displacement-and-interactive-figure" class="level3">
+<h3 class="anchored" data-anchor-id="choice-of-virtual-displacement-and-interactive-figure">Choice of virtual displacement, and interactive figure</h3>
+<p>Assuming a uniform load <span class="math inline">\(q\)</span>, the equilibrium solution for the normal force for this problem is given by</p>
+<p><span class="math display">\[
+N(x) = P + q(L-x).
+\]</span></p>
+<p>According to the principle of virtual work, the external virtual work should be equal to the internal virtual work no matter our choice of virtual displacement. In the following widget, you can choose different virtual displacements, including a non kinematically admissible one. See how only the equilibrium solution passes all the virtual displacement “tests”.</p>
+<style>
+.viz-vw,
+[data-bs-theme="light"] .viz-vw,
+body.quarto-light .viz-vw {
+  --fg: #1f2328; --fg-muted: #5b636d; --panel-bg: #f6f7f9; --border: #d4d8de;
+  --grid: #e3e6ea; --slider: #3b6ea8;
+  --load: #00805E; --stress: #D55E00; --ref: #6B7684; --virtual: #CC79A7;
+  --ok: #00805E; --bad: #B8321A;
+}
+@media (prefers-color-scheme: dark) {
+  .viz-vw {
+    --fg: #e6e8eb; --fg-muted: #a0a8b3; --panel-bg: #1e2227; --border: #3a414a;
+    --grid: #2c323a; --slider: #7fb0e6;
+    --load: #3CC9A0; --stress: #FF8C42; --ref: #9AA4B0; --virtual: #E3A5C7;
+    --ok: #3CC9A0; --bad: #FF7B6B;
+  }
+}
+[data-bs-theme="dark"] .viz-vw,
+body.quarto-dark .viz-vw {
+  --fg: #e6e8eb; --fg-muted: #a0a8b3; --panel-bg: #1e2227; --border: #3a414a;
+  --grid: #2c323a; --slider: #7fb0e6;
+  --load: #3CC9A0; --stress: #FF8C42; --ref: #9AA4B0; --virtual: #E3A5C7;
+  --ok: #3CC9A0; --bad: #FF7B6B;
+}
+
+.viz-vw { color: var(--fg); font-family: inherit; }
+.viz-vw *, .viz-vw *::before, .viz-vw *::after { box-sizing: border-box; }
+.viz-vw .intro { color: var(--fg-muted); font-size: .95em; margin: 0 0 .8em; }
+.viz-vw .controls {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6em 1.2em;
+  padding: .8em; background: var(--panel-bg); border: 1px solid var(--border);
+  border-radius: 6px; margin-bottom: .6em;
+}
+.viz-vw .ctrl label { display: block; font-size: .88em; color: var(--fg-muted); margin-bottom: .2em; }
+.viz-vw .ctrl .val { color: var(--fg); font-variant-numeric: tabular-nums; }
+.viz-vw input[type="range"] { width: 100%; accent-color: var(--slider); }
+.viz-vw input[type="range"]:disabled { opacity: .35; }
+.viz-vw select {
+  width: 100%; font: inherit; font-size: .9em; color: var(--fg); background: var(--panel-bg);
+  border: 1px solid var(--border); border-radius: 4px; padding: .2em .3em;
+}
+.viz-vw .presets { display: flex; flex-wrap: wrap; gap: .4em; margin-bottom: .8em; }
+.viz-vw .presets button {
+  font: inherit; font-size: .85em; color: var(--fg); background: var(--panel-bg);
+  border: 1px solid var(--border); border-radius: 4px; padding: .25em .6em; cursor: pointer;
+}
+.viz-vw .presets button:hover, .viz-vw .presets button:focus-visible { border-color: var(--slider); }
+.viz-vw .fig {
+  background: var(--panel-bg); border: 1px solid var(--border); border-radius: 6px;
+  padding: .5em; margin-bottom: .8em;
+}
+.viz-vw svg { display: block; width: 100%; height: auto; max-width: 460px; margin: 0 auto; }
+.viz-vw svg text { fill: var(--fg-muted); font-size: 11px; font-family: inherit; }
+.viz-vw svg text.lbl { fill: var(--fg); }
+.viz-vw table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: .92em; }
+.viz-vw td { padding: .25em .4em; border-bottom: 1px solid var(--grid); }
+.viz-vw td.num { text-align: right; white-space: nowrap; }
+.viz-vw .verdict { margin-top: .6em; font-weight: 600; }
+.viz-vw .verdict.ok { color: var(--ok); }
+.viz-vw .verdict.bad { color: var(--bad); }
+.viz-vw .note { font-size: .88em; color: var(--fg-muted); margin-top: .9em; }
+.viz-vw .note p { margin: 0 0 .5em; }
+.viz-vw .quiz button {
+  font: inherit; font-size: .85em; color: var(--fg); background: var(--panel-bg);
+  border: 1px solid var(--border); border-radius: 4px; padding: .25em .6em; cursor: pointer;
+}
+.viz-vw .quiz button:hover, .viz-vw .quiz button:focus-visible { border-color: var(--slider); }
+.viz-vw .quiz button:disabled { opacity: .4; cursor: default; }
+.viz-vw .quiz { padding: .8em; background: var(--panel-bg); border: 1px solid var(--border); border-radius: 6px; margin: .8em 0; }
+.viz-vw .quiz .qhead { font-size: .85em; color: var(--fg-muted); }
+.viz-vw .quiz .qtext { margin: .3em 0 .6em; font-weight: 600; }
+.viz-vw .quiz .qopts { display: flex; flex-direction: column; gap: .35em; }
+.viz-vw .quiz .qopt { text-align: left; }
+.viz-vw .quiz .qopt:disabled { cursor: default; opacity: 1; }
+.viz-vw .quiz .qopt.correct { border-color: var(--ok); color: var(--ok); }
+.viz-vw .quiz .qopt.wrong { border-color: var(--bad); color: var(--bad); }
+.viz-vw .quiz .qfeedback, .viz-vw .quiz .qtry { margin: .6em 0 0; font-size: .92em; }
+.viz-vw .quiz .qfeedback.ok { color: var(--ok); }
+.viz-vw .quiz .qfeedback.bad { color: var(--bad); }
+.viz-vw .quiz .qtry { color: var(--fg-muted); }
+.viz-vw .quiz .qnav { display: flex; justify-content: space-between; margin-top: .7em; }
+@media (max-width: 560px) {
+  .viz-vw .controls { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="viz-vw">
+  <p class="intro">A bar of length L = 1 m, fixed at x = 0, carries a uniform axial load q and a
+  tip load P. Pick a force field N(x) and a virtual displacement δu(x) (amplitude δ = 1 mm), and
+  compare internal and external virtual work.</p>
+
+  <div class="controls">
+    <div class="ctrl">
+      <label for="vw-nsel">Axial force field N(x)</label>
+      <select id="vw-nsel">
+        <option value="exact">Equilibrium solution: P + q(L − x)</option>
+        <option value="constant">Constant: P + qL/2</option>
+        <option value="offset">Shifted: P + q(L − x) + 10 kN</option>
+      </select>
+    </div>
+    <div class="ctrl">
+      <label for="vw-vsel">Virtual displacement δu(x)</label>
+      <select id="vw-vsel">
+        <option value="linear">Linear: δ·x/L</option>
+        <option value="quad">Quadratic: δ·(x/L)²</option>
+        <option value="sine">Sine: δ·sin(πx/2L)</option>
+        <option value="bump">Local bump at x = a (zero at both ends)</option>
+        <option value="shift">Rigid shift: δ everywhere (inadmissible)</option>
+      </select>
+    </div>
+    <div class="ctrl">
+      <label for="vw-q">Distributed load q = <span class="val" id="vw-q-val"></span> kN/m</label>
+      <input type="range" id="vw-q" min="0" max="20" step="1" value="10">
+    </div>
+    <div class="ctrl">
+      <label for="vw-p">Tip load P = <span class="val" id="vw-p-val"></span> kN</label>
+      <input type="range" id="vw-p" min="-10" max="20" step="1" value="5">
+    </div>
+    <div class="ctrl">
+      <label for="vw-a">Bump centre a/L = <span class="val" id="vw-a-val"></span></label>
+      <input type="range" id="vw-a" min="0.15" max="0.85" step="0.01" value="0.5">
+    </div>
+  </div>
+
+  <div class="presets">
+    <button type="button" data-n="constant" data-v="linear">Constant N passes the linear test</button>
+    <button type="button" data-n="constant" data-v="quad">…and fails the quadratic one</button>
+    <button type="button" data-n="offset" data-v="bump">Shifted N passes every bump</button>
+    <button type="button" data-n="offset" data-v="linear">Linear δu catches the tip condition</button>
+    <button type="button" data-n="exact" data-v="shift">Why δu(0) must be 0</button>
+  </div>
+
+  <div class="fig">
+    <svg id="vw-svg" viewbox="0 0 460 546" role="img" aria-label="Bar under axial load, with plots of N(x), the virtual displacement and the virtual work densities">
+      <defs>
+        <marker id="vw-ah-load" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="6" markerheight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--load)"></path>
+        </marker>
+        <pattern id="vw-hatch" width="5" height="5" patternunits="userSpaceOnUse" patterntransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="5" stroke="var(--load)" stroke-width="2"></line>
+        </pattern>
+      </defs>
+
+      <!-- schematic -->
+      <g id="vw-wall" stroke="var(--fg-muted)" stroke-width="1"></g>
+      <rect x="60" y="38" width="320" height="12" fill="var(--grid)" stroke="var(--fg-muted)"></rect>
+      <g id="vw-qarrows" stroke="var(--load)" stroke-width="1.5"></g>
+      <text id="vw-q-lbl" class="lbl" x="70" y="18"></text>
+      <line id="vw-parrow" y1="44" y2="44" stroke="var(--load)" stroke-width="2.5" marker-end="url(#vw-ah-load)"></line>
+      <text id="vw-p-lbl" class="lbl" x="404" y="28" text-anchor="middle"></text>
+
+      <!-- N plot -->
+      <text class="lbl" x="60" y="94">Axial force N(x) [kN]</text>
+      <line x1="252" y1="90" x2="268" y2="90" stroke="var(--stress)" stroke-width="2"></line>
+      <text x="272" y="94" style="font-size:10px">selected</text>
+      <line x1="320" y1="90" x2="336" y2="90" stroke="var(--ref)" stroke-width="2" stroke-dasharray="4 3"></line>
+      <text x="340" y="94" style="font-size:10px">equilibrium</text>
+      <g id="vw-nticks"></g>
+      <g transform="translate(60,212) scale(1,-1)">
+        <g id="vw-ngrid"></g>
+        <path id="vw-nref" fill="none" stroke="var(--ref)" stroke-width="2" stroke-dasharray="4 3"></path>
+        <path id="vw-npath" fill="none" stroke="var(--stress)" stroke-width="2"></path>
+        <circle id="vw-ptarget" cx="320" r="4.5" fill="none" stroke="var(--load)" stroke-width="2"></circle>
+      </g>
+
+      <!-- δu plot -->
+      <text class="lbl" x="60" y="246">Virtual displacement δu(x) [mm]</text>
+      <g id="vw-uticks"></g>
+      <g transform="translate(60,340) scale(1,-1)">
+        <g id="vw-ugrid"></g>
+        <path id="vw-ufill" fill="var(--virtual)" fill-opacity="0.14" stroke="none"></path>
+        <path id="vw-upath" fill="none" stroke="var(--virtual)" stroke-width="2"></path>
+        <circle id="vw-bcflag" cx="0" r="5" fill="none" stroke="var(--bad)" stroke-width="2"></circle>
+      </g>
+      <g id="vw-xticks"></g>
+
+      <!-- virtual work densities and totals -->
+      <text class="lbl" x="60" y="392">Work densities along the bar [J/m]</text>
+      <line x1="258" y1="388" x2="274" y2="388" stroke="var(--stress)" stroke-width="2"></line>
+      <text x="278" y="392" style="font-size:10px">N δε</text>
+      <line x1="312" y1="388" x2="328" y2="388" stroke="var(--load)" stroke-width="2" stroke-dasharray="7 4"></line>
+      <text x="332" y="392" style="font-size:10px">q δu</text>
+      <text x="422" y="403" text-anchor="middle" style="font-size:10px">totals</text>
+      <g id="vw-dticks"></g>
+      <g transform="translate(60,504) scale(1,-1)">
+        <g id="vw-dgrid"></g>
+        <path id="vw-dext-fill" fill="var(--load)" fill-opacity="0.18" stroke="none"></path>
+        <path id="vw-dint-fill" fill="var(--stress)" fill-opacity="0.18" stroke="none"></path>
+        <path id="vw-dext" fill="none" stroke="var(--load)" stroke-width="2" stroke-dasharray="7 4"></path>
+        <path id="vw-dint" fill="none" stroke="var(--stress)" stroke-width="2"></path>
+      </g>
+      <g transform="translate(392,504) scale(1,-1)">
+        <line id="vw-bzero" x1="0" x2="60" stroke="var(--fg-muted)"></line>
+        <rect id="vw-bint" x="4" width="20" fill="var(--stress)" fill-opacity="0.7"></rect>
+        <rect id="vw-bdist" x="34" width="20" fill="var(--load)" fill-opacity="0.45"></rect>
+        <rect id="vw-btip" x="34" width="20" fill="url(#vw-hatch)" stroke="var(--load)" stroke-width="1"></rect>
+      </g>
+      <text x="406" y="520" text-anchor="middle">int</text>
+      <text x="436" y="520" text-anchor="middle">ext</text>
+      <g id="vw-dxticks"></g>
+      <text x="220" y="538" text-anchor="middle">x / L</text>
+    </svg>
+  </div>
+
+  <table data-quarto-disable-processing="true">
+    <tbody><tr><td>Internal virtual work ∫ N δε dx</td><td class="num"><span id="vw-wint"></span> J</td></tr>
+    <tr><td>External virtual work ∫ q δu dx + P δu(L)</td><td class="num"><span id="vw-wext"></span> J</td></tr>
+    <tr><td>Difference W<sub>int</sub> − W<sub>ext</sub></td><td class="num"><span id="vw-diff"></span> J</td></tr>
+    <tr><td>Support reaction work R δu(0), with R = −N(0)</td><td class="num"><span id="vw-wreac"></span> J</td></tr>
+  </tbody></table>
+  <div class="verdict" id="vw-verdict"></div>
+
+  <div class="quiz" id="vw-quiz"></div>
+
+
+
+  <script>
+  (function () {
+    const root = (document.currentScript && document.currentScript.closest('.viz-vw')) || document.querySelector('.viz-vw');
+    if (!root) return;
+    const __q = (id) => root.querySelector('#' + id);
+    const NS = 'http://www.w3.org/2000/svg';
+
+    const L = 1;          // m
+    const HW = 0.15;      // bump half-width, x/L
+    const OFFSET = 10;    // kN, shifted field
+    const NINT = 600;     // Simpson intervals (even)
+    const TOL = 1e-4;     // J
+
+    // plot geometry (maths coordinates inside flipped groups)
+    const PW = 320;
+    const NMIN = -10, NMAX = 50, NH = 110, SN = NH / (NMAX - NMIN);
+    const UMIN = -0.1, UMAX = 1.1, UH = 86, SU = UH / (UMAX - UMIN);
+    const NBASE = 212, UBASE = 340;   // screen y of the flipped origins
+    const X = (xi) => PW * xi;
+    const YN = (N) => (N - NMIN) * SN;
+    const YU = (u) => (u - UMIN) * SU;
+
+    const fields = {
+      exact:    (x, q, P) => P + q * (L - x),
+      constant: (x, q, P) => P + q * L / 2,
+      offset:   (x, q, P) => P + q * (L - x) + OFFSET,
+    };
+    // returns [δu in mm, dδu/dx in mm/m] at xi = x/L
+    const virt = {
+      linear: (xi) => [xi, 1 / L],
+      quad:   (xi) => [xi * xi, 2 * xi / L],
+      sine:   (xi) => [Math.sin(Math.PI * xi / 2), (Math.PI / (2 * L)) * Math.cos(Math.PI * xi / 2)],
+      bump:   (xi, a) => {
+        const d = xi - a;
+        if (Math.abs(d) >= HW) return [0, 0];
+        const th = Math.PI * d / (2 * HW);
+        return [Math.cos(th) ** 2, -Math.sin(2 * th) * Math.PI / (2 * HW * L)];
+      },
+      shift:  () => [1, 0],
+    };
+
+    const qIn = __q('vw-q'), pIn = __q('vw-p'), aIn = __q('vw-a');
+    const nSel = __q('vw-nsel'), vSel = __q('vw-vsel');
+
+    function el(tag, attrs, parent) {
+      const e = document.createElementNS(NS, tag);
+      for (const k in attrs) e.setAttribute(k, attrs[k]);
+      if (parent) parent.appendChild(e);
+      return e;
+    }
+    function txt(parent, x, y, s, anchor) {
+      const t = el('text', { x: x, y: y, 'text-anchor': anchor || 'middle' }, parent);
+      t.textContent = s;
+      return t;
+    }
+
+    // ---- static scaffolding (built once) ----
+    (function build() {
+      const wall = __q('vw-wall');
+      el('line', { x1: 60, y1: 20, x2: 60, y2: 68, 'stroke-width': 2 }, wall);
+      for (let y = 22; y <= 60; y += 8) el('line', { x1: 60, y1: y, x2: 52, y2: y + 8 }, wall);
+
+      const qa = __q('vw-qarrows');
+      for (let i = 0; i < 8; i++) {
+        const x0 = 72 + i * 38;
+        el('line', { x1: x0, y1: 30, x2: x0 + 18, y2: 30, 'marker-end': 'url(#vw-ah-load)' }, qa);
+      }
+
+      const ng = __q('vw-ngrid'), nt = __q('vw-nticks');
+      for (let N = NMIN; N <= NMAX; N += 10) {
+        el('line', { x1: 0, y1: YN(N), x2: PW, y2: YN(N),
+                     stroke: N === 0 ? 'var(--fg-muted)' : 'var(--grid)', 'stroke-width': 1 }, ng);
+        txt(nt, 54, NBASE - YN(N) + 3.5, N < 0 ? '\u2212' + (-N) : String(N), 'end');
+      }
+      const ug = __q('vw-ugrid'), ut = __q('vw-uticks');
+      [0, 0.5, 1].forEach((u) => {
+        el('line', { x1: 0, y1: YU(u), x2: PW, y2: YU(u),
+                     stroke: u === 0 ? 'var(--fg-muted)' : 'var(--grid)', 'stroke-width': 1 }, ug);
+        txt(ut, 54, UBASE - YU(u) + 3.5, String(u), 'end');
+      });
+      const xt = __q('vw-xticks');
+      [0, 0.25, 0.5, 0.75, 1].forEach((xi) => {
+        el('line', { x1: X(xi), y1: 0, x2: X(xi), y2: NH, stroke: 'var(--grid)' }, ng);
+        el('line', { x1: X(xi), y1: 0, x2: X(xi), y2: UH, stroke: 'var(--grid)' }, ug);
+        txt(xt, 60 + X(xi), 356, String(xi));
+        txt(__q('vw-dxticks'), 60 + X(xi), 520, String(xi));
+      });
+      el('rect', { x: 0, y: 0, width: PW, height: NH, fill: 'none', stroke: 'var(--border)' }, ng);
+      el('rect', { x: 0, y: 0, width: PW, height: UH, fill: 'none', stroke: 'var(--border)' }, ug);
+    })();
+
+    function simpson(f) {
+      const h = L / NINT;
+      let s = f(0) + f(L);
+      for (let i = 1; i < NINT; i++) s += (i % 2 ? 4 : 2) * f(i * h);
+      return s * h / 3;
+    }
+    function fmt(v, d) {
+      if (Math.abs(v) < 0.5 * Math.pow(10, -d)) v = 0;
+      const s = Math.abs(v).toFixed(d);
+      return (v < 0 ? '\u2212' : '\u00A0') + s;
+    }
+    function pathOf(fn, n) {
+      let d = '';
+      for (let i = 0; i <= n; i++) {
+        const xi = i / n, p = fn(xi);
+        d += (i ? 'L' : 'M') + X(xi).toFixed(2) + ',' + p.toFixed(2);
+      }
+      return d;
+    }
+
+    const clearG = (g) => { while (g.firstChild) g.removeChild(g.firstChild); };
+    function niceRange(lo, hi) {            // expand [lo, hi] to round ticks, about 4 intervals
+      if (hi - lo < 1e-9) { lo = -1; hi = 1; }
+      const raw = (hi - lo) / 4, p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p;
+      const step = (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p;
+      return [Math.floor(lo / step + 1e-9) * step, Math.ceil(hi / step - 1e-9) * step, step];
+    }
+
+    function update() {
+      const q = +qIn.value, P = +pIn.value, a = +aIn.value;
+      const nKey = nSel.value, vKey = vSel.value;
+      aIn.disabled = vKey !== 'bump';
+      __q('vw-q-val').textContent = q.toFixed(0);
+      __q('vw-p-val').textContent = (P < 0 ? '\u2212' : '') + Math.abs(P).toFixed(0);
+      __q('vw-a-val').textContent = a.toFixed(2);
+
+      const Nf = (x) => fields[nKey](x, q, P);
+      const Ne = (x) => fields.exact(x, q, P);
+      const V = (x) => virt[vKey](x / L, a);
+
+      // work
+      const Wint = simpson((x) => Nf(x) * V(x)[1]);
+      const Wext = simpson((x) => q * V(x)[0]) + P * V(L)[0];
+      const du0 = V(0)[0];
+      const Wreac = -Nf(0) * du0;
+      const diff = Wint - Wext;
+
+      // schematic
+      __q('vw-qarrows').style.visibility = q > 0 ? 'visible' : 'hidden';
+      __q('vw-q-lbl').textContent = 'q = ' + q + ' kN/m';
+      const pa = __q('vw-parrow');
+      const len = 12 + 28 * Math.abs(P) / 20;
+      pa.style.visibility = P !== 0 ? 'visible' : 'hidden';
+      if (P > 0) { pa.setAttribute('x1', 382); pa.setAttribute('x2', 382 + len); }
+      else       { pa.setAttribute('x1', 382 + len); pa.setAttribute('x2', 382); }
+      __q('vw-p-lbl').textContent = 'P = ' + (P < 0 ? '\u2212' : '') + Math.abs(P) + ' kN';
+
+      // plots
+      __q('vw-nref').setAttribute('d', pathOf((xi) => YN(Ne(xi * L)), 100));
+      __q('vw-npath').setAttribute('d', pathOf((xi) => YN(Nf(xi * L)), 100));
+      __q('vw-ptarget').setAttribute('cy', YN(P));
+      const ud = pathOf((xi) => YU(virt[vKey](xi, a)[0]), 200);
+      __q('vw-upath').setAttribute('d', ud);
+      __q('vw-ufill').setAttribute('d', ud + 'L' + X(1) + ',' + YU(0) + 'L' + X(0) + ',' + YU(0) + 'Z');
+      const flag = __q('vw-bcflag');
+      flag.setAttribute('cy', YU(du0));
+      flag.style.visibility = Math.abs(du0) > 1e-12 ? 'visible' : 'hidden';
+
+      // work densities: internal N·δε and external q·δu, with auto-scaled, labelled axis
+      const NS_ = 400, fi = [], fe = [];
+      for (let k = 0; k <= NS_; k++) {
+        const x = k / NS_ * L, v = V(x);
+        fi.push(Nf(x) * v[1]); fe.push(q * v[0]);
+      }
+      const DH = 96;
+      const [dlo, dhi, dstep] = niceRange(Math.min(0, ...fi, ...fe), Math.max(0, ...fi, ...fe));
+      const YD = (v) => (v - dlo) / (dhi - dlo) * DH;
+      const dg = __q('vw-dgrid'), dt = __q('vw-dticks');
+      clearG(dg); clearG(dt);
+      const dec = dstep >= 1 ? 0 : Math.ceil(-Math.log10(dstep) - 1e-9);
+      for (let v = dlo; v <= dhi + 1e-9; v += dstep) {
+        const vv = Math.abs(v) < dstep * 1e-6 ? 0 : v;
+        el('line', { x1: 0, y1: YD(vv), x2: PW, y2: YD(vv), stroke: vv === 0 ? 'var(--fg-muted)' : 'var(--grid)' }, dg);
+        txt(dt, 54, 504 - YD(vv) + 3.5, (vv < 0 ? '\u2212' : '') + Math.abs(vv).toFixed(dec), 'end');
+      }
+      [0, 0.25, 0.5, 0.75, 1].forEach((xi) => el('line', { x1: X(xi), y1: 0, x2: X(xi), y2: DH, stroke: 'var(--grid)' }, dg));
+      el('rect', { x: 0, y: 0, width: PW, height: DH, fill: 'none', stroke: 'var(--border)' }, dg);
+      const dpath = (arr) => arr.map((v, k) => (k ? 'L' : 'M') + X(k / NS_).toFixed(2) + ',' + YD(v).toFixed(2)).join('');
+      const close = 'L' + X(1) + ',' + YD(0) + 'L' + X(0) + ',' + YD(0) + 'Z';
+      const pi_ = dpath(fi), pe_ = dpath(fe);
+      __q('vw-dint').setAttribute('d', pi_); __q('vw-dint-fill').setAttribute('d', pi_ + close);
+      __q('vw-dext').setAttribute('d', pe_); __q('vw-dext-fill').setAttribute('d', pe_ + close);
+
+      // totals as bars on their own scale: int | distributed + tip (hatched)
+      const Wdist = simpson((x) => q * V(x)[0]), Wtip = P * V(L)[0];
+      const [blo, bhi] = niceRange(Math.min(0, Wint, Wdist, Wdist + Wtip), Math.max(0, Wint, Wdist, Wdist + Wtip));
+      const YB = (v) => (v - blo) / (bhi - blo) * DH;
+      const bar = (id, a, b) => {
+        const r = __q(id);
+        r.setAttribute('y', Math.min(YB(a), YB(b)));
+        r.setAttribute('height', Math.abs(YB(b) - YB(a)));
+      };
+      bar('vw-bint', 0, Wint); bar('vw-bdist', 0, Wdist); bar('vw-btip', Wdist, Wdist + Wtip);
+      __q('vw-bzero').setAttribute('y1', YB(0)); __q('vw-bzero').setAttribute('y2', YB(0));
+
+      // readouts
+      __q('vw-wint').textContent = fmt(Wint, 3);
+      __q('vw-wext').textContent = fmt(Wext, 3);
+      __q('vw-diff').textContent = fmt(diff, 3);
+      __q('vw-wreac').textContent = fmt(Wreac, 3);
+
+      const v = __q('vw-verdict');
+      if (Math.abs(du0) > 1e-12) {
+        v.className = 'verdict bad';
+        v.textContent = 'Inadmissible δu: δu(0) ≠ 0, so the support reaction does work and ' +
+          'W_int ≠ W_ext even for the equilibrium field. Choose a δu with δu(0) = 0.';
+      } else if (Math.abs(diff) < TOL) {
+        v.className = 'verdict ok';
+        v.textContent = 'W_int = W_ext for this δu. Equilibrium requires this for every admissible δu — try another.';
+      } else {
+        v.className = 'verdict bad';
+        v.textContent = 'W_int ≠ W_ext: this N(x) is not in equilibrium with the applied loads.';
+      }
+    }
+
+    [qIn, pIn, aIn].forEach((e) => e.addEventListener('input', update));
+    [nSel, vSel].forEach((e) => e.addEventListener('change', update));
+    root.querySelectorAll('.presets button').forEach((b) => {
+      b.addEventListener('click', () => {
+        nSel.value = b.dataset.n;
+        vSel.value = b.dataset.v;
+        qIn.value = 10; pIn.value = 5; aIn.value = 0.5;
+        update();
+      });
+    });
+
+    // ---- predict-first quiz ----
+    const QUIZ = [
+      { q: 'With the equilibrium field N = P + q(L − x), which admissible δu give W_int = W_ext?',
+        options: ['Only the linear one', 'Only the ones that reach the tip', 'Every admissible δu'],
+        answer: 2,
+        explain: 'That is the principle of virtual work: a field in equilibrium balances every virtual displacement with δu(0) = 0.',
+        check: 'keep the equilibrium field and go through the linear, quadratic, sine and bump options, moving the sliders as you like.' },
+      { q: 'The constant field N = P + qL/2 is wrong when q ≠ 0. Does it pass the linear test δu = δ·x/L?',
+        options: ['Yes', 'No'],
+        answer: 0,
+        explain: 'The linear test only sees the total load, and the constant field carries the right total. One passing test proves nothing.',
+        check: 'press "Constant N passes the linear test", then switch to the quadratic δu.' },
+      { q: 'The shifted field satisfies dN/dx + q = 0 but has N(L) ≠ P. Which test exposes it?',
+        options: ['A bump in the middle', 'Any δu with δu(L) ≠ 0', 'None, it is in equilibrium'],
+        answer: 1,
+        explain: 'A bump vanishes at the tip, so it only checks the field equation. The tip condition shows up only when δu(L) ≠ 0.',
+        check: 'choose the shifted field and compare the bump with the linear δu.' },
+      { q: 'With the equilibrium field and the rigid shift δu = δ, do W_int and W_ext match?',
+        options: ['Yes', 'No: the gap is the work of the support reaction'],
+        answer: 1,
+        explain: 'δu(0) ≠ 0 lets the unknown reaction do work, so the balance fails even for the true N. That is why admissible δu vanish at supports.',
+        check: 'press "Why δu(0) must be 0" and compare the difference with the reaction-work row.' },
+      { q: 'At equilibrium, are the densities N δε and q δu equal at every x?',
+        options: ['Yes', 'No, only the totals match'],
+        answer: 1,
+        explain: 'Only the integrals balance (plus P δu(L)). With the linear δu the internal density is N(x) and the external one is q x/L: different curves, matching totals.',
+        check: 'look at the bottom plot with the equilibrium field and the linear δu.' },
+    ];
+    function makeQuiz(box, Q) {
+      const chosen = Q.map(() => -1);
+      let i = 0;
+      function render() {
+        const it = Q[i], c = chosen[i];
+        let html = '<div class="qhead">Predict first: question ' + (i + 1) + ' of ' + Q.length + '</div>' +
+          '<p class="qtext">' + it.q + '</p><div class="qopts">';
+        it.options.forEach((o, j) => {
+          let cls = '', mark = '';
+          if (c >= 0 && j === it.answer) { cls = ' correct'; mark = '\u2713 '; }
+          else if (c >= 0 && j === c) { cls = ' wrong'; mark = '\u2717 '; }
+          html += '<button type="button" class="qopt' + cls + '" data-i="' + j + '"' + (c >= 0 ? ' disabled' : '') + '>' + mark + o + '</button>';
+        });
+        html += '</div>';
+        if (c >= 0) {
+          html += '<p class="qfeedback ' + (c === it.answer ? 'ok' : 'bad') + '">' + (c === it.answer ? 'Right. ' : 'Not quite. ') + it.explain + '</p>' +
+                  '<p class="qtry">Check it: ' + it.check + '</p>';
+        }
+        html += '<div class="qnav"><button type="button" data-nav="-1"' + (i === 0 ? ' disabled' : '') + '>Previous</button>' +
+                '<button type="button" data-nav="1"' + (i === Q.length - 1 ? ' disabled' : '') + '>Next question</button></div>';
+        box.innerHTML = html;
+        box.querySelectorAll('.qopt').forEach((b) => b.addEventListener('click', () => { chosen[i] = +b.dataset.i; render(); }));
+        box.querySelectorAll('[data-nav]').forEach((b) => b.addEventListener('click', () => { i += +b.dataset.nav; render(); }));
+      }
+      render();
+    }
+    makeQuiz(__q('vw-quiz'), QUIZ);
+
+    update();
+  })();
+  </script>
+</div>
+</section>
+<section id="using-the-principle-of-virtual-work-as-a-solver" class="level3">
+<h3 class="anchored" data-anchor-id="using-the-principle-of-virtual-work-as-a-solver">Using the principle of virtual work as a solver</h3>
+<p>As we highlighted before, the principle of virtual work is the basis on which the finite element method is built. We will not introduce FEM now, but will do something quite similar here. Suppose now that you do not have the equilibrium solution for the normal force, but you can always make a guess for the normal force of the form</p>
+<p><span class="math display">\[
+N(x) = A + B \frac{x}{L} + C \frac{x^2}{L^2}
+\]</span></p>
+<p>To find those 3 unknowns, you would need a few equations. Turns out that the principle of virtual work can help you generate those equations! Just think of 3 well thought out virtual displacements, and write out the PVW! Then you can find <span class="math inline">\(A,B\)</span>, and <span class="math inline">\(C\)</span> that satisfy the 3 equations.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="I set three virtual displacements and I have found A,B and C, does that mean that I have found the equilibrium solution?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>I set three virtual displacements and I have found A,B and C, does that mean that I have found the equilibrium solution?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No! Since you have not tested with every possible virtual displacement, you cannot draw the conclusion. All you can say is that you found a solution that passes your specific tests. In this case, our guess will give us the equilibrium formula for the normal force, but that is specific to this problem.</p>
+</div>
+</div>
+</div>
+<p>In the following widget, you can play around with the value of <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> for different load situations until all the tests pass. When you set a non-uniform <span class="math inline">\(q\)</span>, you will need the <span class="math inline">\(C\)</span> term. Use the graph showing the equilibrium line for each test to find <span class="math inline">\(C\)</span>.</p>
+<style>
+.viz-vws,
+[data-bs-theme="light"] .viz-vws,
+body.quarto-light .viz-vws {
+  --fg: #1f2328; --fg-muted: #5b636d; --panel-bg: #f6f7f9; --border: #d4d8de;
+  --grid: #e3e6ea; --slider: #3b6ea8;
+  --load: #00805E; --stress: #D55E00; --ref: #6B7684; --ok: #00805E; --bad: #B8321A;
+  --s1: #0072B2; --s2: #C98700; --s3: #00805E; --s4: #CC79A7; --s5: #56B4E9;
+}
+@media (prefers-color-scheme: dark) {
+  .viz-vws {
+    --fg: #e6e8eb; --fg-muted: #a0a8b3; --panel-bg: #1e2227; --border: #3a414a;
+    --grid: #2c323a; --slider: #7fb0e6;
+    --load: #3CC9A0; --stress: #FF8C42; --ref: #9AA4B0; --ok: #3CC9A0; --bad: #FF7B6B;
+    --s1: #5AA0F0; --s2: #F0B030; --s3: #3CC9A0; --s4: #E3A5C7; --s5: #A6DCF7;
+  }
+}
+[data-bs-theme="dark"] .viz-vws,
+body.quarto-dark .viz-vws {
+  --fg: #e6e8eb; --fg-muted: #a0a8b3; --panel-bg: #1e2227; --border: #3a414a;
+  --grid: #2c323a; --slider: #7fb0e6;
+  --load: #3CC9A0; --stress: #FF8C42; --ref: #9AA4B0; --ok: #3CC9A0; --bad: #FF7B6B;
+  --s1: #5AA0F0; --s2: #F0B030; --s3: #3CC9A0; --s4: #E3A5C7; --s5: #A6DCF7;
+}
+
+.viz-vws { color: var(--fg); font-family: inherit; }
+.viz-vws *, .viz-vws *::before, .viz-vws *::after { box-sizing: border-box; }
+.viz-vws .intro { color: var(--fg-muted); font-size: .95em; margin: 0 0 .8em; }
+.viz-vws .controls {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6em 1.2em;
+  padding: .8em; background: var(--panel-bg); border: 1px solid var(--border);
+  border-radius: 6px; margin-bottom: .8em;
+}
+.viz-vws .ctrl label { display: block; font-size: .88em; color: var(--fg-muted); margin-bottom: .2em; }
+.viz-vws .ctrl .hrow { display: flex; gap: .5em; align-items: center; }
+.viz-vws input[type="range"] { flex: 1; min-width: 0; accent-color: var(--slider); }
+.viz-vws input[type="checkbox"] { accent-color: var(--slider); }
+.viz-vws input:disabled { opacity: .35; }
+.viz-vws input[type="number"] {
+  width: 5.2em; font: inherit; font-size: .9em; font-variant-numeric: tabular-nums;
+  color: var(--fg); background: var(--panel-bg); border: 1px solid var(--border);
+  border-radius: 4px; padding: .15em .3em;
+}
+.viz-vws select {
+  flex: 1; min-width: 0; font: inherit; font-size: .9em; color: var(--fg); background: var(--panel-bg);
+  border: 1px solid var(--border); border-radius: 4px; padding: .2em .3em;
+}
+.viz-vws button {
+  font: inherit; font-size: .85em; color: var(--fg); background: var(--panel-bg);
+  border: 1px solid var(--border); border-radius: 4px; padding: .25em .6em; cursor: pointer;
+}
+.viz-vws button:hover, .viz-vws button:focus-visible { border-color: var(--slider); }
+.viz-vws .check { display: flex; gap: .4em; align-items: center; font-size: .88em; color: var(--fg-muted); }
+.viz-vws .fig {
+  background: var(--panel-bg); border: 1px solid var(--border); border-radius: 6px;
+  padding: .5em; margin-bottom: .8em;
+}
+.viz-vws svg { display: block; width: 100%; height: auto; max-width: 460px; margin: 0 auto; }
+.viz-vws svg text { fill: var(--fg-muted); font-size: 11px; font-family: inherit; }
+.viz-vws svg text.lbl { fill: var(--fg); }
+.viz-vws table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: .92em; }
+.viz-vws td { padding: .3em .4em; border-bottom: 1px solid var(--grid); vertical-align: top; }
+.viz-vws td.num { text-align: right; white-space: nowrap; }
+.viz-vws td .eq { display: block; font-size: .85em; color: var(--fg-muted); }
+.viz-vws td label { cursor: pointer; }
+.viz-vws svg.swatch { display: inline-block; width: 22px; height: 8px; max-width: none; margin: 0 .35em 0 0; vertical-align: .05em; }
+.viz-vws .pass { color: var(--ok); }
+.viz-vws .fail { color: var(--bad); }
+.viz-vws .verdict { margin: .7em 0 .5em; font-weight: 600; }
+.viz-vws .verdict.ok { color: var(--ok); }
+.viz-vws .verdict.bad { color: var(--bad); }
+.viz-vws .note { font-size: .88em; color: var(--fg-muted); margin-top: .9em; }
+.viz-vws .note p { margin: 0 0 .5em; }
+.viz-vws .quiz { padding: .8em; background: var(--panel-bg); border: 1px solid var(--border); border-radius: 6px; margin: .8em 0; }
+.viz-vws .quiz .qhead { font-size: .85em; color: var(--fg-muted); }
+.viz-vws .quiz .qtext { margin: .3em 0 .6em; font-weight: 600; }
+.viz-vws .quiz .qopts { display: flex; flex-direction: column; gap: .35em; }
+.viz-vws .quiz .qopt { text-align: left; }
+.viz-vws .quiz .qopt:disabled { cursor: default; }
+.viz-vws .quiz .qopt.correct { border-color: var(--ok); color: var(--ok); }
+.viz-vws .quiz .qopt.wrong { border-color: var(--bad); color: var(--bad); }
+.viz-vws .quiz .qfeedback, .viz-vws .quiz .qtry { margin: .6em 0 0; font-size: .92em; }
+.viz-vws .quiz .qfeedback.ok { color: var(--ok); }
+.viz-vws .quiz .qfeedback.bad { color: var(--bad); }
+.viz-vws .quiz .qtry { color: var(--fg-muted); }
+.viz-vws .quiz .qnav { display: flex; justify-content: space-between; margin-top: .7em; }
+@media (max-width: 560px) {
+  .viz-vws .controls { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="viz-vws">
+  <p class="intro">Find the axial force in the bar using only the principle of virtual work.
+  Guess N(x) = A + B·(x/L) + C·(x/L)², then check it against five test functions δu. Adjust A, B
+  and C until every test balances.</p>
+
+  <div class="controls">
+    <div class="ctrl">
+      <label for="vws-load">Load case</label>
+      <div class="hrow">
+        <select id="vws-load">
+          <option value="uniform">Uniform q</option>
+          <option value="tri">Triangular q(x) = q₀·x/L</option>
+        </select>
+        <button type="button" id="vws-new">New loads</button>
+      </div>
+    </div>
+    <div class="ctrl">
+      <label class="check" for="vws-usec"><input type="checkbox" id="vws-usec"> Include the (x/L)² term</label>
+      <button type="button" id="vws-reset" style="margin-top:.3em">Reset guess to zero</button>
+    </div>
+    <div class="ctrl">
+      <label for="vws-A">A = N(0) [kN]</label>
+      <div class="hrow">
+        <input type="range" id="vws-A" min="-20" max="50" step="0.5" value="0">
+        <input type="number" id="vws-A-num" min="-20" max="50" step="0.5" value="0" aria-label="A in kN">
+      </div>
+    </div>
+    <div class="ctrl">
+      <label for="vws-B">B [kN]</label>
+      <div class="hrow">
+        <input type="range" id="vws-B" min="-30" max="10" step="0.5" value="0">
+        <input type="number" id="vws-B-num" min="-30" max="10" step="0.5" value="0" aria-label="B in kN">
+      </div>
+    </div>
+    <div class="ctrl">
+      <label for="vws-C">C [kN]</label>
+      <div class="hrow">
+        <input type="range" id="vws-C" min="-15" max="5" step="0.5" value="0">
+        <input type="number" id="vws-C-num" min="-15" max="5" step="0.5" value="0" aria-label="C in kN">
+      </div>
+    </div>
+  </div>
+
+  <div class="fig">
+    <svg id="vws-svg1" viewbox="0 0 460 380" role="img" aria-label="Loaded bar, trial axial force and selected test function">
+      <defs>
+        <marker id="vws-ah" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="6" markerheight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--load)"></path>
+        </marker>
+      </defs>
+      <g id="vws-wall" stroke="var(--fg-muted)" stroke-width="1"></g>
+      <rect x="60" y="38" width="320" height="12" fill="var(--grid)" stroke="var(--fg-muted)"></rect>
+      <g id="vws-qarrows" stroke="var(--load)" stroke-width="1.5"></g>
+      <text id="vws-q-lbl" class="lbl" x="70" y="18"></text>
+      <line id="vws-parrow" y1="44" y2="44" stroke="var(--load)" stroke-width="2.5" marker-end="url(#vws-ah)"></line>
+      <text id="vws-p-lbl" class="lbl" x="404" y="28" text-anchor="middle"></text>
+
+      <text class="lbl" x="60" y="94">Trial axial force N(x) [kN]</text>
+      <g id="vws-legend-exact" style="visibility:hidden">
+        <line x1="320" y1="90" x2="336" y2="90" stroke="var(--ref)" stroke-width="2" stroke-dasharray="4 3"></line>
+        <text x="340" y="94" style="font-size:10px">equilibrium</text>
+      </g>
+      <g id="vws-nticks"></g>
+      <g transform="translate(60,212) scale(1,-1)">
+        <g id="vws-ngrid"></g>
+        <path id="vws-nref" fill="none" stroke="var(--ref)" stroke-width="2" stroke-dasharray="4 3"></path>
+        <path id="vws-npath" fill="none" stroke="var(--stress)" stroke-width="2.2"></path>
+      </g>
+
+      <text class="lbl" id="vws-u-title" x="60" y="246"></text>
+      <g id="vws-uticks"></g>
+      <g transform="translate(60,340) scale(1,-1)">
+        <g id="vws-ugrid"></g>
+        <path id="vws-ufill" fill-opacity="0.15" stroke="none"></path>
+        <path id="vws-upath" fill="none" stroke-width="2"></path>
+      </g>
+      <g id="vws-xticks"></g>
+      <text x="220" y="374" text-anchor="middle">x / L</text>
+    </svg>
+  </div>
+
+  <table data-quarto-disable-processing="true" id="vws-table"></table>
+
+  <div class="verdict" id="vws-verdict"></div>
+  <button type="button" id="vws-reveal">Show the equilibrium solution</button>
+
+  <div class="fig" style="margin-top:.8em">
+    <svg id="vws-svg2" viewbox="0 0 460 330" role="img" aria-label="Zero-residual lines of each test in the A-B plane">
+      <text class="lbl" x="60" y="18">Where each test balances, in the (A, B) plane</text>
+      <text x="14" y="34">B [kN]</text>
+      <text id="vws-cslice" x="420" y="34" text-anchor="end"></text>
+      <g id="vws-pticks"></g>
+      <g transform="translate(60,290) scale(1,-1)">
+        <g id="vws-pgrid"></g>
+        <g id="vws-plines"></g>
+        <circle id="vws-pexact" r="7" fill="none" stroke="var(--ref)" stroke-width="2" stroke-dasharray="3 2"></circle>
+        <circle id="vws-pcur" r="5" fill="var(--fg)" stroke="var(--panel-bg)" stroke-width="2"></circle>
+      </g>
+      <text x="240" y="324" text-anchor="middle">A [kN]</text>
+    </svg>
+  </div>
+
+  <div class="quiz" id="vws-quiz"></div>
+
+
+
+  <script>
+  (function () {
+    const root = (document.currentScript && document.currentScript.closest('.viz-vws')) || document.querySelector('.viz-vws');
+    if (!root) return;
+    const __q = (id) => root.querySelector('#' + id);
+    const NS = 'http://www.w3.org/2000/svg';
+
+    const L = 1, HW = 0.15, NINT = 600, TOL = 0.01;
+
+    // ---- test functions: [δu (mm), dδu/dξ] at ξ = x/L ----
+    const bump = (a) => (xi) => {
+      const d = xi - a;
+      if (Math.abs(d) >= HW) return [0, 0];
+      const th = Math.PI * d / (2 * HW);
+      return [Math.cos(th) ** 2, -Math.sin(2 * th) * Math.PI / (2 * HW)];
+    };
+    const TESTS = [
+      { name: 'Linear δ·x/L',           f: (xi) => [xi, 1] },
+      { name: 'Quadratic δ·(x/L)²',     f: (xi) => [xi * xi, 2 * xi] },
+      { name: 'Sine δ·sin(πx/2L)',      f: (xi) => [Math.sin(Math.PI * xi / 2), Math.PI / 2 * Math.cos(Math.PI * xi / 2)] },
+      { name: 'Bump at x/L = 0.3',      f: bump(0.3) },
+      { name: 'Bump at x/L = 0.7',      f: bump(0.7) },
+    ];
+    function simpson(g) {
+      const h = 1 / NINT;
+      let s = g(0) + g(1);
+      for (let i = 1; i < NINT; i++) s += (i % 2 ? 4 : 2) * g(i * h);
+      return s * h / 3;
+    }
+    // with L = 1: W_int = a·A + b·B + c·C, W_ext = q·I0 (uniform) or q0·I1 (triangular) + P·uL
+    TESTS.forEach((t, i) => {
+      t.a = simpson((x) => t.f(x)[1]);
+      t.b = simpson((x) => x * t.f(x)[1]);
+      t.c = simpson((x) => x * x * t.f(x)[1]);
+      t.I0 = simpson((x) => t.f(x)[0]);
+      t.I1 = simpson((x) => x * t.f(x)[0]);
+      t.uL = t.f(1)[0];
+      t.color = 'var(--s' + (i + 1) + ')';
+      t.dash = ['none', '9 4', '2 3', '9 3 2 3', '14 4 4 4'][i];
+    });
+
+    // ---- state not held in controls ----
+    let q = 10, P = 5, reveal = false, sel = 0;
+
+    const loadSel = __q('vws-load'), useC = __q('vws-usec');
+    const S = {};
+    ['A', 'B', 'C'].forEach((k) => { S[k] = { r: __q('vws-' + k), n: __q('vws-' + k + '-num') }; });
+
+    // ---- plot geometry (maths coordinates inside flipped groups) ----
+    const PW = 320;
+    const NMIN = -20, NMAX = 50, NH = 110, SN = NH / (NMAX - NMIN);
+    const UMIN = -0.1, UMAX = 1.1, UH = 86, SU = UH / (UMAX - UMIN);
+    const X = (xi) => PW * xi, YN = (N) => (N - NMIN) * SN, YU = (u) => (u - UMIN) * SU;
+    const AMIN = -20, AMAX = 50, BMIN = -30, BMAX = 10, PPW = 360, PPH = 250;
+    const PA = (A) => (A - AMIN) * PPW / (AMAX - AMIN), PB = (B) => (B - BMIN) * PPH / (BMAX - BMIN);
+
+    function el(tag, attrs, parent) {
+      const e = document.createElementNS(NS, tag);
+      for (const k in attrs) e.setAttribute(k, attrs[k]);
+      if (parent) parent.appendChild(e);
+      return e;
+    }
+    function txt(parent, x, y, s, anchor) {
+      const t = el('text', { x: x, y: y, 'text-anchor': anchor || 'middle' }, parent);
+      t.textContent = s;
+      return t;
+    }
+    const sgn = (v) => (v < 0 ? '\u2212' + (-v) : String(v));
+
+    // ---- static scaffolding ----
+    (function build() {
+      const wall = __q('vws-wall');
+      el('line', { x1: 60, y1: 20, x2: 60, y2: 68, 'stroke-width': 2 }, wall);
+      for (let y = 22; y <= 60; y += 8) el('line', { x1: 60, y1: y, x2: 52, y2: y + 8 }, wall);
+
+      const ng = __q('vws-ngrid'), nt = __q('vws-nticks');
+      for (let N = NMIN; N <= NMAX; N += 10) {
+        el('line', { x1: 0, y1: YN(N), x2: PW, y2: YN(N), stroke: N === 0 ? 'var(--fg-muted)' : 'var(--grid)' }, ng);
+        txt(nt, 54, 212 - YN(N) + 3.5, sgn(N), 'end');
+      }
+      const ug = __q('vws-ugrid'), ut = __q('vws-uticks');
+      [0, 0.5, 1].forEach((u) => {
+        el('line', { x1: 0, y1: YU(u), x2: PW, y2: YU(u), stroke: u === 0 ? 'var(--fg-muted)' : 'var(--grid)' }, ug);
+        txt(ut, 54, 340 - YU(u) + 3.5, String(u), 'end');
+      });
+      const xt = __q('vws-xticks');
+      [0, 0.25, 0.5, 0.75, 1].forEach((xi) => {
+        el('line', { x1: X(xi), y1: 0, x2: X(xi), y2: NH, stroke: 'var(--grid)' }, ng);
+        el('line', { x1: X(xi), y1: 0, x2: X(xi), y2: UH, stroke: 'var(--grid)' }, ug);
+        txt(xt, 60 + X(xi), 356, String(xi));
+      });
+      el('rect', { x: 0, y: 0, width: PW, height: NH, fill: 'none', stroke: 'var(--border)' }, ng);
+      el('rect', { x: 0, y: 0, width: PW, height: UH, fill: 'none', stroke: 'var(--border)' }, ug);
+
+      const pg = __q('vws-pgrid'), pt = __q('vws-pticks');
+      for (let A = AMIN; A <= AMAX; A += 10) {
+        el('line', { x1: PA(A), y1: 0, x2: PA(A), y2: PPH, stroke: A === 0 ? 'var(--fg-muted)' : 'var(--grid)' }, pg);
+        txt(pt, 60 + PA(A), 306, sgn(A));
+      }
+      for (let B = BMIN; B <= BMAX; B += 10) {
+        el('line', { x1: 0, y1: PB(B), x2: PPW, y2: PB(B), stroke: B === 0 ? 'var(--fg-muted)' : 'var(--grid)' }, pg);
+        txt(pt, 54, 290 - PB(B) + 3.5, sgn(B), 'end');
+      }
+      el('rect', { x: 0, y: 0, width: PPW, height: PPH, fill: 'none', stroke: 'var(--border)' }, pg);
+
+      const qa = __q('vws-qarrows');
+      for (let i = 0; i < 8; i++) el('line', { y1: 30, y2: 30, 'marker-end': 'url(#vws-ah)' }, qa);
+
+      const pl = __q('vws-plines');
+      TESTS.forEach((t) => { t.line = el('line', { stroke: t.color, 'stroke-width': 2, 'stroke-dasharray': t.dash }, pl); });
+
+      // table
+      const tb = __q('vws-table');
+      TESTS.forEach((t, i) => {
+        const tr = document.createElement('tr');
+        const id = 'vws-sel-' + i;
+        tr.innerHTML =
+          '<td><input type="radio" name="vws-sel" id="' + id + '" value="' + i + '"' + (i === 0 ? ' checked' : '') + '> ' +
+          '<label for="' + id + '"><svg class="swatch" viewBox="0 0 22 8" aria-hidden="true"><line x1="0" y1="4" x2="22" y2="4" stroke="' + t.color + '" stroke-width="2.5" stroke-dasharray="' + t.dash + '"></line></svg>' + t.name + '</label>' +
+          '<span class="eq" id="vws-eq-' + i + '"></span></td>' +
+          '<td class="num"><span id="vws-res-' + i + '"></span> J</td>';
+        tb.appendChild(tr);
+        tr.querySelector('input').addEventListener('change', () => { sel = i; update(); });
+      });
+    })();
+
+    function fmt(v, d) {
+      if (Math.abs(v) < 0.5 * Math.pow(10, -d)) v = 0;
+      return (v < 0 ? '\u2212' : '\u00A0') + Math.abs(v).toFixed(d);
+    }
+    function snap(k, v) {
+      const r = S[k].r, lo = +r.min, hi = +r.max, st = +r.step;
+      if (!isFinite(v)) v = +r.value;
+      v = Math.min(hi, Math.max(lo, v));
+      return lo + Math.round((v - lo) / st) * st;
+    }
+    function term(coef, name, first) {
+      if (Math.abs(coef) < 5e-4) return '';
+      const s = Math.abs(coef).toFixed(3) + (name ? '\u2009' + name : '');
+      if (first) return (coef < 0 ? '\u2212' : '') + s;
+      return (coef < 0 ? ' \u2212 ' : ' + ') + s;
+    }
+    function exactABC(tri) {
+      return tri ? [P + q / 2, 0, -q / 2] : [P + q, -q, 0];
+    }
+
+    function update() {
+      const tri = loadSel.value === 'tri';
+      const withC = useC.checked;
+      S.C.r.disabled = S.C.n.disabled = !withC;
+      const A = +S.A.r.value, B = +S.B.r.value, C = withC ? +S.C.r.value : 0;
+      ['A', 'B', 'C'].forEach((k) => { S[k].n.value = (+S[k].r.value).toFixed(1); });
+
+      // schematic
+      const qa = __q('vws-qarrows').children;
+      for (let i = 0; i < qa.length; i++) {
+        const x0 = 72 + i * 38, xi = (x0 + 9 - 60) / 320;
+        const len = 18 * (tri ? xi : 1);
+        qa[i].setAttribute('x1', x0); qa[i].setAttribute('x2', x0 + len);
+        qa[i].style.visibility = q > 0 && len >= 3 ? 'visible' : 'hidden';
+      }
+      __q('vws-q-lbl').textContent = tri ? 'q(x) = ' + q + '·x/L kN/m' : 'q = ' + q + ' kN/m';
+      const pa = __q('vws-parrow'), len = 12 + 28 * Math.abs(P) / 20;
+      pa.style.visibility = P !== 0 ? 'visible' : 'hidden';
+      if (P > 0) { pa.setAttribute('x1', 382); pa.setAttribute('x2', 382 + len); }
+      else       { pa.setAttribute('x1', 382 + len); pa.setAttribute('x2', 382); }
+      __q('vws-p-lbl').textContent = 'P = ' + sgn(P) + ' kN';
+
+      // N plot, pen lifted outside the window
+      const Nt = (xi) => A + B * xi + C * xi * xi;
+      const [Ae, Be, Ce] = exactABC(tri);
+      const Ne = (xi) => Ae + Be * xi + Ce * xi * xi;
+      function curve(fn) {
+        let d = '', pen = false;
+        for (let i = 0; i <= 200; i++) {
+          const xi = i / 200, v = fn(xi);
+          if (v < NMIN || v > NMAX) { pen = false; continue; }
+          d += (pen ? 'L' : 'M') + X(xi).toFixed(2) + ',' + YN(v).toFixed(2);
+          pen = true;
+        }
+        return d;
+      }
+      __q('vws-npath').setAttribute('d', curve(Nt));
+      __q('vws-nref').setAttribute('d', reveal ? curve(Ne) : '');
+      __q('vws-legend-exact').style.visibility = reveal ? 'visible' : 'hidden';
+
+      // selected test function
+      const T = TESTS[sel];
+      let ud = '';
+      for (let i = 0; i <= 200; i++) {
+        const xi = i / 200;
+        ud += (i ? 'L' : 'M') + X(xi).toFixed(2) + ',' + YU(T.f(xi)[0]).toFixed(2);
+      }
+      const up = __q('vws-upath'), uf = __q('vws-ufill');
+      up.setAttribute('d', ud); up.setAttribute('stroke', T.color); up.setAttribute('stroke-dasharray', T.dash);
+      uf.setAttribute('d', ud + 'L' + X(1) + ',' + YU(0) + 'L' + X(0) + ',' + YU(0) + 'Z');
+      uf.setAttribute('fill', T.color);
+      __q('vws-u-title').textContent = 'Test function δu(x): ' + T.name + ' [mm]';
+
+      // residuals, equations, lines
+      let pass = 0, bumpsPass = true;
+      TESTS.forEach((t, i) => {
+        const f = q * (tri ? t.I1 : t.I0) + P * t.uL;
+        const res = t.a * A + t.b * B + t.c * C - f;
+        const ok = Math.abs(res) < TOL;
+        if (ok) pass++;
+        if (i >= 3 && !ok) bumpsPass = false;
+        const r = __q('vws-res-' + i);
+        r.textContent = (ok ? '\u2713 ' : '\u2717 ') + fmt(res, 3);
+        r.className = ok ? 'pass' : 'fail';
+        let lhs = term(t.a, 'A', true);
+        lhs += term(t.b, 'B', !lhs);
+        if (withC) lhs += term(t.c, 'C', !lhs);
+        __q('vws-eq-' + i).textContent = (lhs || '0') + ' = ' + fmt(f, 3).trim();
+
+        // line a·A + b·B = f − c·C, clipped to the plane
+        const g = f - t.c * C, pts = [];
+        if (Math.abs(t.b) > 1e-9) [AMIN, AMAX].forEach((Av) => {
+          const Bv = (g - t.a * Av) / t.b;
+          if (Bv >= BMIN - 1e-9 && Bv <= BMAX + 1e-9) pts.push([Av, Bv]);
+        });
+        if (Math.abs(t.a) > 1e-9) [BMIN, BMAX].forEach((Bv) => {
+          const Av = (g - t.b * Bv) / t.a;
+          if (Av >= AMIN - 1e-9 && Av <= AMAX + 1e-9) pts.push([Av, Bv]);
+        });
+        if (pts.length >= 2) {
+          let best = [pts[0], pts[1]], dmax = -1;
+          for (let m = 0; m < pts.length; m++) for (let n = m + 1; n < pts.length; n++) {
+            const dd = (pts[m][0] - pts[n][0]) ** 2 + (pts[m][1] - pts[n][1]) ** 2;
+            if (dd > dmax) { dmax = dd; best = [pts[m], pts[n]]; }
+          }
+          t.line.setAttribute('x1', PA(best[0][0])); t.line.setAttribute('y1', PB(best[0][1]));
+          t.line.setAttribute('x2', PA(best[1][0])); t.line.setAttribute('y2', PB(best[1][1]));
+          t.line.style.visibility = 'visible';
+        } else {
+          t.line.style.visibility = 'hidden';
+        }
+        t.line.setAttribute('stroke-width', i === sel ? 3.5 : 1.8);
+      });
+
+      const cur = __q('vws-pcur');
+      cur.setAttribute('cx', PA(A)); cur.setAttribute('cy', PB(B));
+      const pe = __q('vws-pexact');
+      pe.setAttribute('cx', PA(Ae)); pe.setAttribute('cy', PB(Be));
+      pe.style.visibility = reveal ? 'visible' : 'hidden';
+      __q('vws-cslice').textContent = withC ? 'slice at C = ' + fmt(C, 1).trim() + ' kN' : 'C = 0';
+
+      // verdict
+      const v = __q('vws-verdict');
+      if (pass === TESTS.length) {
+        v.className = 'verdict ok';
+        v.textContent = 'All five tests balance. N(x) = ' + fmt(A, 1).trim() +
+          (B ? (B < 0 ? ' \u2212 ' : ' + ') + Math.abs(B).toFixed(1) + '·x/L' : '') +
+          (C ? (C < 0 ? ' \u2212 ' : ' + ') + Math.abs(C).toFixed(1) + '·(x/L)²' : '') +
+          ' kN is in equilibrium with the loads.';
+      } else {
+        v.className = 'verdict bad';
+        let hint;
+        if (tri && !withC) hint = 'A linear N has a constant slope, but dN/dx = −q(x) varies along the bar. Include the (x/L)² term.';
+        else if (bumpsPass) hint = 'Both bumps balance, so dN/dx + q = 0 is satisfied. The remaining tests also involve the tip, where N(L) must equal P.';
+        else hint = 'Start with the bumps. They vanish at both ends, so they test only dN/dx + q = 0.';
+        v.textContent = pass + ' of 5 tests balance. ' + hint;
+      }
+      __q('vws-reveal').textContent = reveal ? 'Hide the equilibrium solution' : 'Show the equilibrium solution';
+    }
+
+    // ---- events ----
+    ['A', 'B', 'C'].forEach((k) => {
+      S[k].r.addEventListener('input', update);
+      S[k].n.addEventListener('change', () => { S[k].r.value = snap(k, parseFloat(S[k].n.value)); update(); });
+    });
+    useC.addEventListener('change', update);
+    loadSel.addEventListener('change', () => { reveal = false; update(); });
+    __q('vws-new').addEventListener('click', () => {
+      q = 4 + Math.floor(Math.random() * 17);     // 4..20
+      P = -10 + Math.floor(Math.random() * 31);   // -10..20
+      reveal = false;
+      update();
+    });
+    __q('vws-reset').addEventListener('click', () => {
+      ['A', 'B', 'C'].forEach((k) => { S[k].r.value = 0; });
+      update();
+    });
+    __q('vws-reveal').addEventListener('click', () => { reveal = !reveal; update(); });
+
+    // ---- predict-first quiz ----
+    const QUIZ = [
+      { q: 'A bump test vanishes at both ends of the bar. Which condition can it check?',
+        options: ['The field equation dN/dx + q = 0', 'The tip condition N(L) = P', 'Both', 'Neither'],
+        answer: 0,
+        explain: 'Its residual is −∫(dN/dx + q)δu dx; the boundary term [N(L) − P]δu(L) drops out because δu(L) = 0.',
+        check: 'with the (x/L)² term off, the bump equations under the test names contain only B, never A.' },
+      { q: 'You guess the constant field N = P + qL/2 (B = 0). Does the linear test δu = δ·x/L balance?',
+        options: ['Yes', 'No', 'Only if P = 0'],
+        answer: 0,
+        explain: 'The linear test only sees the total load: W_int = N(L)·δ and W_ext = (qL/2 + P)·δ. The quadratic, sine and bump tests expose the guess.',
+        check: 'with q = 10 and P = 5, set A = 10 and B = 0 and read the five residuals.' },
+      { q: 'With the (x/L)² term off, how many tests do you need to pin down A and B?',
+        options: ['One', 'Two independent ones', 'All five'],
+        answer: 1,
+        explain: 'Two unknowns need two independent equations; the others are checks. The two bumps are not independent of each other: both only fix B.',
+        check: 'in the (A, B) plane, any two non-parallel lines meet at the solution; the two bump lines are parallel.' },
+      { q: 'Triangular load, (x/L)² term off. Can you make all five tests balance?',
+        options: ['Yes, with the right A and B', 'No, a linear N cannot satisfy dN/dx = −q(x)'],
+        answer: 1,
+        explain: 'The two bumps ask for different slopes, B = −0.3q₀ and B = −0.7q₀: their lines are parallel and never meet. Adding the (x/L)² term fixes it.',
+        check: 'choose the triangular load and look at the two horizontal bump lines in the (A, B) plane.' },
+    ];
+    function makeQuiz(box, Q) {
+      const chosen = Q.map(() => -1);
+      let k = 0;
+      function render() {
+        const it = Q[k], c = chosen[k];
+        let html = '<div class="qhead">Predict first: question ' + (k + 1) + ' of ' + Q.length + '</div>' +
+          '<p class="qtext">' + it.q + '</p><div class="qopts">';
+        it.options.forEach((o, i) => {
+          let cls = '', mark = '';
+          if (c >= 0 && i === it.answer) { cls = ' correct'; mark = '\u2713 '; }
+          else if (c >= 0 && i === c) { cls = ' wrong'; mark = '\u2717 '; }
+          html += '<button type="button" class="qopt' + cls + '" data-i="' + i + '"' + (c >= 0 ? ' disabled' : '') + '>' + mark + o + '</button>';
+        });
+        html += '</div>';
+        if (c >= 0) {
+          html += '<p class="qfeedback ' + (c === it.answer ? 'ok' : 'bad') + '">' + (c === it.answer ? 'Right. ' : 'Not quite. ') + it.explain + '</p>' +
+                  '<p class="qtry">Check it: ' + it.check + '</p>';
+        }
+        html += '<div class="qnav"><button type="button" data-nav="-1"' + (k === 0 ? ' disabled' : '') + '>Previous</button>' +
+                '<button type="button" data-nav="1"' + (k === Q.length - 1 ? ' disabled' : '') + '>Next question</button></div>';
+        box.innerHTML = html;
+        box.querySelectorAll('.qopt').forEach((b) => b.addEventListener('click', () => { chosen[k] = +b.dataset.i; render(); }));
+        box.querySelectorAll('[data-nav]').forEach((b) => b.addEventListener('click', () => { k += +b.dataset.nav; render(); }));
+      }
+      render();
+    }
+    makeQuiz(__q('vws-quiz'), QUIZ);
+
+    update();
+  })();
+  </script>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/MelanieInky\.github\.io\/TME235_Lecture_companion\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
