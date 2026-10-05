@@ -1,0 +1,14 @@
+---
+title: "Large deformations"
+---
+
+Large deformations wip, widget time!
+
+## Comparison between small strain and large deformation strain
+
+{{< include ../interactives/_large_small_strain.md >}}
+
+## Polar decomposition
+
+
+{{< include ../interactives/_polar_decomposition.md >}}
