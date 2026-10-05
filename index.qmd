@@ -20,6 +20,7 @@ In addition, you will find the code shown during the problem tutorial.
 - [Helper functions](problems/00-helper_functions.qmd) - Set of helper functions (write them yourself)
 - [Problem 1 to 7](problems/01-problems1_to7.qmd) - Topic 1 to 4
 - [Problem 8 to 10](problems/02-problems8_to10.qmd) - Bars and beams
+- [Problem 12 to 13](problems/03-problems12_to13.qmd) - Timoshenko beams
 
 ## Topics
 
