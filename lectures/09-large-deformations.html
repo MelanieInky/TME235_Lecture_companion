@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Large deformations – TME235 Mechanics of Solids — Companion Site</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-2605f17c045620ebb5ff4d36ddf71b83.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">TME235 Mechanics of Solids — Companion Site</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lectures/index.html"> 
+<span class="menu-text">Topics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../problems/index.html"> 
+<span class="menu-text">Problems</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/MelanieInky/TME235_Lecture_companion"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#comparison-between-small-strain-and-large-deformation-strain" id="toc-comparison-between-small-strain-and-large-deformation-strain" class="nav-link active" data-scroll-target="#comparison-between-small-strain-and-large-deformation-strain">Comparison between small strain and large deformation strain</a></li>
+  <li><a href="#polar-decomposition" id="toc-polar-decomposition" class="nav-link" data-scroll-target="#polar-decomposition">Polar decomposition</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Large deformations</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Large deformations wip, widget time!</p>
+<section id="comparison-between-small-strain-and-large-deformation-strain" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-between-small-strain-and-large-deformation-strain">Comparison between small strain and large deformation strain</h2>
+<style>
+.viz-lss,
+[data-bs-theme="light"] .viz-lss,
+body.quarto-light .viz-lss {
+  --fg: #1f2328;
+  --fg-muted: #5b626b;
+  --panel-bg: #f5f6f8;
+  --border: #d5d8de;
+  --grid: #cfd3d9;
+  --slider: #57606a;
+  --actual: #0072B2;
+  --small: #D55E00;
+  --ln: #009E73;
+  --ok: #009E73;
+}
+@media (prefers-color-scheme: dark) {
+  .viz-lss {
+    --fg: #e6e8eb;
+    --fg-muted: #a0a7b0;
+    --panel-bg: #22262b;
+    --border: #3a4048;
+    --grid: #454c55;
+    --slider: #9aa4af;
+    --actual: #56B4E9;
+    --small: #E69F00;
+    --ln: #2FBF9B;
+    --ok: #2FBF9B;
+  }
+}
+[data-bs-theme="dark"] .viz-lss,
+body.quarto-dark .viz-lss {
+  --fg: #e6e8eb;
+  --fg-muted: #a0a7b0;
+  --panel-bg: #22262b;
+  --border: #3a4048;
+  --grid: #454c55;
+  --slider: #9aa4af;
+  --actual: #56B4E9;
+  --small: #E69F00;
+  --ln: #2FBF9B;
+  --ok: #2FBF9B;
+}
+
+.viz-lss *, .viz-lss *::before, .viz-lss *::after { box-sizing: border-box; }
+.viz-lss { font-family: inherit; color: var(--fg); margin: 1.2em 0; }
+.viz-lss .subtitle { margin: 0 0 10px; color: var(--fg-muted); font-size: .92em; }
+
+.viz-lss .presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.viz-lss .presets button {
+  font: inherit; font-size: .82em; color: var(--fg); background: var(--panel-bg);
+  border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; cursor: pointer;
+}
+.viz-lss .presets button:hover { border-color: var(--fg-muted); }
+
+.viz-lss .ctl {
+  display: grid; grid-template-columns: minmax(150px, 220px) 1fr 4.2em;
+  align-items: center; gap: 4px 10px; margin: 6px 0;
+}
+.viz-lss .ctl label { font-size: .9em; }
+.viz-lss .ctl input[type=range] { width: 100%; accent-color: var(--slider); }
+.viz-lss .ctl .val { font-variant-numeric: tabular-nums; text-align: right; font-size: .9em; }
+
+.viz-lss .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 10px 0; }
+.viz-lss .panel { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+.viz-lss .panel h4 { margin: 0 0 6px; font-size: .9em; font-weight: 600; }
+
+.viz-lss svg.fig { display: block; width: 100%; height: auto; max-width: 460px; margin: 0 auto; }
+
+.viz-lss .ax { stroke: var(--grid); stroke-width: 1; fill: none; }
+.viz-lss .zero { stroke: var(--fg-muted); stroke-width: 1; fill: none; }
+.viz-lss .guide { stroke: var(--fg-muted); stroke-width: 1; stroke-dasharray: 1 3; fill: none; }
+.viz-lss .tx { fill: var(--fg-muted); font-size: 10px; font-variant-numeric: tabular-nums; }
+
+.viz-lss .sh-ref  { fill: none; stroke: var(--fg-muted); stroke-width: 1.5; stroke-dasharray: 2 4; }
+.viz-lss .sh-act  { fill: var(--actual); fill-opacity: .18; stroke: var(--actual); stroke-width: 2; }
+.viz-lss .sh-grid { fill: none; stroke: var(--actual); stroke-width: 1; stroke-opacity: .4; }
+.viz-lss .sh-eps  { fill: none; stroke: var(--small); stroke-width: 2; stroke-dasharray: 7 4; }
+.viz-lss .mk-act  { fill: var(--actual); stroke: var(--panel-bg); stroke-width: 1.5; }
+.viz-lss .mk-eps  { fill: none; stroke: var(--small); stroke-width: 2; }
+
+.viz-lss .cv-eps { fill: none; stroke: var(--small); stroke-width: 2; stroke-dasharray: 7 4; }
+.viz-lss .cv-E   { fill: none; stroke: var(--actual); stroke-width: 2.2; }
+.viz-lss .cv-ln  { fill: none; stroke: var(--ln); stroke-width: 2; stroke-dasharray: 1 4; stroke-linecap: round; }
+.viz-lss .mp-eps { fill: var(--small);  stroke: var(--panel-bg); stroke-width: 1.5; }
+.viz-lss .mp-E   { fill: var(--actual); stroke: var(--panel-bg); stroke-width: 1.5; }
+.viz-lss .mp-ln  { fill: var(--ln);     stroke: var(--panel-bg); stroke-width: 1.5; }
+
+.viz-lss .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font-size: .8em; color: var(--fg-muted); }
+.viz-lss .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.viz-lss .legend svg.sw { width: 28px; height: 10px; flex: none; }
+
+.viz-lss .tbl-wrap { overflow-x: auto; }
+.viz-lss table { width: 100%; border-collapse: collapse; font-size: .82em; font-variant-numeric: tabular-nums; }
+.viz-lss th, .viz-lss td { padding: 4px 6px; text-align: right; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.viz-lss th { color: var(--fg-muted); font-weight: 500; }
+.viz-lss th:first-child, .viz-lss td:first-child { text-align: left; }
+.viz-lss th .sub { display: block; font-size: .85em; font-weight: 400; }
+
+.viz-lss .verdict { margin-top: 10px; padding: 8px 10px; border-left: 4px solid var(--border); border-radius: 4px; font-size: .88em; }
+.viz-lss .verdict.ok  { border-left-color: var(--ok); }
+.viz-lss .verdict.bad { border-left-color: var(--small); }
+
+.viz-lss .note { margin: 10px 0 0; font-size: .82em; color: var(--fg-muted); line-height: 1.5; }
+.viz-lss .note p { margin: 0 0 6px; }
+
+@media (max-width: 480px) {
+  .viz-lss .ctl { grid-template-columns: 1fr 4.2em; }
+  .viz-lss .ctl label { grid-column: 1 / -1; }
+}
+</style>
+
+<div class="viz-lss">
+  <p class="subtitle">
+    Compare the linearised strain ε = sym(∇u) with the Green–Lagrange strain
+    E = ½(F<sup>T</sup>F − I). A rigid rotation is the cleanest test: E stays zero, ε does not.
+  </p>
+
+  <div class="presets">
+    <button type="button" data-lam="1.01" data-k="0" data-th="0">Small stretch, λ = 1.01</button>
+    <button type="button" data-lam="1.5" data-k="0" data-th="0">Large stretch, λ = 1.5</button>
+    <button type="button" data-lam="1" data-k="0.5" data-th="0">Simple shear, k = 0.5</button>
+    <button type="button" data-lam="1" data-k="0" data-th="30">Rigid rotation, 30°</button>
+    <button type="button" data-lam="1.1" data-k="0" data-th="20">Stretch 1.1 + rotation 20°</button>
+  </div>
+
+  <div class="ctl">
+    <label for="lss-lam">Stretch λ (x-direction)</label>
+    <input type="range" id="lss-lam" min="0.5" max="1.5" step="0.01" value="1.1">
+    <span class="val" id="lss-lam-v"></span>
+  </div>
+  <div class="ctl">
+    <label for="lss-k">Shear k (F<sub>12</sub> before rotation)</label>
+    <input type="range" id="lss-k" min="-0.6" max="0.6" step="0.01" value="0">
+    <span class="val" id="lss-k-v"></span>
+  </div>
+  <div class="ctl">
+    <label for="lss-th">Rigid rotation θ (counter-clockwise)</label>
+    <input type="range" id="lss-th" min="-90" max="90" step="1" value="20">
+    <span class="val" id="lss-th-v"></span>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <h4 class="anchored">Geometry</h4>
+      <svg class="fig" id="lss-geom" viewbox="-125 -125 250 250" role="img" aria-label="Reference square, actual deformed square, and the shape predicted by small strain">
+        <g id="lss-geom-g" transform="scale(1,-1)"></g>
+      </svg>
+      <div class="legend">
+        <span><svg class="sw" viewbox="0 0 28 10"><line class="sh-ref" x1="1" y1="5" x2="27" y2="5"></line></svg>reference</span>
+        <span><svg class="sw" viewbox="0 0 28 10"><line class="sh-act" x1="1" y1="5" x2="27" y2="5"></line></svg>actual, x = F X</span>
+        <span><svg class="sw" viewbox="0 0 28 10"><line class="sh-eps" x1="1" y1="5" x2="27" y2="5"></line></svg>small-strain, x = X + εX</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h4 class="anchored">Strain measures</h4>
+      <div class="tbl-wrap">
+        
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ε<span class="sub">small</span></th>
+<th data-quarto-table-cell-role="th">E<span class="sub">Green–Lagrange</span></th>
+<th data-quarto-table-cell-role="th">E − ε</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>11</td>
+<td id="lss-e11"></td>
+<td id="lss-E11"></td>
+<td id="lss-d11"></td>
+</tr>
+<tr class="even">
+<td>22</td>
+<td id="lss-e22"></td>
+<td id="lss-E22"></td>
+<td id="lss-d22"></td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td id="lss-e12"></td>
+<td id="lss-E12"></td>
+<td id="lss-d12"></td>
+</tr>
+<tr class="even">
+<td>ΔA/A<sub>0</sub> (2D)</td>
+<td id="lss-eA"></td>
+<td id="lss-EA"></td>
+<td id="lss-dA"></td>
+</tr>
+<tr class="odd">
+<td>‖·‖<sub>F</sub></td>
+<td id="lss-en"></td>
+<td id="lss-En"></td>
+<td id="lss-dn"></td>
+</tr>
+</tbody>
+</table>
+
+      </div>
+      <div class="verdict" id="lss-verdict"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h4 class="anchored">Uniaxial stretch: three strain measures vs λ</h4>
+    <svg class="fig" id="lss-plot" viewbox="-48 -222 300 254" role="img" aria-label="Small strain, Green-Lagrange strain and logarithmic strain versus stretch">
+      <g id="lss-plot-g" transform="scale(1,-1)"></g>
+    </svg>
+    <div class="legend">
+      <span><svg class="sw" viewbox="0 0 28 10"><line class="cv-eps" x1="1" y1="5" x2="27" y2="5"></line></svg>ε = λ − 1</span>
+      <span><svg class="sw" viewbox="0 0 28 10"><line class="cv-E" x1="1" y1="5" x2="27" y2="5"></line></svg>E = (λ² − 1)/2</span>
+      <span><svg class="sw" viewbox="0 0 28 10"><line class="cv-ln" x1="2" y1="5" x2="26" y2="5"></line></svg>ln λ (logarithmic)</span>
+    </div>
+  </div>
+
+  <div class="note">
+    <p>The deformation drawn is F = R(θ)·[[λ, k],[0, 1]], applied about the square's centre.
+    ε = sym(F − I) and E = ½(F<sup>T</sup>F − I) are both computed from that same F. Their difference is second order in ∇u,
+    so it is invisible for small deformations and grows quickly once ∇u is not small (including rotation, which ε does not filter out).</p>
+    <p>Shear rows show the tensor component (ε<sub>12</sub>), which is half the engineering shear γ<sub>12</sub> used in the Voigt vector.
+    The area row is 2D: the ε column is the linearised trace ε<sub>11</sub> + ε<sub>22</sub>, the E column is the exact det F − 1
+    (in 3D the linearised measure is the full trace ε<sub>kk</sub>).</p>
+    <p>The dashed shape is what small-strain theory assigns to the current state; it has no rotation, so it can never match a rotated body.
+    The plot is uniaxial only (k = 0, θ = 0) and does not depend on those two sliders; the dots mark the current λ.
+    All three curves agree to first order near λ = 1. The verdict compares ‖E − ε‖/‖E‖ against a 5% threshold.
+    Nothing is clamped: the drawing stays inside its frame over the full slider range.</p>
+  </div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-lss');
+  if (!root) return;
+  const __q = (id) => root.querySelector('#' + id);
+
+  const S = 90;                       // drawing scale: unit square -> 90 user units
+  const NEG = '\u2212', NB = '\u00A0';
+
+  const $lam = __q('lss-lam'), $k = __q('lss-k'), $th = __q('lss-th');
+
+  function snap(v, d) { return Math.abs(v) < 0.5 * Math.pow(10, -d) ? 0 : v; }
+  function fmt(v, d) {                // signed, padded, no "-0.0000"
+    v = snap(v, d);
+    return (v < 0 ? NEG : NB) + Math.abs(v).toFixed(d);
+  }
+  function fmtS(v, d) {               // slider display, no padding
+    v = snap(v, d);
+    return (v < 0 ? NEG : '') + Math.abs(v).toFixed(d);
+  }
+  const nrm = (a, b, c) => Math.sqrt(a * a + b * b + 2 * c * c);
+  const T = (x, y, s, a) =>
+    '<text class="tx" transform="translate(' + x + ' ' + y + ') scale(1 -1)" text-anchor="' + (a || 'start') + '">' + s + '</text>';
+  const P = (pts) => 'M' + pts.map((q) => q[0].toFixed(2) + ' ' + q[1].toFixed(2)).join('L') + 'Z';
+
+  function update() {
+    const lam = +$lam.value, k = +$k.value, th = +$th.value * Math.PI / 180;
+    const c = Math.cos(th), s = Math.sin(th);
+
+    // F = R(theta) * [[lam, k],[0, 1]]
+    const F11 = c * lam, F12 = c * k - s, F21 = s * lam, F22 = s * k + c;
+
+    // small strain: sym(F - I)
+    const e11 = F11 - 1, e22 = F22 - 1, e12 = 0.5 * (F12 + F21);
+    // Green-Lagrange: (F^T F - I) / 2
+    const C11 = F11 * F11 + F21 * F21, C22 = F12 * F12 + F22 * F22, C12 = F11 * F12 + F21 * F22;
+    const E11 = 0.5 * (C11 - 1), E22 = 0.5 * (C22 - 1), E12 = 0.5 * C12;
+    const J = F11 * F22 - F12 * F21;
+    const eA = e11 + e22, EA = J - 1;
+
+    const ne = nrm(e11, e22, e12), nE = nrm(E11, E22, E12);
+    const nD = nrm(E11 - e11, E22 - e22, E12 - e12);
+
+    // ---- slider readouts
+    __q('lss-lam-v').textContent = fmtS(lam, 2);
+    __q('lss-k-v').textContent = fmtS(k, 2);
+    __q('lss-th-v').textContent = fmtS(+$th.value, 0) + '\u00B0';
+
+    // ---- table
+    const row = (id, a, b, d) => {
+      __q('lss-e' + id).textContent = fmt(a, 4);
+      __q('lss-E' + id).textContent = fmt(b, 4);
+      __q('lss-d' + id).textContent = fmt(d, 4);
+    };
+    row('11', e11, E11, E11 - e11);
+    row('22', e22, E22, E22 - e22);
+    row('12', e12, E12, E12 - e12);
+    __q('lss-eA').textContent = fmt(eA, 4);
+    __q('lss-EA').textContent = fmt(EA, 4);
+    __q('lss-dA').textContent = fmt(EA - eA, 4);
+    __q('lss-en').textContent = fmt(ne, 4);
+    __q('lss-En').textContent = fmt(nE, 4);
+    __q('lss-dn').textContent = fmt(nD, 4);
+
+    // ---- verdict (reachable states only)
+    const vd = __q('lss-verdict');
+    let cls, txt;
+    if (nE < 1e-9 && ne < 1e-6) {
+      cls = 'ok';
+      txt = 'Undeformed: \u03B5 = E = 0.';
+    } else if (nE < 1e-9) {
+      cls = 'bad';
+      txt = 'Rigid-body rotation: E = 0 exactly (no material deformation), yet \u03B5 \u2260 0. Small-strain theory reports strain that is not there.';
+    } else {
+      const r = nD / nE;
+      if (r < 0.05) {
+        cls = 'ok';
+        txt = '\u03B5 and E agree to within ' + (r * 100).toFixed(1) + '%. The small-strain approximation is adequate here.';
+      } else {
+        cls = 'bad';
+        txt = '\u03B5 differs from E by ' + (r * 100).toFixed(0) + '% (\u2016E \u2212 \u03B5\u2016/\u2016E\u2016). Geometric nonlinearity matters here.';
+      }
+    }
+    vd.className = 'verdict ' + cls;
+    vd.textContent = txt;
+
+    // ---- geometry (maths coordinates; the group flips y)
+    const corners = [[-.5, -.5], [.5, -.5], [.5, .5], [-.5, .5]];
+    const mapR = (p) => [S * p[0], S * p[1]];
+    const mapF = (p) => [S * (F11 * p[0] + F12 * p[1]), S * (F21 * p[0] + F22 * p[1])];
+    const mapE = (p) => [S * ((1 + e11) * p[0] + e12 * p[1]), S * (e12 * p[0] + (1 + e22) * p[1])];
+
+    let grid = '';
+    for (let i = 1; i <= 3; i++) {
+      const t = -.5 + i / 4;
+      const a = mapF([t, -.5]), b = mapF([t, .5]), c2 = mapF([-.5, t]), d = mapF([.5, t]);
+      grid += 'M' + a[0].toFixed(2) + ' ' + a[1].toFixed(2) + 'L' + b[0].toFixed(2) + ' ' + b[1].toFixed(2);
+      grid += 'M' + c2[0].toFixed(2) + ' ' + c2[1].toFixed(2) + 'L' + d[0].toFixed(2) + ' ' + d[1].toFixed(2);
+    }
+    const ca = mapF(corners[0]), ce = mapE(corners[0]);
+    __q('lss-geom-g').innerHTML =
+      '<line class="ax" x1="-110" y1="0" x2="110" y2="0"/>' +
+      '<line class="ax" x1="0" y1="-110" x2="0" y2="110"/>' +
+      T(113, -3, 'x') + T(4, 112, 'y') +
+      '<path class="sh-ref" d="' + P(corners.map(mapR)) + '"/>' +
+      '<path class="sh-act" d="' + P(corners.map(mapF)) + '"/>' +
+      '<path class="sh-grid" d="' + grid + '"/>' +
+      '<path class="sh-eps" d="' + P(corners.map(mapE)) + '"/>' +
+      '<circle class="mk-act" cx="' + ca[0].toFixed(2) + '" cy="' + ca[1].toFixed(2) + '" r="3.5"/>' +
+      '<circle class="mk-eps" cx="' + ce[0].toFixed(2) + '" cy="' + ce[1].toFixed(2) + '" r="6"/>';
+
+    // ---- uniaxial plot: lambda in [0.5, 1.5], strain in [-0.75, 0.75]
+    const W = 240, H = 200;
+    const px = (l) => (l - 0.5) * W;
+    const py = (v) => (v + 0.75) / 1.5 * H;
+    let g = '';
+    for (let i = -3; i <= 3; i++) {
+      const v = i * 0.25, y = py(v);
+      g += '<line class="' + (i === 0 ? 'zero' : 'ax') + '" x1="0" y1="' + y.toFixed(2) + '" x2="' + W + '" y2="' + y.toFixed(2) + '"/>';
+      g += T(-6, (y - 3).toFixed(2), (i < 0 ? NEG : '') + Math.abs(v).toFixed(2), 'end');
+    }
+    for (let j = 0; j <= 4; j++) {
+      const l = 0.5 + j * 0.25, x = px(l);
+      g += '<line class="ax" x1="' + x.toFixed(2) + '" y1="0" x2="' + x.toFixed(2) + '" y2="' + H + '"/>';
+      g += T(x.toFixed(2), -13, l.toFixed(2), 'middle');
+    }
+    g += T(W / 2, -28, 'uniaxial stretch \u03BB = L/L\u2080', 'middle');
+    g += T(-46, H + 10, 'strain (\u2013)', 'start');
+
+    const fE = (l) => l - 1, fG = (l) => 0.5 * (l * l - 1), fL = (l) => Math.log(l);
+    const curve = (f) => {
+      let d = '';
+      for (let i = 0; i <= 50; i++) {
+        const l = 0.5 + i * 0.02;
+        d += (i ? 'L' : 'M') + px(l).toFixed(2) + ' ' + py(f(l)).toFixed(2);
+      }
+      return d;
+    };
+    g += '<line class="guide" x1="' + px(lam).toFixed(2) + '" y1="0" x2="' + px(lam).toFixed(2) + '" y2="' + H + '"/>';
+    g += '<path class="cv-ln" d="' + curve(fL) + '"/>';
+    g += '<path class="cv-eps" d="' + curve(fE) + '"/>';
+    g += '<path class="cv-E" d="' + curve(fG) + '"/>';
+    const dot = (cls, f) => '<circle class="' + cls + '" cx="' + px(lam).toFixed(2) + '" cy="' + py(f(lam)).toFixed(2) + '" r="4"/>';
+    g += dot('mp-ln', fL) + dot('mp-eps', fE) + dot('mp-E', fG);
+    __q('lss-plot-g').innerHTML = g;
+  }
+
+  [$lam, $k, $th].forEach((el) => el.addEventListener('input', update));
+  root.querySelectorAll('.presets button').forEach((b) => {
+    b.addEventListener('click', () => {
+      $lam.value = b.dataset.lam;
+      $k.value = b.dataset.k;
+      $th.value = b.dataset.th;
+      update();
+    });
+  });
+
+  update();
+})();
+</script>
+</div>
+</section>
+<section id="polar-decomposition" class="level2">
+<h2 class="anchored" data-anchor-id="polar-decomposition">Polar decomposition</h2>
+<style>
+.viz-polar,
+[data-bs-theme="light"] .viz-polar,
+body.quarto-light .viz-polar {
+  --fg: #1f2328; --fg-muted: #59636e; --panel-bg: #f6f8fa; --border: #d0d7de;
+  --grid: #dde3ea; --slider: #57606a;
+  --disp: #0072B2; --ref: #6B7684; --bad: #B8321A;
+  --s2: #C98700; --s4: #CC79A7; --s5: #56B4E9;
+}
+@media (prefers-color-scheme: dark) {
+  .viz-polar {
+    --fg: #e6edf3; --fg-muted: #9da7b3; --panel-bg: #1c2128; --border: #3d444d;
+    --grid: #2f363e; --slider: #b1bac4;
+    --disp: #56B4E9; --ref: #9AA4B0; --bad: #FF7B6B;
+    --s2: #F0B030; --s4: #E3A5C7; --s5: #A6DCF7;
+  }
+}
+[data-bs-theme="dark"] .viz-polar,
+body.quarto-dark .viz-polar {
+  --fg: #e6edf3; --fg-muted: #9da7b3; --panel-bg: #1c2128; --border: #3d444d;
+  --grid: #2f363e; --slider: #b1bac4;
+  --disp: #56B4E9; --ref: #9AA4B0; --bad: #FF7B6B;
+  --s2: #F0B030; --s4: #E3A5C7; --s5: #A6DCF7;
+}
+
+.viz-polar *, .viz-polar *::before, .viz-polar *::after { box-sizing: border-box; }
+.viz-polar { font-family: inherit; color: var(--fg); line-height: 1.45; margin: 1.2em 0; }
+
+.viz-polar .intro { margin: 0 0 .8em; font-size: .95em; }
+.viz-polar .presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: .8em; }
+.viz-polar .pbtn {
+  font: inherit; font-size: .85em; padding: .3em .7em; cursor: pointer;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--panel-bg); color: var(--fg);
+}
+.viz-polar .pbtn:hover { border-color: var(--fg-muted); }
+.viz-polar .pbtn:focus-visible { outline: 2px solid var(--slider); outline-offset: 2px; }
+
+.viz-polar .ctrls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4em 1.2em; margin-bottom: .6em; }
+.viz-polar .ctl label { display: flex; justify-content: space-between; font-size: .9em; }
+.viz-polar .val { font-variant-numeric: tabular-nums; color: var(--fg-muted); }
+.viz-polar input[type=range] { width: 100%; accent-color: var(--slider); margin: .15em 0 0; }
+
+.viz-polar .stagebar { margin: .5em 0 .9em; padding: .6em .8em; border: 1px solid var(--border); border-radius: 8px; background: var(--panel-bg); }
+.viz-polar .stagebar label { display: flex; justify-content: space-between; gap: 1em; font-size: .9em; }
+.viz-polar .stg { color: var(--fg-muted); font-variant-numeric: tabular-nums; text-align: right; }
+.viz-polar .hrow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: .5em; }
+
+.viz-polar .warn { color: var(--bad); font-weight: 600; font-size: .9em; margin: 0 0 .7em; }
+.viz-polar .warn:empty { display: none; }
+
+.viz-polar .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: .9em; }
+.viz-polar .fig { border: 1px solid var(--border); border-radius: 8px; background: var(--panel-bg); padding: .5em .6em .6em; }
+.viz-polar .ftitle { font-size: .9em; font-weight: 600; margin-bottom: .2em; }
+.viz-polar .fig > svg { display: block; width: 100%; height: auto; max-width: 460px; margin: 0 auto; }
+.viz-polar .leg { display: flex; flex-wrap: wrap; gap: .2em .9em; font-size: .8em; color: var(--fg-muted); margin-top: .35em; }
+.viz-polar .leg span { display: inline-flex; align-items: center; gap: .35em; }
+.viz-polar .sw { width: 34px; height: 10px; flex: none; }
+
+.viz-polar .gr { stroke: var(--grid); stroke-width: 1.2; }
+.viz-polar .sh-ref { fill: none; stroke: var(--ref); stroke-width: 2.2; stroke-dasharray: 7 4; }
+.viz-polar .sh-cur { fill: var(--disp); fill-opacity: .12; stroke: var(--disp); stroke-width: 2.6; }
+.viz-polar .sh-ell { fill: none; stroke: var(--disp); stroke-width: 1.8; }
+.viz-polar .sh-grid { stroke: var(--disp); stroke-opacity: .35; stroke-width: 1; }
+.viz-polar .sh-u { fill: none; stroke: var(--s5); stroke-width: 2.2; stroke-dasharray: 2 3; }
+.viz-polar .ax { stroke: var(--fg-muted); stroke-width: 1.3; }
+.viz-polar .gain { fill: var(--s2); fill-opacity: .30; stroke: var(--s2); stroke-opacity: .30; stroke-width: .8; }
+.viz-polar .loss { fill: var(--s5); fill-opacity: .38; stroke: var(--s5); stroke-opacity: .38; stroke-width: .8; }
+.viz-polar .crv { fill: none; stroke: var(--s2); stroke-width: 2.6; stroke-linejoin: round; }
+.viz-polar .pr { stroke: var(--fg); stroke-width: 3; stroke-linecap: round; }
+.viz-polar .pv { stroke: var(--fg); stroke-width: 1.3; stroke-dasharray: 4 3; }
+.viz-polar .pt0 { fill: var(--panel-bg); stroke: var(--fg); stroke-width: 2; }
+.viz-polar .zl { stroke: var(--fg-muted); stroke-width: 1.4; }
+.viz-polar .probe { margin: .6em 0 .4em; }
+.viz-polar .probe label { display: flex; justify-content: space-between; font-size: .9em; }
+.viz-polar .pt { fill: var(--fg); }
+.viz-polar .lbl { fill: var(--fg); font-size: 15px; font-family: inherit; }
+.viz-polar .lbl2 { fill: var(--fg-muted); font-size: 12px; font-family: inherit; }
+
+.viz-polar .mats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: .9em; }
+.viz-polar .mcard { border: 1px solid var(--border); border-radius: 8px; background: var(--panel-bg); padding: .5em .7em; }
+.viz-polar .cl { font-size: .8em; color: var(--fg-muted); margin-bottom: .3em; }
+.viz-polar .mat {
+  display: grid; grid-template-columns: repeat(2, auto); justify-content: center; gap: .1em 1em;
+  padding: .1em .5em; border-left: 2px solid var(--fg-muted); border-right: 2px solid var(--fg-muted); border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .85em;
+  font-variant-numeric: tabular-nums; text-align: right; white-space: pre;
+}
+.viz-polar .kv { display: grid; grid-template-columns: auto 1fr; gap: .1em .8em; font-size: .85em; font-variant-numeric: tabular-nums; white-space: pre; }
+.viz-polar .kv span:nth-child(even) { text-align: right; }
+
+.viz-polar .note { font-size: .85em; color: var(--fg-muted); }
+.viz-polar .note p { margin: 0 0 .45em; }
+</style>
+
+<div class="viz-polar">
+  <p class="intro">Every deformation gradient with det <i>F</i> &gt; 0 splits as <b><i>F</i> = <i>R U</i></b>: first the pure stretch
+  <i>U</i> = √(<i>F</i><sup>T</sup><i>F</i>) along the principal directions <i>N</i><sub>i</sub>, then the rigid rotation <i>R</i>.
+  Set <i>F</i>, then scrub <i>s</i> (or press Play) to watch the two steps. The left figures show how the strain tensors
+  <i>C</i> = <i>F</i><sup>T</sup><i>F</i> and <i>E</i> = ½(<i>C</i> − <i>I</i>) assign a normal strain to every direction in the reference configuration; the probe slider picks one direction.</p>
+
+  <div class="presets" id="pd-presets">
+    <button type="button" class="pbtn" data-f="1,0,0,1">Identity</button>
+    <button type="button" class="pbtn" data-f="1.5,0,0,1">Uniaxial stretch</button>
+    <button type="button" class="pbtn" data-f="0.6,0,0,1">Uniaxial compression</button>
+    <button type="button" class="pbtn" data-f="1,0.8,0,1">Simple shear (γ = 0.8)</button>
+    <button type="button" class="pbtn" data-f="0.6,-0.8,0.8,0.6">Rigid rotation (53.1°)</button>
+    <button type="button" class="pbtn" data-f="0.9,-0.8,1.2,0.6">Rotation 53.1° after stretch 1.5</button>
+  </div>
+
+  <div class="ctrls">
+    <div class="ctl"><label for="pd-f11">F₁₁ <span class="val" id="pd-f11-v"></span></label>
+      <input type="range" id="pd-f11" min="-1" max="1.8" step="0.05" value="0.9"></div>
+    <div class="ctl"><label for="pd-f12">F₁₂ <span class="val" id="pd-f12-v"></span></label>
+      <input type="range" id="pd-f12" min="-1" max="1.8" step="0.05" value="-0.8"></div>
+    <div class="ctl"><label for="pd-f21">F₂₁ <span class="val" id="pd-f21-v"></span></label>
+      <input type="range" id="pd-f21" min="-1" max="1.8" step="0.05" value="1.2"></div>
+    <div class="ctl"><label for="pd-f22">F₂₂ <span class="val" id="pd-f22-v"></span></label>
+      <input type="range" id="pd-f22" min="-1" max="1.8" step="0.05" value="0.6"></div>
+  </div>
+
+  <div class="stagebar">
+    <label for="pd-s">Stage <i>s</i> <span class="stg" id="pd-stage"></span></label>
+    <input type="range" id="pd-s" min="0" max="2" step="0.02" value="2">
+    <div class="hrow">
+      <button type="button" class="pbtn" data-s="0">0 · reference</button>
+      <button type="button" class="pbtn" data-s="1">1 · after U</button>
+      <button type="button" class="pbtn" data-s="2">2 · after R U = F</button>
+      <button type="button" class="pbtn" id="pd-play">▶ Play</button>
+    </div>
+  </div>
+
+  <p class="warn" id="pd-warn"></p>
+
+  <div class="figs">
+    <div class="fig">
+      <div class="ftitle">Reference: normal strain E(φ) of a line in direction φ</div>
+      <svg id="pd-svgP" viewbox="-50 -140 560 280" role="img" aria-label="Normal Green-Lagrange strain as a function of direction, with its maximum and minimum at the principal directions">
+        <g id="pd-gP" transform="scale(1,-1)"></g>
+      </svg>
+      <div class="leg">
+        <span><svg class="sw" viewbox="0 0 34 10"><rect class="gain" x="1" y="1" width="32" height="8"></rect></svg>lengthened (E &gt; 0)</span>
+        <span><svg class="sw" viewbox="0 0 34 10"><rect class="loss" x="1" y="1" width="32" height="8"></rect></svg>shortened (E &lt; 0)</span>
+        <span><svg class="sw" viewbox="0 0 34 10"><line class="pr" x1="3" y1="5" x2="31" y2="5"></line></svg>probe line (right figure)</span>
+      </div>
+      <div class="probe">
+        <label for="pd-phi">Probe direction φ <span class="val" id="pd-phi-v"></span></label>
+        <input type="range" id="pd-phi" min="0" max="180" step="0.5" value="30">
+        <div class="hrow">
+          <button type="button" class="pbtn" id="pd-toN1">φ = N₁</button>
+          <button type="button" class="pbtn" id="pd-toN2">φ = N₂</button>
+        </div>
+        <div class="kv" id="pd-pkv"></div>
+      </div>
+    </div>
+    <div class="fig">
+      <div class="ftitle">Deformation at stage <i>s</i></div>
+      <svg id="pd-svgB" viewbox="-260 -260 520 520" role="img" aria-label="Unit square and circle at the current stage of the polar decomposition">
+        <g id="pd-gB" transform="scale(1,-1)"></g>
+      </svg>
+      <div class="leg">
+        <span><svg class="sw" viewbox="0 0 34 10"><line class="sh-ref" x1="1" y1="5" x2="33" y2="5"></line></svg>reference</span>
+        <span><svg class="sw" viewbox="0 0 34 10"><line class="sh-cur" x1="1" y1="5" x2="33" y2="5"></line></svg>current</span>
+        <span><svg class="sw" viewbox="0 0 34 10"><line class="sh-u" x1="1" y1="5" x2="33" y2="5"></line></svg>after U (before R)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mats">
+    <div class="mcard"><div class="cl">F</div><div class="mat" id="pd-m-F"></div></div>
+    <div class="mcard"><div class="cl">R (rotation)</div><div class="mat" id="pd-m-R"></div></div>
+    <div class="mcard"><div class="cl">U (stretch)</div><div class="mat" id="pd-m-U"></div></div>
+    <div class="mcard"><div class="cl">C = FᵀF</div><div class="mat" id="pd-m-C"></div></div>
+    <div class="mcard"><div class="cl">E = ½(C − I)</div><div class="mat" id="pd-m-E"></div></div>
+    <div class="mcard"><div class="cl">Scalars</div><div class="kv" id="pd-kv"></div></div>
+  </div>
+
+  <div class="note">
+    <p><b>Order.</b> <i>F</i> = <i>R U</i> is the right (material) polar decomposition: stretch first, in the reference configuration, then rotate.
+    The other order, <i>F</i> = <i>V R</i>, stretches along <b>n</b><sub>i</sub> = <i>R</i> <b>N</b><sub>i</sub> after rotating and is not drawn here.
+    From <i>s</i> = 0 to 1 the figure blends <i>I</i> → <i>U</i> linearly and from 1 to 2 it rotates by a fraction of θ. The in-between frames are an illustration; the endpoints are exact.</p>
+    <p><b>Left figure.</b> <i>E</i> is a tensor, so it gives a normal strain for every direction. For a material line along
+    <b>N</b> = (cos φ, sin φ) in the reference, E(φ) = <b>N</b>·<i>E</i> <b>N</b> = ½(λ² − 1), where λ is the stretch of that line and λ² = <b>N</b>·<i>C</i> <b>N</b>.
+    The plot shows E(φ) against φ (measured from <i>x</i>₁, counter-clockwise): amber where lines lengthen, blue where they shorten.
+    Its maximum and minimum are the eigenvalues E₁ and E₂, reached along the principal directions <b>N</b><sub>1</sub>, <b>N</b><sub>2</sub>, which are also principal for <i>U</i> and <i>C</i>.
+    Shear components are not drawn. <i>E</i> is the finite Green–Lagrange strain, not the linearised ε.
+    In the right figure ● marks the material point (1, 1) and the black segment is the probe line carried along by the deformation. <i>x</i>₁ points right, <i>x</i>₂ up.</p>
+    <p><b>Limits.</b> Figures are rescaled uniformly when they would leave the frame; “view ×k” says by how much, and the readouts are never rescaled.
+    If λ₁ = λ₂ every direction is principal, and the axes in the right figure are drawn along <i>x</i>₁, <i>x</i>₂. This is 2D: <i>J</i> = det <i>F</i> = λ₁λ₂ is an area ratio.
+    For det <i>F</i> ≤ 0 there is no proper rotation <i>R</i>, so figures and derived tensors are suppressed.</p>
+  </div>
+
+<script>
+(function () {
+  const root = (document.currentScript && document.currentScript.closest('.viz-polar'))
+            || document.querySelector('.viz-polar');
+  if (!root) return;
+  const __q = (id) => root.querySelector('#' + id);
+
+  const S = 100, NB = '\u00A0', EPS = 1e-9, RAD = 180 / Math.PI;
+  const gB = __q('pd-gB'), gP = __q('pd-gP');
+  const phS = __q('pd-phi'), phV = __q('pd-phi-v');
+  const sl = { a: __q('pd-f11'), b: __q('pd-f12'), c: __q('pd-f21'), d: __q('pd-f22') };
+  const vl = { a: __q('pd-f11-v'), b: __q('pd-f12-v'), c: __q('pd-f21-v'), d: __q('pd-f22-v') };
+  const sS = __q('pd-s'), stgEl = __q('pd-stage'), warnEl = __q('pd-warn');
+  const playBtn = __q('pd-play');
+  let raf = 0;
+
+  // ---------- formatting ----------
+  function fmt(x, d) {
+    d = (d === undefined) ? 3 : d;
+    if (!isFinite(x)) return '–';
+    let v = +x.toFixed(d);
+    if (v === 0) v = 0;                       // kills -0
+    const s = v.toFixed(d);
+    return s[0] === '-' ? s : NB + s;
+  }
+
+  // ---------- SVG string helpers (viewBox units; y is flipped by the parent <g>) ----------
+  const f1 = (v) => v.toFixed(1);
+  const toV = (p, k) => [p[0] * S * k, p[1] * S * k];
+  const lineV = (x1, y1, x2, y2, cls) =>
+    '<line class="' + cls + '" x1="' + f1(x1) + '" y1="' + f1(y1) + '" x2="' + f1(x2) + '" y2="' + f1(y2) + '"/>';
+  const polyV = (arr, cls) =>
+    '<polygon class="' + cls + '" points="' + arr.map((p) => f1(p[0]) + ',' + f1(p[1])).join(' ') + '"/>';
+  const dotV = (x, y, r, cls) =>
+    '<circle class="' + cls + '" cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + r + '"/>';
+  const textV = (x, y, s, cls, anchor) =>
+    '<text class="' + (cls || 'lbl') + '" transform="translate(' + f1(x) + ' ' + f1(y) + ') scale(1 -1)" text-anchor="' +
+    (anchor || 'middle') + '" dominant-baseline="central">' + s + '</text>';
+  const FRAME = lineV(-245, 0, 245, 0, 'gr') + lineV(0, -245, 0, 245, 'gr');
+
+  const CORN = [[-1, -1], [1, -1], [1, 1], [-1, 1]];
+  const CIRC = Array.from({ length: 96 }, (_, i) => [Math.cos(2 * Math.PI * i / 96), Math.sin(2 * Math.PI * i / 96)]);
+  const ap = (M, p) => [M[0][0] * p[0] + M[0][1] * p[1], M[1][0] * p[0] + M[1][1] * p[1]];
+  const mul = (A, B) => [
+    [A[0][0] * B[0][0] + A[0][1] * B[1][0], A[0][0] * B[0][1] + A[0][1] * B[1][1]],
+    [A[1][0] * B[0][0] + A[1][1] * B[1][0], A[1][0] * B[0][1] + A[1][1] * B[1][1]]];
+
+  // ---------- mechanics ----------
+  function compute(a, b, c, d) {
+    const th = Math.atan2(c - b, a + d), ct = Math.cos(th), st = Math.sin(th);
+    const R = [[ct, -st], [st, ct]];
+    // U = R^T F, symmetrised (exactly symmetric for the maximising angle)
+    const u11 = ct * a + st * c, u22 = -st * b + ct * d;
+    const u12 = 0.5 * ((ct * b + st * d) + (-st * a + ct * c));
+    const U = [[u11, u12], [u12, u22]];
+    const mean = 0.5 * (u11 + u22), rad = Math.hypot(0.5 * (u11 - u22), u12);
+    const iso = rad < EPS;
+    const al = iso ? 0 : 0.5 * Math.atan2(2 * u12, u11 - u22);
+    const l1 = mean + rad, l2 = mean - rad;
+    const C = [[a * a + c * c, a * b + c * d], [a * b + c * d, b * b + d * d]];
+    const E = [[0.5 * (C[0][0] - 1), 0.5 * C[0][1]], [0.5 * C[0][1], 0.5 * (C[1][1] - 1)]];
+    return {
+      F: [[a, b], [c, d]], R: R, U: U, C: C, E: E, th: th, al: al, iso: iso,
+      l1: l1, l2: l2, e1: 0.5 * (l1 * l1 - 1), e2: 0.5 * (l2 * l2 - 1),
+      N1: [Math.cos(al), Math.sin(al)], N2: [-Math.sin(al), Math.cos(al)], J: a * d - b * c
+    };
+  }
+
+  function stageM(m, s) {
+    if (s <= 1) {
+      return [[1 + s * (m.U[0][0] - 1), s * m.U[0][1]], [s * m.U[1][0], 1 + s * (m.U[1][1] - 1)]];
+    }
+    const ph = m.th * (s - 1), cp = Math.cos(ph), sp = Math.sin(ph);
+    return mul([[cp, -sp], [sp, cp]], m.U);
+  }
+
+  // ---------- figures ----------
+  const quad = (M, n) => n[0] * (M[0][0] * n[0] + M[0][1] * n[1]) + n[1] * (M[1][0] * n[0] + M[1][1] * n[1]);
+  const dir = (phi) => [Math.cos(phi), Math.sin(phi)];
+  const plineV = (arr, cls) =>
+    '<polyline class="' + cls + '" points="' + arr.map((p) => f1(p[0]) + ',' + f1(p[1])).join(' ') + '"/>';
+  const umin = (x) => (x < 0 ? '−' : '+') + Math.abs(x).toString();
+
+  function drawP(m, phi) {
+    const W = 480, H = 110;
+    const emax = Math.max(Math.abs(m.e1), Math.abs(m.e2));
+    const yw = [0.25, 0.5, 1, 2, 4, 8, 16].find((v) => v >= 1.1 * emax) || 16;
+    const X = (deg) => deg * W / 180, Y = (e) => e * H / yw;
+    const es = [];
+    for (let i = 0; i <= 180; i++) es.push(quad(m.E, dir(i / RAD)));
+    let h = lineV(0, H, W, H, 'gr') + lineV(0, -H, W, -H, 'gr') + lineV(0, -H, 0, H, 'gr');
+    for (let i = 0; i < 180; i++) {
+      const sgn = es[i] + es[i + 1];
+      if (Math.abs(sgn) < 1e-12) continue;
+      h += polyV([[X(i), 0], [X(i), Y(es[i])], [X(i + 1), Y(es[i + 1])], [X(i + 1), 0]], sgn > 0 ? 'gain' : 'loss');
+    }
+    h += lineV(0, 0, W, 0, 'zl');
+    h += plineV(es.map((e, i) => [X(i), Y(e)]), 'crv');
+    [0, 45, 90, 135, 180].forEach((d) => { h += textV(X(d), -H - 16, d + '°', 'lbl2'); });
+    h += textV(-8, H, umin(yw), 'lbl2', 'end') + textV(-8, 0, '0', 'lbl2', 'end') + textV(-8, -H, umin(-yw), 'lbl2', 'end');
+    if (!m.iso) {
+      const p1 = (((m.al * RAD) % 180) + 180) % 180, p2 = (p1 + 90) % 180;
+      h += dotV(X(p1), Y(m.e1), 5, 'pt') + textV(X(p1), Y(m.e1) + (m.e1 >= 0 ? 15 : -15), 'E₁', 'lbl');
+      h += dotV(X(p2), Y(m.e2), 5, 'pt') + textV(X(p2), Y(m.e2) + (m.e2 >= 0 ? 15 : -15), 'E₂', 'lbl');
+    } else {
+      h += textV(W / 2, H - 12, 'isotropic: E(φ) is constant', 'lbl2');
+    }
+    const ph = phi * RAD;
+    h += lineV(X(ph), -H, X(ph), H, 'pv');
+    h += dotV(X(ph), Y(quad(m.E, dir(phi))), 5, 'pt');
+    gP.innerHTML = h;
+  }
+
+  function drawB(m, s, phi) {
+    const M = stageM(m, s);
+    const vn = CORN.map((p) => Math.hypot.apply(null, ap(m.F, p)));
+    const ext = Math.max.apply(null, [Math.SQRT2, 1.2 * m.l1].concat(vn));
+    const k = Math.min(1, 2.1 / ext);
+    let h = FRAME;
+    h += polyV(CIRC.map((p) => toV(p, k)), 'sh-ref');
+    h += polyV(CORN.map((p) => toV(p, k)), 'sh-ref');
+    if (s > 1) h += polyV(CORN.map((p) => toV(ap(m.U, p), k)), 'sh-u');
+    [-0.5, 0, 0.5].forEach(function (g) {
+      [[[g, -1], [g, 1]], [[-1, g], [1, g]]].forEach(function (pq) {
+        const a = toV(ap(M, pq[0]), k), b = toV(ap(M, pq[1]), k);
+        h += lineV(a[0], a[1], b[0], b[1], 'sh-grid');
+      });
+    });
+    h += polyV(CORN.map((p) => toV(ap(M, p), k)), 'sh-cur');
+    h += polyV(CIRC.map((p) => toV(ap(M, p), k)), 'sh-ell');
+    const final = s >= 2 - 1e-9;
+    [[m.N1, final ? 'n₁' : 'N₁'], [m.N2, final ? 'n₂' : 'N₂']].forEach(function (z) {
+      const n = ap(M, z[0]), len = Math.hypot(n[0], n[1]);
+      const dx = n[0] / len, dy = n[1] / len;
+      const tip = Math.max(1.25, 1.15 * len) * S * k;
+      h += lineV(-tip * dx, -tip * dy, tip * dx, tip * dy, 'ax');
+      h += textV((tip + 16) * dx, (tip + 16) * dy, z[1], 'lbl');
+    });
+    const q = toV(ap(M, dir(phi)), k);
+    h += lineV(0, 0, q[0], q[1], 'pr') + dotV(q[0], q[1], 5, 'pt');
+    const P = toV(ap(M, [1, 1]), k);
+    h += dotV(P[0], P[1], 5, 'pt');
+    if (k < 0.9995) h += textV(-250, -243, 'view ×' + k.toFixed(2), 'lbl2', 'start');
+    gB.innerHTML = h;
+  }
+
+  // ---------- readouts ----------
+  function setMat(key, A) {
+    const el = __q('pd-m-' + key);
+    if (!A) { el.innerHTML = '<span>–</span><span>–</span><span>–</span><span>–</span>'; return; }
+    el.innerHTML = '<span>' + fmt(A[0][0]) + '</span><span>' + fmt(A[0][1]) + '</span><span>' +
+                   fmt(A[1][0]) + '</span><span>' + fmt(A[1][1]) + '</span>';
+  }
+  function setKV(rows) {
+    __q('pd-kv').innerHTML = rows.map((r) => '<span>' + r[0] + '</span><span>' + r[1] + '</span>').join('');
+  }
+
+  function update() {
+    const v = {};
+    ['a', 'b', 'c', 'd'].forEach(function (key) {
+      v[key] = parseFloat(sl[key].value);
+      vl[key].textContent = fmt(v[key], 2);
+    });
+    const s = parseFloat(sS.value);
+    const phiD = parseFloat(phS.value), phi = phiD / RAD;
+    phV.textContent = fmt(phiD, 1) + '°';
+    if (s < 1) stgEl.textContent = 'applying U · ' + (100 * s).toFixed(0) + ' %';
+    else if (s === 1) stgEl.textContent = 'U applied';
+    else stgEl.textContent = 'applying R';
+
+    const J = v.a * v.d - v.b * v.c;
+    setMat('F', [[v.a, v.b], [v.c, v.d]]);
+    if (!(J > EPS)) {
+      warnEl.textContent = '✗ det F = ' + J.toFixed(3) + ' ≤ 0: no proper rotation R exists. Figures and derived tensors are suppressed.';
+      ['R', 'U', 'C', 'E'].forEach((key) => setMat(key, null));
+      setKV([['J = det F', fmt(J)]]);
+      gB.innerHTML = textV(0, 0, 'no figure: det F ≤ 0', 'lbl');
+      gP.innerHTML = textV(240, 0, 'no figure: det F ≤ 0', 'lbl');
+      __q('pd-pkv').innerHTML = '';
+      return;
+    }
+    warnEl.textContent = '';
+    const m = compute(v.a, v.b, v.c, v.d);
+    if (s > 1) stgEl.textContent = 'applying R · ' + (RAD * m.th * (s - 1)).toFixed(1) + '° of ' + (RAD * m.th).toFixed(1) + '°';
+    setMat('R', m.R); setMat('U', m.U); setMat('C', m.C); setMat('E', m.E);
+    setKV([
+      ['J = det F', fmt(m.J)],
+      ['θ (of R)', fmt(RAD * m.th, 1) + '°'],
+      ['λ₁', fmt(m.l1)],
+      ['λ₂', fmt(m.l2)],
+      ['E₁', fmt(m.e1)],
+      ['E₂', fmt(m.e2)],
+      ['N₁ from x₁', m.iso ? 'any' : fmt(RAD * m.al, 1) + '°']
+    ]);
+    const nn = dir(phi), l2n = quad(m.C, nn);
+    __q('pd-pkv').innerHTML = [
+      ['λ(φ)', fmt(Math.sqrt(Math.max(0, l2n)))],
+      ['N·C N = λ²', fmt(l2n)],
+      ['N·E N', fmt(quad(m.E, nn))]
+    ].map((r) => '<span>' + r[0] + '</span><span>' + r[1] + '</span>').join('');
+    drawP(m, phi);
+    drawB(m, s, phi);
+  }
+
+  // ---------- controls ----------
+  function stopPlay() {
+    if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    playBtn.textContent = '▶ Play';
+  }
+  function startPlay() {
+    stopPlay();
+    playBtn.textContent = '⏸ Pause';
+    const t0 = performance.now(), DUR = 3200;
+    const step = function (t) {
+      const x = Math.min(1, (t - t0) / DUR);
+      sS.value = (2 * x).toFixed(2);
+      update();
+      if (x < 1) raf = requestAnimationFrame(step);
+      else { raf = 0; playBtn.textContent = '▶ Play'; }
+    };
+    raf = requestAnimationFrame(step);
+  }
+
+  ['a', 'b', 'c', 'd'].forEach((key) => sl[key].addEventListener('input', function () { stopPlay(); update(); }));
+  sS.addEventListener('input', function () { stopPlay(); update(); });
+  phS.addEventListener('input', function () { update(); });
+  function toAxis(i) {
+    const a = parseFloat(sl.a.value), b = parseFloat(sl.b.value), c = parseFloat(sl.c.value), d = parseFloat(sl.d.value);
+    if (!(a * d - b * c > EPS)) return;
+    const m = compute(a, b, c, d);
+    const deg = ((((m.al * RAD) + 90 * i) % 180) + 180) % 180;
+    phS.value = (Math.round(deg * 2) / 2) % 180;
+    update();
+  }
+  __q('pd-toN1').addEventListener('click', function () { toAxis(0); });
+  __q('pd-toN2').addEventListener('click', function () { toAxis(1); });
+  playBtn.addEventListener('click', function () { if (raf) stopPlay(); else startPlay(); });
+  root.querySelectorAll('[data-s]').forEach(function (btn) {
+    btn.addEventListener('click', function () { stopPlay(); sS.value = btn.getAttribute('data-s'); update(); });
+  });
+  root.querySelectorAll('#pd-presets [data-f]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      stopPlay();
+      const f = btn.getAttribute('data-f').split(',');
+      ['a', 'b', 'c', 'd'].forEach((key, i) => { sl[key].value = f[i]; });
+      update();
+    });
+  });
+
+  update();
+})();
+</script>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/MelanieInky\.github\.io\/TME235_Lecture_companion\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

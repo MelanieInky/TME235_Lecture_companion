@@ -9,12 +9,14 @@
       "/lectures/05-plane-stress-strain.html",
       "/lectures/06-beams_and_bars.html",
       "/lectures/07-virtual_work.html",
-      "/lectures/08-fem.html"
+      "/lectures/08-fem.html",
+      "/lectures/09-large-deformations.html"
     ]
   },
   {
     "listing": "/problems/index.html",
     "items": [
+      "/problems/03-problems12_to13.html",
       "/problems/02-problems8_to10.html",
       "/problems/01-problems1_to7.html",
       "/problems/00-helper_functions.html"
