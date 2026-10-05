@@ -1,0 +1,80 @@
+---
+title: "The finite element method"
+---
+
+:::{.callout-warning}
+**STILL A WORK IN PROGRESS**. Some text will come later on, and the interactive widgets have an AI placeholder text that will be cleaned up later on.
+:::
+
+
+# The finite element method
+
+On the [previous page](07-virtual_work.qmd) we ended on a slightly frustrating note. The principle of virtual work gives us a beautifully compact problem: find a displacement $\boldsymbol{u}$, respecting the Dirichlet boundary conditions, such that
+
+$$
+R(\boldsymbol{u};\delta \boldsymbol{u}) = \delta W_\text{int} - \delta W_\text{ext} = 0
+$$ {#eq-residual}
+
+for **every** kinematically admissible virtual displacement $\delta \boldsymbol{u}$. And then we said: we cannot put this on a computer, because there is an infinity of virtual displacements to test with. Time to fix that.
+
+### Interactive: solving the bar with hats
+
+In the widget below, pick a number of elements and type in nodal displacements until every hat test balances. The load share $f_j$ of each node is given to you, so you never need to integrate anything; use the tip-first strategy above. The residual shown on each row is $\delta W_\text{int} - \delta W_\text{ext}$ for that test, in joules.
+
+{{< include ../interactives/_fe_galerkin.md >}}
+
+::: {.callout-warning}
+## Every test balances. Have I found the exact solution?
+
+You already know the answer from the previous page: no. You have only shown that your $u$ passes every test **in your space**. The widget makes the point with the sine row, which is a perfectly admissible virtual displacement that is not a combination of hats, and which does not balance.
+
+What is true, and is the reason any of this works, is that the residual of such an outside test shrinks as you refine the mesh, and that the solution converges. The log–log plot at the bottom measures it: halving the element size divides the error in $u$ by about 4 and the error in $N$ by about 2. Second order for the displacement, first order for the force — the force is one derivative worse off, which is a pattern you will meet again.
+:::
+
+A warning about a coincidence: for this bar, the Galerkin nodal displacements come out *exactly* right, for any number of elements. Do not read too much into it. It is a 1D bar with constant $EA$ and consistently integrated loads, and the property does not survive in general. The error is still there, it just lives strictly between the nodes.
+
+## It is a linear system
+
+Look again at @eq-node-equilibrium. The left-hand side is linear in the nodal displacements, because $N$ is linear in $u$ and $u$ is a linear combination of the $u_i$. So each test gives one linear equation, and testing with $\varphi_j$ for every $j$ gives
+
+$$
+\sum_i K_{ji} u_i = f_j,
+\qquad
+K_{ji} = \int_0^L EA \frac{\mathrm{d}\varphi_i}{\mathrm{d}x}\frac{\mathrm{d}\varphi_j}{\mathrm{d}x} \, \mathrm{d}x,
+$$ {#eq-linear-system}
+
+or in matrix form $\boldsymbol{K}\boldsymbol{u} = \boldsymbol{f}$, with $\boldsymbol{K}$ the **stiffness matrix** and $\boldsymbol{f}$ the **load vector**. Three things about it:
+
+1. **It is symmetric.** The expression for $K_{ji}$ does not care which of the two functions is the trial and which is the test. That is a gift from the Galerkin choice, together with the symmetry of the elastic constitutive law.
+1. **It is sparse.** $K_{ji} = 0$ unless the hats $i$ and $j$ overlap, so here the matrix is tridiagonal. In 3D it is not tridiagonal, but it stays sparse for the same reason.
+1. **Without the support, it is singular.** Every row of $\boldsymbol{K}$ sums to zero, because translating all the nodes by the same amount stretches nothing and stores no energy. The bar would be floating in space. Prescribing $u_0 = 0$ is what removes that rigid-body motion.
+
+A program does not assemble @eq-linear-system by evaluating global integrals. It notices that each element contributes to exactly two nodes, computes the same small **element stiffness matrix**
+
+$$
+\boldsymbol{k}_e = \frac{EA}{h}\begin{pmatrix} 1 & -1 \\ -1 & 1 \end{pmatrix}
+$$
+
+for every element, and adds it into the rows and columns of that element's two nodes. This is **assembly**, and it is the step that makes the method practical: all the physics is in a small matrix computed element by element, and the global problem is bookkeeping.
+
+### Interactive: assemble, apply, solve
+
+The widget below takes the bar with two elements and does the whole thing the way a finite element program would: element matrices, assembly, support, elimination, back-substitution. Step through it, and watch the picture underneath.
+
+With two unknowns we can draw the system. Each equation of $\boldsymbol{K}\boldsymbol{u} = \boldsymbol{f}$ is a line in the $(u_1, u_2)$ plane, and — since row $j$ *is* the hat test $\varphi_j$ — a trial point sits on line $j$ exactly when that test balances. The solution is where the lines cross. Drag the point around and check the two residuals against it.
+
+{{< include ../interactives/_fe_linear_system.md >}}
+
+Two things to look out for while stepping through. First, elimination replaces one equation by a combination of the two, which moves a line but not the intersection: the solution is untouched, which is the whole justification for doing it. Second, the row of the fixed node was struck out, not thrown away. It still holds, and once $\boldsymbol{u}$ is known it hands you the support reaction for free.
+
+## What changes for a real problem?
+
+Not as much as you would think. The recipe is always the same three choices:
+
+1. A **mesh** of the domain, into elements.
+1. A **space** on that mesh: shape functions attached to nodes, typically piecewise polynomials, one set of unknowns per node.
+1. **Galerkin tests**: the same shape functions, minus the ones that are not kinematically admissible.
+
+In 2D or 3D, the elements are triangles, quadrilaterals, tetrahedra..., and $\boldsymbol{u}$ is a vector, so each node carries two or three unknowns instead of one. The internal virtual work $\int_\Omega \sigma_{ij}\delta\varepsilon_{ij} \, \mathrm{d}\Omega$ is most conveniently written in the [Voigt notation](01-voigt_notation.qmd) of the first page, and the element stiffness matrix becomes an integral of $\boldsymbol{B}^\mathsf{T}\underline{\underline{C}}\,\boldsymbol{B}$, where $\boldsymbol{B}$ is whatever turns nodal displacements into strains. It is a bigger expression than $\frac{EA}{h}\left(\begin{smallmatrix} 1 & -1 \\ -1 & 1\end{smallmatrix}\right)$, and it is computed numerically rather than by hand, but it enters the assembly in exactly the same way. Everything after that — assemble, apply the Dirichlet conditions, solve, recover the reactions — is identical to what you just did with two elements.
+
+What we have skipped: how those element integrals are evaluated in practice (numerical quadrature), higher-order elements, what happens when the material is not linear elastic and $\boldsymbol{K}$ starts depending on $\boldsymbol{u}$, and the whole question of how you solve a sparse system with millions of unknowns without doing elimination by hand. All of that is another course. But the part that makes it *mechanics* rather than linear algebra, you now have: it is the principle of virtual work, tested against a finite number of well-chosen virtual displacements.
