@@ -88,14 +88,14 @@
     "href": "index.html#problem-sets",
     "title": "Mechanics of Solids — Companion Site",
     "section": "Problem sets",
-    "text": "Problem sets\n\nHelper functions - Set of helper functions (write them yourself)\nProblem 1 to 7 - Topic 1 to 4\nProblem 8 to 10 - Bars and beams\nProblem 12 to 13 - Timoshenko beams"
+    "text": "Problem sets\n\nHelper functions - Set of helper functions (write them yourself)\nProblem 1 to 7 - Topic 1 to 4\nProblem 8 to 10 - Bars and beams\nProblem 12 to 13 - Timoshenko beams\nProblem 27 to 30 - Large deformations"
   },
   {
     "objectID": "index.html#topics",
     "href": "index.html#topics",
     "title": "Mechanics of Solids — Companion Site",
     "section": "Topics",
-    "text": "Topics\n\nVoigt notation — Voigt notation\nDeviatoric / Spherical Decomposition — geometric picture of \\(\\boldsymbol{\\varepsilon}=\\boldsymbol{\\varepsilon}_{sph}+\\boldsymbol{\\varepsilon}_{dev}\\)\nYield Criteria — Von Mises vs Tresca on the π-plane.\nElastic Constants — Poisson’s ratio and Lamé parameters, with intuition.\nPlane stress/strain - Plane stress and plane strain in the Voigt notation.\nBeams and Bars - Bar problem equations, and Euler-Bernoulli beam problem equations.\nPrinciple of virtual work - Explanations on the principle of virtual work and why we use it"
+    "text": "Topics\n\nVoigt notation — Voigt notation\nDeviatoric / Spherical Decomposition — geometric picture of \\(\\boldsymbol{\\varepsilon}=\\boldsymbol{\\varepsilon}_{sph}+\\boldsymbol{\\varepsilon}_{dev}\\)\nYield Criteria — Von Mises vs Tresca on the π-plane.\nElastic Constants — Poisson’s ratio and Lamé parameters, with intuition.\nPlane stress/strain - Plane stress and plane strain in the Voigt notation.\nBeams and Bars - Bar problem equations, and Euler-Bernoulli beam problem equations.\nPrinciple of virtual work - Explanations on the principle of virtual work and why we use it\nFEM - Still a WIP on the finite element method\nLarge deformations - Still a WIP on large deformations"
   },
   {
     "objectID": "lectures/03-yield-criteria.html",
