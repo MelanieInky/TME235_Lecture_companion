@@ -21,6 +21,7 @@ In addition, you will find the code shown during the problem tutorial.
 - [Problem 1 to 7](problems/01-problems1_to7.qmd) - Topic 1 to 4
 - [Problem 8 to 10](problems/02-problems8_to10.qmd) - Bars and beams
 - [Problem 12 to 13](problems/03-problems12_to13.qmd) - Timoshenko beams
+- [Problem 27 to 30](problems/04-problems27_to30.qmd) - Large deformations
 
 ## Topics
 
@@ -31,3 +32,5 @@ In addition, you will find the code shown during the problem tutorial.
 1. [Plane stress/strain](lectures/05-plane-stress-strain.qmd) - Plane stress and plane strain in the Voigt notation.
 1. [Beams and Bars](lectures/06-beams_and_bars.qmd) - Bar problem equations, and Euler-Bernoulli beam problem equations.
 1. [Principle of virtual work](lectures/07-virtual_work.qmd) - Explanations on the principle of virtual work and why we use it
+1. [FEM](lectures/08-fem.qmd) - Still a WIP on the finite element method
+1. [Large deformations](lectures/09-large-deformations.qmd) - Still a WIP on large deformations
