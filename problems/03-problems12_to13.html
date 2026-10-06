@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-2605f17c045620ebb5ff4d36ddf71b83.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -215,6 +215,15 @@ window.Quarto = {
   <li><a href="#symbolic-solution-with-sympy" id="toc-symbolic-solution-with-sympy" class="nav-link" data-scroll-target="#symbolic-solution-with-sympy">Symbolic solution with SymPy</a></li>
   <li><a href="#how-important-is-shear" id="toc-how-important-is-shear" class="nav-link" data-scroll-target="#how-important-is-shear">How important is shear?</a></li>
   </ul></li>
+  <li><a href="#problem-13" id="toc-problem-13" class="nav-link" data-scroll-target="#problem-13">Problem 13</a>
+  <ul class="collapse">
+  <li><a href="#axisymmetry" id="toc-axisymmetry" class="nav-link" data-scroll-target="#axisymmetry">Axisymmetry</a>
+  <ul class="collapse">
+  <li><a href="#integrate-eq-axi_disk_diffeq_ex13-by-hand" id="toc-integrate-eq-axi_disk_diffeq_ex13-by-hand" class="nav-link" data-scroll-target="#integrate-eq-axi_disk_diffeq_ex13-by-hand">1 Integrate Equation&nbsp;2 by hand</a></li>
+  <li><a href="#write-out-the-boundary-conditions" id="toc-write-out-the-boundary-conditions" class="nav-link" data-scroll-target="#write-out-the-boundary-conditions">2 Write out the boundary conditions</a></li>
+  <li><a href="#find-the-integration-constant-using-sympy." id="toc-find-the-integration-constant-using-sympy." class="nav-link" data-scroll-target="#find-the-integration-constant-using-sympy.">3 Find the integration constant using sympy.</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -246,7 +255,7 @@ window.Quarto = {
 </header>
 
 
-<div id="3912b207" class="cell" data-execution_count="1">
+<div id="342c19e5" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
@@ -299,8 +308,10 @@ window.Quarto = {
 </tbody>
 </table>
 <p><em>Answer:</em></p>
-<p><span class="math display">\[w(x)=\frac{q_0}{2K_sGA}\left(-x^{2}+xL\right)
-+\frac{q_0}{24EI}\left(x^{4}-2Lx^{3}+L^{3}x\right)\]</span></p>
+<p><span class="math display">\[
+w(x)=\frac{q_0}{2K_sGA}\left(-x^{2}+xL\right)
++\frac{q_0}{24EI}\left(x^{4}-2Lx^{3}+L^{3}x\right)
+\]</span></p>
 </div>
 </div>
 <section id="timoshenko-beam-theory-recap" class="level2">
@@ -316,17 +327,22 @@ window.Quarto = {
 <p><span class="math display">\[\mathbf{u}=\left[-z\,\varphi(x),\;0,\;w(x)\right]\]</span></p>
 <p>which gives the two non-zero strains</p>
 <p><span class="math display">\[\epsilon_{xx}=\frac{\partial u_x}{\partial x}=-z\,\varphi'(x)\]</span></p>
-<p><span class="math display">\[\gamma_{xz}=2\epsilon_{xz}=\frac{\partial u_x}{\partial z}+\frac{\partial u_z}{\partial x}
-=-\varphi+w'\]</span></p>
+<p><span class="math display">\[
+\gamma_{xz}=2\epsilon_{xz}=\frac{\partial u_x}{\partial z}+\frac{\partial u_z}{\partial x}
+=-\varphi+w'
+\]</span></p>
 <p>Setting <span class="math inline">\(\varphi=w'\)</span> makes <span class="math inline">\(\gamma_{xz}=0\)</span> and gives back Euler–Bernoulli.</p>
 </section>
 <section id="principle-of-virtual-work" class="level3">
 <h3 class="anchored" data-anchor-id="principle-of-virtual-work">Principle of virtual work</h3>
 <p>Internal virtual work, with <span class="math inline">\(\delta\epsilon_{xx}=-z\,\delta\varphi'\)</span> and <span class="math inline">\(\delta\gamma_{xz}=\delta w'-\delta\varphi\)</span>:</p>
-<p><span class="math display">\[\delta W_\text{int}=\int_\Omega\sigma_{ij}\,\delta\epsilon_{ij}\,d\Omega
-=\int_0^L\!\!\int_A\left(\sigma_{xx}\,\delta\epsilon_{xx}+\sigma_{xz}\,\delta\gamma_{xz}\right)dA\,dx\]</span></p>
+<p><span class="math display">\[
+\delta W_\text{int}=\int_\Omega\sigma_{ij}\,\delta\epsilon_{ij}\,d\Omega
+=\int_0^L\!\!\int_A\left(\sigma_{xx}\,\delta\epsilon_{xx}+\sigma_{xz}\,\delta\gamma_{xz}\right)dA\,dx
+\]</span></p>
 <p><span class="math display">\[\delta W_\text{int}=\int_0^L\left[M\left(-\delta\varphi'\right)
-+V\left(\delta w'-\delta\varphi\right)\right]dx\]</span></p>
++V\left(\delta w'-\delta\varphi\right)\right]dx
+\]</span></p>
 <p>with the section forces</p>
 <p><span class="math display">\[M=\int_A\sigma_{xx}\,z\,dA,\qquad V=\int_A\sigma_{xz}\,dA\]</span></p>
 <p>External virtual work of the distributed load:</p>
@@ -347,15 +363,19 @@ window.Quarto = {
 <p><span class="math display">\[\left\{\begin{array}{l}
 -V+M'=0\\[2pt]
 V'+q=0
-\end{array}\right.\]</span></p>
+\end{array}\right.
+\]</span></p>
 <p>Inserting the constitutive relations gives the <strong>equilibrium equations for the Timoshenko beam</strong>:</p>
 <p><span class="math display">\[\left\{\begin{array}{l}
 K_sGA\left(\varphi-w'\right)-EI\,\varphi''=0\\[2pt]
 K_sGA\left(w''-\varphi'\right)+q=0
-\end{array}\right.\]</span></p>
+\end{array}\right.
+\]</span></p>
 <p>From these we find the two equations that are actually used to solve problems:</p>
-<p><span class="math display">\[EI\,\varphi'''=q\qquad ①\]</span></p>
-<p><span class="math display">\[w'=-\frac{EI}{K_sGA}\,\varphi''+\varphi\qquad ②\]</span></p>
+<p><span class="math display">\[EI\,\varphi'''=q\qquad ①
+\]</span></p>
+<p><span class="math display">\[w'=-\frac{EI}{K_sGA}\,\varphi''+\varphi\qquad ②
+\]</span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="How do we get ① and ②?">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -411,40 +431,47 @@ K_sGA\left(w''-\varphi'\right)+q=0
 </table>
 <p>The moment conditions only involve <span class="math inline">\(\varphi\)</span>, so we use them first. Since <span class="math inline">\(M=\int_A\sigma_{xx}z\,dA=-EI\varphi'\)</span>:</p>
 <p><span class="math display">\[M(0)=0\;\Longrightarrow\;\varphi'(0)=0
-\;\Longrightarrow\;\frac{q_0}{EI}\frac{0}{2}+C_1\cdot0+C_2=0\]</span></p>
+\;\Longrightarrow\;\frac{q_0}{EI}\frac{0}{2}+C_1\cdot0+C_2=0
+\]</span></p>
 <p><span class="math display">\[\Longrightarrow\quad C_2=0\qquad ④\]</span></p>
 <p><span class="math display">\[M(L)=0\;\Longrightarrow\;\varphi'(L)=0
-\;\Longrightarrow\;\frac{q_0}{EI}\frac{L^{2}}{2}+C_1L+\underbrace{C_2}_{=0}=0\]</span></p>
+\;\Longrightarrow\;\frac{q_0}{EI}\frac{L^{2}}{2}+C_1L+\underbrace{C_2}_{=0}=0
+\]</span></p>
 <p><span class="math display">\[\Longrightarrow\quad C_1=-\frac{q_0L}{2EI}\qquad ⑤\]</span></p>
 </section>
 <section id="integrate-②-for-the-deflection" class="level3">
 <h3 class="anchored" data-anchor-id="integrate-②-for-the-deflection">3. Integrate ② for the deflection</h3>
-<p><span class="math display">\[\int w'\,dx=w=-\frac{EI}{K_sGA}\int\varphi''\,dx+\int\varphi\,dx\]</span></p>
+<p><span class="math display">\[\int w'\,dx=w=-\frac{EI}{K_sGA}\int\varphi''\,dx+\int\varphi\,dx
+\]</span></p>
 <p><span class="math display">\[w(x)=-\frac{EI}{K_sGA}\left(\frac{q_0x^{2}}{2EI}+C_1x\right)
-+\frac{q_0}{EI}\frac{x^{4}}{24}+C_1\frac{x^{3}}{6}+C_3x+C_4\qquad ⑥\]</span></p>
++\frac{q_0}{EI}\frac{x^{4}}{24}+C_1\frac{x^{3}}{6}+C_3x+C_4\qquad ⑥
+\]</span></p>
 <p>Note that <span class="math inline">\(\int\varphi''\,dx=\varphi'\)</span> was written using ④ (<span class="math inline">\(C_2=0\)</span>), and its integration constant is absorbed into <span class="math inline">\(C_4\)</span>.</p>
 </section>
 <section id="boundary-conditions-on-the-deflection" class="level3">
 <h3 class="anchored" data-anchor-id="boundary-conditions-on-the-deflection">4. Boundary conditions on the deflection</h3>
-<p><span class="math display">\[w(0)=0\;\Longrightarrow\;C_4=0\qquad ⑦\]</span></p>
+<p><span class="math display">\[w(0)=0\;\Longrightarrow\;C_4=0\qquad ⑦
+\]</span></p>
 <p><span class="math display">\[w(L)=0\]</span></p>
 <p>The shear term in ⑥, with ⑤, is <span class="math inline">\(-\dfrac{1}{K_sGA}\left(\dfrac{q_0x^{2}}{2}-\dfrac{q_0Lx}{2}\right)\)</span>, which vanishes at <span class="math inline">\(x=L\)</span>. What is left is</p>
 <p><span class="math display">\[\frac{q_0L^{4}}{24EI}-\frac{q_0L}{2EI}\frac{L^{3}}{6}+C_3L=0
-\;\Longrightarrow\;\frac{q_0L^{4}}{24EI}-\frac{2q_0L^{4}}{24EI}+C_3L=0\]</span></p>
+\;\Longrightarrow\;\frac{q_0L^{4}}{24EI}-\frac{2q_0L^{4}}{24EI}+C_3L=0
+\]</span></p>
 <p><span class="math display">\[\Longrightarrow\quad C_3=\frac{q_0L^{3}}{24EI}\qquad ⑧\]</span></p>
 </section>
 <section id="result" class="level3">
 <h3 class="anchored" data-anchor-id="result">Result</h3>
 <p>Replacing ④, ⑤, ⑦ and ⑧ in ⑥:</p>
 <p><span class="math display">\[w(x)=\frac{q_0}{2K_sGA}\left(-x^{2}+Lx\right)
-+\frac{q_0}{24EI}\left(x^{4}-2Lx^{3}+L^{3}x\right)\]</span></p>
++\frac{q_0}{24EI}\left(x^{4}-2Lx^{3}+L^{3}x\right)
+\]</span></p>
 <p>The second term is exactly the Euler–Bernoulli deflection of a simply supported beam; the first term is the extra deflection due to shear, and it disappears for <span class="math inline">\(K_sGA\to\infty\)</span> (shear-rigid beam).</p>
 </section>
 </section>
 <section id="symbolic-solution-with-sympy" class="level2">
 <h2 class="anchored" data-anchor-id="symbolic-solution-with-sympy">Symbolic solution with SymPy</h2>
 <p>The script follows the same steps: integrate ① three times, impose the moment BCs, then integrate ② and impose the deflection BCs.</p>
-<div id="9bb3688c" class="cell" data-execution_count="2">
+<div id="ab79c347" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. Integrate EI phi''' = q0 ----------------------------------------------</span></span>
@@ -456,11 +483,11 @@ K_sGA\left(w''-\varphi'\right)+q=0
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>phi    <span class="op">=</span> sp.integrate(phi_p, x) <span class="op">+</span> C3       <span class="co"># phi,  eq. ③</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>phi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="160">
 <p><span class="math inline">\(\displaystyle \frac{C_{1} x^{2}}{2} + C_{2} x + C_{3} + \frac{q_{0} x^{3}}{6 EI}\)</span></p>
 </div>
 </div>
-<div id="6b39f124" class="cell" data-execution_count="3">
+<div id="bcade6b5" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. Moment BCs: M(0) = M(L) = 0 --------------------------------------------</span></span>
@@ -468,11 +495,11 @@ K_sGA\left(w''-\varphi'\right)+q=0
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sol_M <span class="op">=</span> sp.solve([M.subs(x, <span class="dv">0</span>), M.subs(x, L)], [C1, C2], <span class="bu">dict</span><span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>]</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sol_M</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="10">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="161">
 <p><span class="math inline">\(\displaystyle \left\{ C_{1} : - \frac{L q_{0}}{2 EI}, \  C_{2} : 0\right\}\)</span></p>
 </div>
 </div>
-<div id="d32008fd" class="cell" data-execution_count="4">
+<div id="cdbe5810" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Integrate w' = -EI/(KsGA) phi'' + phi ---------------------------------</span></span>
@@ -483,22 +510,22 @@ K_sGA\left(w''-\varphi'\right)+q=0
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>sol_w <span class="op">=</span> sp.solve([w.subs(x, <span class="dv">0</span>), w.subs(x, L)], [C3, C4], <span class="bu">dict</span><span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>]</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>sol_w</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="162">
 <p><span class="math inline">\(\displaystyle \left\{ C_{3} : \frac{L^{3} q_{0}}{24 EI}, \  C_{4} : 0\right\}\)</span></p>
 </div>
 </div>
-<div id="2f590355" class="cell" data-execution_count="5">
+<div id="d0293216" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- final deflection ----------------------------------------------------------</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> sp.expand(w.subs(sol_w))</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>w</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="163">
 <p><span class="math inline">\(\displaystyle \frac{L q_{0} x}{2 K_{sGA}} - \frac{q_{0} x^{2}}{2 K_{sGA}} + \frac{L^{3} q_{0} x}{24 EI} - \frac{L q_{0} x^{3}}{12 EI} + \frac{q_{0} x^{4}}{24 EI}\)</span></p>
 </div>
 </div>
-<div id="5696b0de" class="cell" data-execution_count="6">
+<div id="d7312f40" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- check against the answer of the problem ------------------------------------</span></span>
@@ -514,13 +541,17 @@ K_sGA\left(w''-\varphi'\right)+q=0
 <section id="how-important-is-shear" class="level2">
 <h2 class="anchored" data-anchor-id="how-important-is-shear">How important is shear?</h2>
 <p>At midspan the two contributions are</p>
-<p><span class="math display">\[w\!\left(\tfrac{L}{2}\right)=\underbrace{\frac{q_0L^{2}}{8K_sGA}}_{\text{shear}}
+<p><span class="math display">\[
+w\!\left(\tfrac{L}{2}\right)=\underbrace{\frac{q_0L^{2}}{8K_sGA}}_{\text{shear}}
 +\underbrace{\frac{5q_0L^{4}}{384EI}}_{\text{bending (E–B)}}
-=\frac{5q_0L^{4}}{384EI}\left(1+\frac{48}{5}\frac{EI}{K_sGAL^{2}}\right)\]</span></p>
+=\frac{5q_0L^{4}}{384EI}\left(1+\frac{48}{5}\frac{EI}{K_sGAL^{2}}\right)
+\]</span></p>
 <p>For a rectangular section (<span class="math inline">\(I=bh^{3}/12\)</span>, <span class="math inline">\(A=bh\)</span>, <span class="math inline">\(K_s=5/6\)</span>) with <span class="math inline">\(\nu=0.3\)</span> (<span class="math inline">\(E/G=2(1+\nu)=2.6\)</span>):</p>
-<p><span class="math display">\[\frac{EI}{K_sGAL^{2}}=\frac{E}{G}\,\frac{h^{2}}{12K_sL^{2}}=0.26\left(\frac{h}{L}\right)^{2}\]</span></p>
+<p><span class="math display">\[
+\frac{EI}{K_sGAL^{2}}=\frac{E}{G}\,\frac{h^{2}}{12K_sL^{2}}=0.26\left(\frac{h}{L}\right)^{2}
+\]</span></p>
 <p>so the shear correction is <span class="math inline">\(\approx 2.5\,(h/L)^{2}\)</span>: about <span class="math inline">\(2.5\%\)</span> for <span class="math inline">\(L/h=10\)</span>, but <span class="math inline">\(62\%\)</span> for <span class="math inline">\(L/h=2\)</span>.</p>
-<div id="336b4fdc" class="cell" data-execution_count="7">
+<div id="d6af131c" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- plot (normalised) ---------------------------------------------------------</span></span>
@@ -557,8 +588,174 @@ K_sGA\left(w''-\varphi'\right)+q=0
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="problem-13" class="level1">
+<h1>Problem 13</h1>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Problem 13: Rotating thin disc">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Problem 13: Rotating thin disc
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For a thin axisymmetric disc (geometry and loading) assumed to be in plane stress, determine the deflection <span class="math inline">\(u_r(r)\)</span>. The disc rotates with angular velocity <span class="math inline">\(\omega\)</span>, which causes a volume force <span class="math inline">\(f_r = \rho\,\omega^2 r\)</span>. The boundaries are unloaded.</p>
+<p><strong>Answer</strong></p>
+<p><span class="math display">\[
+u_r(r) = -\frac{1-\nu^2}{E}\,\rho\omega^2\,\frac{r^3}{8} + C_1\,\frac{r}{2} + \frac{C_2}{r}
+\]</span></p>
+<p>with</p>
+<p><span class="math display">\[
+C_1 = \frac{(3+\nu)(1-\nu)}{4E}\,\rho\omega^2\left(a^2+b^2\right), \qquad
+C_2 = \frac{1+\nu}{8E}\,\rho\omega^2\,(3+\nu)\,a^2 b^2
+\]</span></p>
+<p>where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are the inner and outer radii.</p>
+</div>
+</div>
+<section id="axisymmetry" class="level2">
+<h2 class="anchored" data-anchor-id="axisymmetry">Axisymmetry</h2>
+<p>The important word here is the axisymmetric assumption. THis means that any variable dependence on the radial angle <span class="math inline">\(\varphi\)</span> disapears, i.e.</p>
+<p><span class="math display">\[
+\frac{\partial [\cdot]}{\partial \phi} = 0
+\]</span></p>
+<p>where <span class="math inline">\([\cdot]\)</span> can be any variable (e.g.&nbsp;the stress, or the radial displacement). Combined with the plane stress assumption <span class="math inline">\(\sigma_{rz} = \sigma_{\varphi z} = \sigma_{zz} = 0\)</span>, and the assumption of no shear stress on the external boundary <span class="math inline">\(\sigma_{r\varphi} = 0\)</span>, we end up with the differential equation for a thin axisymmetric disk of (4.14 in the lecture notes)</p>
+<p><span id="eq-axi_disk_diffeq"><span class="math display">\[
+\frac{\mathrm{d}}{\mathrm{d}r}\left(\frac{1}{r}\,\frac{\mathrm{d}}{\mathrm{d}r}\left(u_r\,r\right)\right) = -\frac{1-\nu^2}{E}\,f_r
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(f_r\)</span> is the body forces. The disk is rotating, which induces a centrifugal force in the radial direction <span class="math inline">\(f_r = \rho \omega^2 r\)</span>, which we insert into <a href="#eq-axi_disk_diffeq" class="quarto-xref">Equation&nbsp;1</a>:</p>
+<p><span id="eq-axi_disk_diffeq_ex13"><span class="math display">\[
+\frac{\mathrm{d}}{\mathrm{d}r}\left(\frac{1}{r}\,\frac{\mathrm{d}}{\mathrm{d}r}\left(u_r\,r\right)\right) = -\frac{1-\nu^2}{E}\rho \omega^2 r
+\tag{2}\]</span></span></p>
+<p>We will follow the usual step to find the solution to the problem by hand</p>
+<section id="integrate-eq-axi_disk_diffeq_ex13-by-hand" class="level3">
+<h3 class="anchored" data-anchor-id="integrate-eq-axi_disk_diffeq_ex13-by-hand">1 Integrate <a href="#eq-axi_disk_diffeq_ex13" class="quarto-xref">Equation&nbsp;2</a> by hand</h3>
+<p>Integrate with regard to the radius a first time and multiply by <span class="math inline">\(r\)</span>, we get</p>
+<p><span class="math display">\[
+\frac{d}{dr} (u_r r) = -\frac{1-\nu^2}{2E}\rho \omega^2 r^3 + C_1 r
+\]</span></p>
+<p>Integrate a second time, divide by <span class="math inline">\(r\)</span></p>
+<p><span class="math display">\[
+u_r(r) = -\frac{1-\nu^2}{8E} \rho \omega^2 r^3 + \frac{C_1 r}{2} + \frac{C_2}{r}
+\]</span></p>
+<p>where <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are integrations constants. We have 2 integration constants and thus need two equations to find them. Those are, of course, the boundary conditions!</p>
+</section>
+<section id="write-out-the-boundary-conditions" class="level3">
+<h3 class="anchored" data-anchor-id="write-out-the-boundary-conditions">2 Write out the boundary conditions</h3>
+<p>From the lecture notes, there are three main type of boundary conditions for an axisymmetric disk, those are</p>
+<ol type="1">
+<li>Prescribed displacement <span class="math inline">\(u_r = \hat{u_r}\)</span>.</li>
+<li>Prescribed radial stress <span class="math inline">\(\sigma_{rr} = \hat{\sigma}_{rr}\)</span>.</li>
+<li>Mixed boundary condition, for example an attached spring <span class="math inline">\(\sigma_{rr} = k u_r\)</span>.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="What are the boundary conditions for this exercise">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What are the boundary conditions for this exercise
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>On the inner and outer edge, we are told that the disk is unloaded. This means that there is nothing constraining it, so no prescribed displacement. There is also no force applied to it on either end, thus</p>
+<p><span class="math display">\[
+\sigma_{rr}(a) = \sigma_{rr}(b) = 0
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="How do we use the stress with our integrated equation?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>How do we use the stress with our integrated equation?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember that we have the assumption of plane stress. For a linear elastic material like our disk, the stress is related to the strain by</p>
+<p><span class="math display">\[
+\begin{pmatrix} \sigma_{rr} \\ \sigma_{\theta\theta} \\ \sigma_{r\theta} \end{pmatrix}
+=
+\frac{E}{1-\nu^2}
+\begin{pmatrix}
+1 &amp; \nu &amp; 0 \\
+\nu &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; \dfrac{1-\nu}{2}
+\end{pmatrix}
+\begin{pmatrix} \varepsilon_{rr} \\ \varepsilon_{\theta\theta} \\ \gamma_{r\theta} \end{pmatrix},
+\qquad \gamma_{r\theta} = 2\varepsilon_{r\theta},
+\]</span></p>
+<p>or written out,</p>
+<p><span class="math display">\[
+\sigma_{rr} = \frac{E}{1-\nu^2}\left(\varepsilon_{rr} + \nu\,\varepsilon_{\theta\theta}\right),
+\qquad
+\sigma_{\theta\theta} = \frac{E}{1-\nu^2}\left(\varepsilon_{\theta\theta} + \nu\,\varepsilon_{rr}\right),
+\qquad
+\sigma_{r\theta} = \frac{E}{2(1+\nu)}\,\gamma_{r\theta}.
+\]</span></p>
+<p>and we have in the lecture note related the strain in radial coordinate to the radial displacement:</p>
+<p><span class="math display">\[
+\varepsilon_{rr} = \frac{\mathrm{d}u_r}{\mathrm{d}r},
+\qquad
+\varepsilon_{\theta\theta} = \frac{u_r}{r},
+\qquad
+\gamma_{r\theta} = 0,
+\]</span></p>
+<p>Thus, the radial stress, given in term of radial displacement becomes</p>
+<p><span class="math display">\[
+\sigma_{rr} = \frac{E}{1-\nu^2}\left[ \frac{d u_r}{dr} + \nu \frac{u_r}{r} \right]
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="find-the-integration-constant-using-sympy." class="level3">
+<h3 class="anchored" data-anchor-id="find-the-integration-constant-using-sympy.">3 Find the integration constant using sympy.</h3>
+<p>We have two equations now, and two unknowns, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span>, and we can do this by hand, but that would take us quite a bit of time. Therefore, it is easier and more effective to write it in sympy, which is what the following code does.s</p>
+<div id="06f3107c" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#First we define our symbols</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>E, nu, rho, omega, r, C1, C2,a,b <span class="op">=</span> sp.symbols(<span class="st">"E,nu,rho,omega,r,C1,C2,a,b"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Next we define our function with the integration constants</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ur <span class="op">=</span> <span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>nu<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">8</span><span class="op">*</span>E) <span class="op">*</span> rho <span class="op">*</span> omega<span class="op">**</span><span class="dv">2</span> <span class="op">*</span>r<span class="op">**</span><span class="dv">3</span> <span class="op">+</span> C1<span class="op">*</span>r<span class="op">/</span><span class="dv">2</span> <span class="op">+</span> C2<span class="op">/</span>r</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># And the formula for the radial stress</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>sigmarr <span class="op">=</span> E<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>nu<span class="op">**</span><span class="dv">2</span>) <span class="op">*</span> (sp.diff(ur,r)<span class="op">+</span>nu<span class="op">*</span>ur<span class="op">/</span>r)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>sigmarr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="166">
+<p><span class="math inline">\(\displaystyle \frac{E \left(\frac{C_{1}}{2} - \frac{C_{2}}{r^{2}} + \frac{\nu \left(\frac{C_{1} r}{2} + \frac{C_{2}}{r} + \frac{\omega^{2} r^{3} \rho \left(\nu^{2} - 1\right)}{8 E}\right)}{r} + \frac{3 \omega^{2} r^{2} \rho \left(\nu^{2} - 1\right)}{8 E}\right)}{1 - \nu^{2}}\)</span></p>
+</div>
+</div>
+<div id="e1ea0231" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Now, our boundary conditions sigma_rr(a) = sigma_rr(b) = 0</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>left_bc <span class="op">=</span> sigmarr.subs(r,a)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>right_bc <span class="op">=</span> sigmarr.subs(r,b)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Write the equations system with C1 and C2 as unknowns</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>eqs <span class="op">=</span> [left_bc,right_bc]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We have written the equation, let’s solve it for <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span>. We will also call the “factor” method from sympy to get a nicer expression closer to the answer in the lecture notes.</p>
+<div id="117d1956" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Write out the value of C1 and C2 (use sp.factor to find the answer in the LN)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> sp.solve(eqs,[C1,C2])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sp.factor(sol[C1])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="168">
+<p><span class="math inline">\(\displaystyle - \frac{\omega^{2} \rho \left(a^{2} + b^{2}\right) \left(\nu - 1\right) \left(\nu + 3\right)}{4 E}\)</span></p>
+</div>
+</div>
+<div id="4ed4bd10" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sp.factor(sol[C2])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="169">
+<p><span class="math inline">\(\displaystyle \frac{a^{2} b^{2} \omega^{2} \rho \left(\nu + 1\right) \left(\nu + 3\right)}{8 E}\)</span></p>
+</div>
+</div>
 
 
+</section>
 </section>
 </section>
 
