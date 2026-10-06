@@ -28,8 +28,10 @@ Supports (read them off the figure **before** touching the equations):
 
 *Answer:*
 
-$$w(x)=\frac{q_0}{2K_sGA}\left(-x^{2}+xL\right)
-+\frac{q_0}{24EI}\left(x^{4}-2Lx^{3}+L^{3}x\right)$$
+$$
+w(x)=\frac{q_0}{2K_sGA}\left(-x^{2}+xL\right)
++\frac{q_0}{24EI}\left(x^{4}-2Lx^{3}+L^{3}x\right)
+$$
 :::
 
 ## Timoshenko beam theory recap
@@ -60,8 +62,10 @@ which gives the two non-zero strains
 
 $$\epsilon_{xx}=\frac{\partial u_x}{\partial x}=-z\,\varphi'(x)$$
 
-$$\gamma_{xz}=2\epsilon_{xz}=\frac{\partial u_x}{\partial z}+\frac{\partial u_z}{\partial x}
-=-\varphi+w'$$
+$$
+\gamma_{xz}=2\epsilon_{xz}=\frac{\partial u_x}{\partial z}+\frac{\partial u_z}{\partial x}
+=-\varphi+w'
+$$
 
 Setting $\varphi=w'$ makes $\gamma_{xz}=0$ and gives back Euler–Bernoulli.
 
@@ -70,11 +74,14 @@ Setting $\varphi=w'$ makes $\gamma_{xz}=0$ and gives back Euler–Bernoulli.
 Internal virtual work, with $\delta\epsilon_{xx}=-z\,\delta\varphi'$ and
 $\delta\gamma_{xz}=\delta w'-\delta\varphi$:
 
-$$\delta W_\text{int}=\int_\Omega\sigma_{ij}\,\delta\epsilon_{ij}\,d\Omega
-=\int_0^L\!\!\int_A\left(\sigma_{xx}\,\delta\epsilon_{xx}+\sigma_{xz}\,\delta\gamma_{xz}\right)dA\,dx$$
+$$
+\delta W_\text{int}=\int_\Omega\sigma_{ij}\,\delta\epsilon_{ij}\,d\Omega
+=\int_0^L\!\!\int_A\left(\sigma_{xx}\,\delta\epsilon_{xx}+\sigma_{xz}\,\delta\gamma_{xz}\right)dA\,dx
+$$
 
 $$\delta W_\text{int}=\int_0^L\left[M\left(-\delta\varphi'\right)
-+V\left(\delta w'-\delta\varphi\right)\right]dx$$
++V\left(\delta w'-\delta\varphi\right)\right]dx
+$$
 
 with the section forces
 
@@ -108,7 +115,8 @@ every $\delta\varphi$ and $\delta w$, we find:
 $$\left\{\begin{array}{l}
 -V+M'=0\\[2pt]
 V'+q=0
-\end{array}\right.$$
+\end{array}\right.
+$$
 
 Inserting the constitutive relations gives the **equilibrium equations for the Timoshenko
 beam**:
@@ -116,13 +124,16 @@ beam**:
 $$\left\{\begin{array}{l}
 K_sGA\left(\varphi-w'\right)-EI\,\varphi''=0\\[2pt]
 K_sGA\left(w''-\varphi'\right)+q=0
-\end{array}\right.$$
+\end{array}\right.
+$$
 
 From these we find the two equations that are actually used to solve problems:
 
-$$EI\,\varphi'''=q\qquad ①$$
+$$EI\,\varphi'''=q\qquad ①
+$$
 
-$$w'=-\frac{EI}{K_sGA}\,\varphi''+\varphi\qquad ②$$
+$$w'=-\frac{EI}{K_sGA}\,\varphi''+\varphi\qquad ②
+$$
 
 ::: {.callout-tip title="How do we get ① and ②?" collapse="true"}
 The first equilibrium equation is $V=M'=-EI\varphi''$. Then:
@@ -158,28 +169,33 @@ The moment conditions only involve $\varphi$, so we use them first. Since
 $M=\int_A\sigma_{xx}z\,dA=-EI\varphi'$:
 
 $$M(0)=0\;\Longrightarrow\;\varphi'(0)=0
-\;\Longrightarrow\;\frac{q_0}{EI}\frac{0}{2}+C_1\cdot0+C_2=0$$
+\;\Longrightarrow\;\frac{q_0}{EI}\frac{0}{2}+C_1\cdot0+C_2=0
+$$
 
 $$\Longrightarrow\quad C_2=0\qquad ④$$
 
 $$M(L)=0\;\Longrightarrow\;\varphi'(L)=0
-\;\Longrightarrow\;\frac{q_0}{EI}\frac{L^{2}}{2}+C_1L+\underbrace{C_2}_{=0}=0$$
+\;\Longrightarrow\;\frac{q_0}{EI}\frac{L^{2}}{2}+C_1L+\underbrace{C_2}_{=0}=0
+$$
 
 $$\Longrightarrow\quad C_1=-\frac{q_0L}{2EI}\qquad ⑤$$
 
 ### 3. Integrate ② for the deflection
 
-$$\int w'\,dx=w=-\frac{EI}{K_sGA}\int\varphi''\,dx+\int\varphi\,dx$$
+$$\int w'\,dx=w=-\frac{EI}{K_sGA}\int\varphi''\,dx+\int\varphi\,dx
+$$
 
 $$w(x)=-\frac{EI}{K_sGA}\left(\frac{q_0x^{2}}{2EI}+C_1x\right)
-+\frac{q_0}{EI}\frac{x^{4}}{24}+C_1\frac{x^{3}}{6}+C_3x+C_4\qquad ⑥$$
++\frac{q_0}{EI}\frac{x^{4}}{24}+C_1\frac{x^{3}}{6}+C_3x+C_4\qquad ⑥
+$$
 
 Note that $\int\varphi''\,dx=\varphi'$ was written using ④ ($C_2=0$), and its integration
 constant is absorbed into $C_4$.
 
 ### 4. Boundary conditions on the deflection
 
-$$w(0)=0\;\Longrightarrow\;C_4=0\qquad ⑦$$
+$$w(0)=0\;\Longrightarrow\;C_4=0\qquad ⑦
+$$
 
 $$w(L)=0$$
 
@@ -188,7 +204,8 @@ $-\dfrac{1}{K_sGA}\left(\dfrac{q_0x^{2}}{2}-\dfrac{q_0Lx}{2}\right)$, which vani
 $x=L$. What is left is
 
 $$\frac{q_0L^{4}}{24EI}-\frac{q_0L}{2EI}\frac{L^{3}}{6}+C_3L=0
-\;\Longrightarrow\;\frac{q_0L^{4}}{24EI}-\frac{2q_0L^{4}}{24EI}+C_3L=0$$
+\;\Longrightarrow\;\frac{q_0L^{4}}{24EI}-\frac{2q_0L^{4}}{24EI}+C_3L=0
+$$
 
 $$\Longrightarrow\quad C_3=\frac{q_0L^{3}}{24EI}\qquad ⑧$$
 
@@ -197,7 +214,8 @@ $$\Longrightarrow\quad C_3=\frac{q_0L^{3}}{24EI}\qquad ⑧$$
 Replacing ④, ⑤, ⑦ and ⑧ in ⑥:
 
 $$w(x)=\frac{q_0}{2K_sGA}\left(-x^{2}+Lx\right)
-+\frac{q_0}{24EI}\left(x^{4}-2Lx^{3}+L^{3}x\right)$$
++\frac{q_0}{24EI}\left(x^{4}-2Lx^{3}+L^{3}x\right)
+$$
 
 The second term is exactly the Euler–Bernoulli deflection of a simply supported beam; the
 first term is the extra deflection due to shear, and it disappears for
@@ -253,14 +271,18 @@ print("difference w_sympy - w_answer :", sp.simplify(w - w_ref))
 
 At midspan the two contributions are
 
-$$w\!\left(\tfrac{L}{2}\right)=\underbrace{\frac{q_0L^{2}}{8K_sGA}}_{\text{shear}}
+$$
+w\!\left(\tfrac{L}{2}\right)=\underbrace{\frac{q_0L^{2}}{8K_sGA}}_{\text{shear}}
 +\underbrace{\frac{5q_0L^{4}}{384EI}}_{\text{bending (E–B)}}
-=\frac{5q_0L^{4}}{384EI}\left(1+\frac{48}{5}\frac{EI}{K_sGAL^{2}}\right)$$
+=\frac{5q_0L^{4}}{384EI}\left(1+\frac{48}{5}\frac{EI}{K_sGAL^{2}}\right)
+$$
 
 For a rectangular section ($I=bh^{3}/12$, $A=bh$, $K_s=5/6$) with $\nu=0.3$
 ($E/G=2(1+\nu)=2.6$):
 
-$$\frac{EI}{K_sGAL^{2}}=\frac{E}{G}\,\frac{h^{2}}{12K_sL^{2}}=0.26\left(\frac{h}{L}\right)^{2}$$
+$$
+\frac{EI}{K_sGAL^{2}}=\frac{E}{G}\,\frac{h^{2}}{12K_sL^{2}}=0.26\left(\frac{h}{L}\right)^{2}
+$$
 
 so the shear correction is $\approx 2.5\,(h/L)^{2}$: about $2.5\%$ for $L/h=10$, but $62\%$
 for $L/h=2$.
@@ -291,4 +313,173 @@ ax[0].invert_yaxis()                        # deflection drawn downwards, as the
 ax[0].set_ylabel(r'$w\,EI/(q_0L^4)$')
 ax[0].legend(loc='lower center')
 plt.tight_layout(); plt.show()
+```
+
+
+# Problem 13
+
+::: {.callout-note title="Problem 13: Rotating thin disc" icon=false}
+For a thin axisymmetric disc (geometry and loading) assumed to be in plane stress, determine the deflection $u_r(r)$. The disc rotates with angular velocity $\omega$, which causes a volume force $f_r = \rho\,\omega^2 r$. The boundaries are unloaded.
+
+**Answer**
+
+$$
+u_r(r) = -\frac{1-\nu^2}{E}\,\rho\omega^2\,\frac{r^3}{8} + C_1\,\frac{r}{2} + \frac{C_2}{r}
+$$
+
+with
+
+$$
+C_1 = \frac{(3+\nu)(1-\nu)}{4E}\,\rho\omega^2\left(a^2+b^2\right), \qquad
+C_2 = \frac{1+\nu}{8E}\,\rho\omega^2\,(3+\nu)\,a^2 b^2
+$$
+
+where $a$ and $b$ are the inner and outer radii.
+:::
+
+## Axisymmetry
+
+The important word here is the axisymmetric assumption. THis means that any variable dependence on the radial angle $\varphi$ disapears, i.e.
+
+$$
+\frac{\partial [\cdot]}{\partial \phi} = 0
+$$
+
+where $[\cdot]$ can be any variable (e.g. the stress, or the radial displacement). Combined with the plane stress assumption $\sigma_{rz} = \sigma_{\varphi z} = \sigma_{zz} = 0$, and the assumption of no shear stress on the external boundary $\sigma_{r\varphi} = 0$, we end up with the differential equation for a thin axisymmetric disk of (4.14 in the lecture notes)
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}r}\left(\frac{1}{r}\,\frac{\mathrm{d}}{\mathrm{d}r}\left(u_r\,r\right)\right) = -\frac{1-\nu^2}{E}\,f_r
+$${#eq-axi_disk_diffeq}
+
+where $f_r$ is the body forces. The disk is rotating, which induces a centrifugal force in the radial direction $f_r = \rho \omega^2 r$, which we insert into @eq-axi_disk_diffeq:
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}r}\left(\frac{1}{r}\,\frac{\mathrm{d}}{\mathrm{d}r}\left(u_r\,r\right)\right) = -\frac{1-\nu^2}{E}\rho \omega^2 r
+$${#eq-axi_disk_diffeq_ex13}
+
+We will follow the usual step to find the solution to the problem by hand
+
+### 1 Integrate @eq-axi_disk_diffeq_ex13 by hand
+
+Integrate with regard to the radius a first time and multiply by $r$, we get
+
+$$
+\frac{d}{dr} (u_r r) = -\frac{1-\nu^2}{2E}\rho \omega^2 r^3 + C_1 r
+$$
+
+Integrate a second time, divide by $r$
+
+$$
+u_r(r) = -\frac{1-\nu^2}{8E} \rho \omega^2 r^3 + \frac{C_1 r}{2} + \frac{C_2}{r}
+$$
+
+where $C_1$ and $C_2$ are integrations constants. We have 2 integration constants and thus need two equations to find them. Those are, of course, the boundary conditions!
+
+### 2 Write out the boundary conditions
+
+
+From the lecture notes, there are three main type of boundary conditions for an axisymmetric disk, those are
+
+1. Prescribed displacement $u_r = \hat{u_r}$.
+2. Prescribed radial stress $\sigma_{rr} = \hat{\sigma}_{rr}$.
+3. Mixed boundary condition, for example an attached spring $\sigma_{rr} = k u_r$.
+
+
+:::{.callout-note collapse="true" title="What are the boundary conditions for this exercise"}
+
+On the inner and outer edge, we are told that the disk is unloaded. This means that there is nothing constraining it, so no prescribed displacement. There is also no force applied to it on either end, thus
+
+$$
+\sigma_{rr}(a) = \sigma_{rr}(b) = 0
+$$
+:::
+
+:::{.callout-note title="How do we use the stress with our integrated equation?"}
+Remember that we have the assumption of plane stress. For a linear elastic material like our disk, the stress is related to the strain by
+
+
+$$
+\begin{pmatrix} \sigma_{rr} \\ \sigma_{\theta\theta} \\ \sigma_{r\theta} \end{pmatrix}
+=
+\frac{E}{1-\nu^2}
+\begin{pmatrix}
+1 & \nu & 0 \\
+\nu & 1 & 0 \\
+0 & 0 & \dfrac{1-\nu}{2}
+\end{pmatrix}
+\begin{pmatrix} \varepsilon_{rr} \\ \varepsilon_{\theta\theta} \\ \gamma_{r\theta} \end{pmatrix},
+\qquad \gamma_{r\theta} = 2\varepsilon_{r\theta},
+$$
+
+or written out,
+
+$$
+\sigma_{rr} = \frac{E}{1-\nu^2}\left(\varepsilon_{rr} + \nu\,\varepsilon_{\theta\theta}\right),
+\qquad
+\sigma_{\theta\theta} = \frac{E}{1-\nu^2}\left(\varepsilon_{\theta\theta} + \nu\,\varepsilon_{rr}\right),
+\qquad
+\sigma_{r\theta} = \frac{E}{2(1+\nu)}\,\gamma_{r\theta}.
+$$
+
+and we have in the lecture note related the strain in radial coordinate to the radial displacement:
+
+$$
+\varepsilon_{rr} = \frac{\mathrm{d}u_r}{\mathrm{d}r},
+\qquad
+\varepsilon_{\theta\theta} = \frac{u_r}{r},
+\qquad
+\gamma_{r\theta} = 0,
+$$
+
+Thus, the radial stress, given in term of radial displacement becomes
+
+$$
+\sigma_{rr} = \frac{E}{1-\nu^2}\left[ \frac{d u_r}{dr} + \nu \frac{u_r}{r} \right]
+$$
+
+:::
+
+### 3 Find the integration constant using sympy.
+
+We have two equations now, and two unknowns, $C_1$ and $C_2$, and we can do this by hand, but that would take us quite a bit of time. Therefore, it is easier and more effective to write it in sympy, which is what the following code does.s
+
+
+
+
+```{python}
+#| code-fold: false
+import sympy as sp
+#First we define our symbols
+E, nu, rho, omega, r, C1, C2,a,b = sp.symbols("E,nu,rho,omega,r,C1,C2,a,b")
+#Next we define our function with the integration constants
+ur = -(1-nu**2)/(8*E) * rho * omega**2 *r**3 + C1*r/2 + C2/r
+# And the formula for the radial stress
+sigmarr = E/(1-nu**2) * (sp.diff(ur,r)+nu*ur/r)
+sigmarr
+
+```
+
+
+```{python}
+#| code-fold: false
+#Now, our boundary conditions sigma_rr(a) = sigma_rr(b) = 0
+left_bc = sigmarr.subs(r,a)
+right_bc = sigmarr.subs(r,b)
+#Write the equations system with C1 and C2 as unknowns
+eqs = [left_bc,right_bc]
+```
+
+We have written the equation, let's solve it for $C_1$ and $C_2$. We will also call the "factor" method from sympy to get a nicer expression closer to the answer in the lecture notes.
+
+```{python}
+#| code-fold: false
+#Write out the value of C1 and C2 (use sp.factor to find the answer in the LN)
+sol = sp.solve(eqs,[C1,C2])
+sp.factor(sol[C1])
+```
+
+
+```{python}
+#| code-fold: false
+sp.factor(sol[C2])
 ```
