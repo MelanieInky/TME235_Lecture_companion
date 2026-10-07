@@ -4,7 +4,7 @@ title: "Large deformations"
 
 # Large deformation compared to small deformation
 
-During all of the solid mechanics part of the course, we have always assumed that the geometry of our solid does not change a lot and we have introduced the small strain tensor
+During all the solid mechanics part of the course, we have always assumed that the geometry of our solid does not change a lot, and we have introduced the small strain tensor
 
 $$
 \varepsilon_{ij} = \frac{1}{2}\left( u_{i,j} + u_{j,i} \right)
@@ -103,7 +103,7 @@ $$
 The linear theory therefore reports a **spurious strain of order $\theta^2$** for a motion that deforms nothing. For $\theta = 0.1$ this is $-0.005$ (0.5 %), which is already larger than the elastic strain of a mild steel at yield (roughly 0.1 %). For $\theta = 0.3$ it is $-0.045$.
 
 :::{.callout-tip collapse="true" title="But wait, if rotations are bad, doesn't that mean that bending motions (e.g. beam theory) are inaccurate, since it uses small strain??"}
-That is an excellent question! I don't know, so I asked a helpful AI!
+That is an excellent question! I don't know, so I asked a helpful AI! Here is what it had to say:
 
 
 No, and the reason is that the criterion $\theta^2 \ll |\varepsilon|$ above is for **rigid** rotations. In a bending beam the rotation is the slope $w'$, and the strain is dominated by the bending term. Keeping the quadratic term for the slope (von Kármán strain):
