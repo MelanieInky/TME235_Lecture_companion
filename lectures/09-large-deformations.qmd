@@ -2,13 +2,178 @@
 title: "Large deformations"
 ---
 
-Large deformations wip, widget time!
+# Large deformation compared to small deformation
+
+During all of the solid mechanics part of the course, we have always assumed that the geometry of our solid does not change a lot and we have introduced the small strain tensor
+
+$$
+\varepsilon_{ij} = \frac{1}{2}\left( u_{i,j} + u_{j,i} \right)
+$$
+
+Where $u_i = x_i - X_i$ is the displacement of the solid compared to its reference coordinate $X_i$. But why did we use this formula? To see that, we go back to the continuum mechanics part of the course, where we introduced the deformation gradient $\boldsymbol{F}$ defined as
+
+$$
+d \boldsymbol{x} = \boldsymbol{F} \cdot d \boldsymbol{X}
+$$
+
+or equivalently
+
+$$
+F_{ij} = \frac{\partial x_i}{\partial X_j} = \frac{\partial (u_i + X_i)}{\partial X_j} = \frac{\partial u_i}{\partial X_j} + \delta_{ij}
+$$
+
+## Green-Lagrange strain tensor
+
+The Green-Lagrange strain tensor is defined as
+
+$$
+\boldsymbol{E} = \frac{1}{2}\left[ \boldsymbol{F}^T \cdot \boldsymbol{F} - \boldsymbol{\delta} \right]
+$$
+
+which in index notation reads
+
+$$
+E_{ij} = \frac{1}{2} \left( F_{ki} F_{kj} - \delta_{ij} \right)
+$$
+
+Inserting $F_{ij} = \delta_{ij} + \partial u_i / \partial X_j$ gives
+
+$$
+\begin{aligned}
+F_{ki} F_{kj}
+&= \left(\delta_{ki} + \frac{\partial u_k}{\partial X_i}\right)\left(\delta_{kj} + \frac{\partial u_k}{\partial X_j}\right) \\
+&= \delta_{ij} + \frac{\partial u_j}{\partial X_i} + \frac{\partial u_i}{\partial X_j} + \frac{\partial u_k}{\partial X_i}\frac{\partial u_k}{\partial X_j}
+\end{aligned}
+$$
+
+and therefore
+
+$$
+E_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial X_j} + \frac{\partial u_j}{\partial X_i} + \frac{\partial u_k}{\partial X_i}\frac{\partial u_k}{\partial X_j}\right)
+$$
+
+The last term is quadratic in the displacement gradient. This is a high order term, and therefore for small strains it is negligible compared to the other terms. We drop it to get the small strain tensor again!
+
+$$
+\varepsilon_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial X_j} + \frac{\partial u_j}{\partial X_i} \right)
+$$
+
+Note that $\boldsymbol{E}$ is symmetric by construction, and that it is defined on the reference configuration (derivatives are with respect to $X$).
+
+:::{.callout-note title="Why do we use the small strain tensor?"}
+We have dropped a quadratic term when writing the small strain tensor, and now the strain-displacement is linear.
+
+This is great when we have a linear constitutive model on top of it, because we now have superposition holding (see chapter 3 of the lecture notes).
+
+Furthermore, throughout the course we have made the assumption that displacements are small, and therefore, we never really burdened ourselves with asking the question: "are we looking at the reference configuration here or the deformed configuration?", and therefore we just assumed $\partial/\partial X_i \approx \partial/\partial x_i$. Not anymore...
+:::
+
+## Consequences of dropping the quadratic term
+
+
+
+Write $H_{ij} = \partial u_i / \partial X_j$ for the displacement gradient. Then
+
+$$
+\boldsymbol{E} = \underbrace{\tfrac{1}{2}\left(\boldsymbol{H} + \boldsymbol{H}^T\right)}_{\boldsymbol{\varepsilon}} + \tfrac{1}{2}\,\boldsymbol{H}^T \cdot \boldsymbol{H}
+$$
+
+so linearising means $\boldsymbol{E} \approx \boldsymbol{\varepsilon}$. This is justified when $|\boldsymbol{H}| \ll 1$, since the dropped term is of order $|\boldsymbol{H}|^2$ while the retained terms are of order $|\boldsymbol{H}|$.
+
+### A case where using small-strain bites us, rigid body motion
+
+If you remember the examples from the continuum mechanics part of the course, you will remember an example of rigid body rotation. In it we got the deformation gradient
+
+$$
+F_{ij} = \begin{pmatrix}  \cos \theta & - \sin \theta & 0 \\ \sin \theta & \cos \theta  & 0 \\ 0 & 0 & 1\end{pmatrix}
+$$
+
+Go ahead and compute the Green-Lagrange strain and the small strain, you will get $\boldsymbol{E} = \boldsymbol{0}$ and 
+
+$$
+\varepsilon_{ij} = \begin{pmatrix} \cos \theta - 1 & 0 & 0 \\ 0 & \cos \theta - 1 & 0 \\ 0 & 0 & 0\end{pmatrix}
+$$
+
+$\boldsymbol{E}$ vanishes for any rigid-body motion, as a strain measure should. $\boldsymbol{\varepsilon}$ does not. To quantify, assume that the angle $\theta$ is small and write
+
+$$
+\cos \theta - 1 \approx -\frac{\theta^2}{2}
+$$
+
+The linear theory therefore reports a **spurious strain of order $\theta^2$** for a motion that deforms nothing. For $\theta = 0.1$ this is $-0.005$ (0.5 %), which is already larger than the elastic strain of a mild steel at yield (roughly 0.1 %). For $\theta = 0.3$ it is $-0.045$.
+
+:::{.callout-tip collapse="true" title="But wait, if rotations are bad, doesn't that mean that bending motions (e.g. beam theory) are inaccurate, since it uses small strain??"}
+That is an excellent question! I don't know, so I asked a helpful AI!
+
+
+No, and the reason is that the criterion $\theta^2 \ll |\varepsilon|$ above is for **rigid** rotations. In a bending beam the rotation is the slope $w'$, and the strain is dominated by the bending term. Keeping the quadratic term for the slope (von Kármán strain):
+
+$$
+E_{xx} \approx u' - z\,w'' + \tfrac12 (w')^2
+$$
+
+With deflection $w$, length $L$ and thickness $h$:
+
+- bending strain: $|z\,w''| \sim h\,w/L^2$
+- dropped term: $\tfrac12 (w')^2 \sim w^2/L^2$
+
+The ratio is
+
+$$
+\frac{(w')^2}{z\,w''} \sim \frac{w}{h}
+$$
+
+so linearisation is accurate when **$w \ll h$**, not merely when slopes are small. Slenderness helps, because $w/L \ll 1$ comes for free.
+
+It often works well beyond $w \ll h$, because $\tfrac12 (w')^2$ only produces *stress* if the axial motion is restrained:
+
+- **Free cantilever, or simply supported with a sliding end:** the axial force is $N = 0$, so the term only represents axial shortening and generates no stress. The linear bending solution stays good until slopes are no longer small (roughly $w/L \lesssim 0.1$, where $\tan\theta \approx \theta$ starts to fail).
+- **Axially restrained ends (pinned-pinned, clamped-clamped):** the term induces a membrane force $N \propto \int (w')^2\,dx$ that stiffens the beam. Here $w \sim h$ is already where the linear theory breaks down.
+
+Slender beams are therefore only a problem when deflections reach the order of the thickness with restrained ends, or when buckling is the question.
+
+:::
+
+Another reason not to use the small strain is when we want to capture physical phenomena such as buckling (not in this course, but you have some material in the lecture notes).
+
+
+
+## Summary
+
+| | Green-Lagrange $\boldsymbol{E}$ | Small strain $\boldsymbol{\varepsilon}$ |
+|---|---|---|
+| Strain-displacement relation | nonlinear in $\boldsymbol{u}$ | linear in $\boldsymbol{u}$ |
+| Rigid-body rotation | exactly zero | $O(\theta^2)$ error |
+| Configuration | reference ($X$) | reference $\approx$ current |
+| Valid for | finite rotations and strains | $\theta^2 \ll \lvert\varepsilon\rvert$ and $\lvert\boldsymbol{H}\rvert \ll 1$ |
+
 
 ## Comparison between small strain and large deformation strain
 
-{{< include ../interactives/_large_small_strain.md >}}
+### Other strain measures: the logarithmic strain
+
+For a uniaxial stretch $\lambda = l/L$. The small strain is $\varepsilon = \lambda - 1$ and the Green-Lagrange strain is $E = \tfrac{1}{2}(\lambda^2 - 1)$. A third one is the **logarithmic strain** $\ln \lambda$. A nice property of the logarithmic strain is that it adds up over successive stretches, because $\ln(\lambda_1 \lambda_2) = \ln \lambda_1 + \ln \lambda_2$, which neither of the other two does. Writing $\lambda = 1 + \varepsilon$ and expanding,
+
+$$
+E = \varepsilon + \tfrac{1}{2}\varepsilon^2, \qquad \ln \lambda = \varepsilon - \tfrac{1}{2}\varepsilon^2 + \tfrac{1}{3}\varepsilon^3 - \dots
+$$
+
+so all three agree to first order and differ at second order.
+
+### The widget
+
+In the following interactive widget, you can deform a reference configuration with a stretch $\lambda$, a shear $k$ and a rigid rotation $\theta$, and compare the Green-Lagrange strain with the small strain. Play around with it and work through the three stages:
+
+1. Apply a rigid rotation and compare $\boldsymbol{E}$ and $\boldsymbol{\varepsilon}$,
+1. Play around with different deformation, and see when the two strains measure disagree,
+1. Try the uniaxial case with the logarithmic strain. You can do problem 27 with it!
+
+For each stage, do the quiz if you want to! Predict what the answer is before checking with the widget.
+
+{{< include ../interactives/_large_small_strain_staged.md >}}
 
 ## Polar decomposition
 
+In the lecture you have seen that the deformation gradient admits a unique decomposition which can be interpreted as a stretch followed by a rotation $\boldsymbol{F} = \boldsymbol{R} \cdot \boldsymbol{U}$. In the following widget, you can animate each step (in 2D) for a specific choice of deformation gradient. It has two stages: the first reads off $\boldsymbol{R}$ and $\boldsymbol{U}$, and the second shows what the strain tensors $\boldsymbol{C}$ and $\boldsymbol{E}$ say about the same deformation, direction by direction.
 
-{{< include ../interactives/_polar_decomposition.md >}}
+{{< include ../interactives/_polar_decomposition_staged.md >}}
